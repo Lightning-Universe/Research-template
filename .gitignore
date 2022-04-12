@@ -1,0 +1,4 @@
+.lightning/
+.lightning
+__pycache__
+.mypy_cache/

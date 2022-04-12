@@ -23,7 +23,10 @@ class JupyterWork(LightningWork):
             Path.home() / ".jupyter/jupyter_notebook_config.py"
         )
 
-        os.remove(jupyter_notebook_config_path)
+        try:
+            os.remove(jupyter_notebook_config_path)
+        except FileNotFoundError:
+            logger.debug("Jupyter config didn't exist!")
 
         cmd = "jupyter notebook --generate-config"
 
