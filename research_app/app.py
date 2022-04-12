@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-from app.jupyter import JupyterWork
+from jupyter_works import JupyterWork
 from lightning import LightningApp, LightningFlow
 
 
@@ -15,6 +15,7 @@ class Flow(LightningFlow):
     def configure_layout(self) -> List[Dict]:
         return [
             {"name": "Jupyter", "content": self.jupyter.exposed_url("jupyter")},
+            {"name": "Arxiv", "content": "https://arxiv.org/pdf/1811.06965.pdf"},
         ]
 
 
