@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-from examples.research_app.jupyter import JupyterWork
+from app.jupyter import JupyterWork
 from lightning import LightningApp, LightningFlow
 
 
