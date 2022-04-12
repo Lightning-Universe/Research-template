@@ -19,14 +19,20 @@ class JupyterWork(LightningWork):
 
     def run(self):
 
-        jupyter_notebook_config_path = Path.home() / ".jupyter/jupyter_notebook_config.py"
+        jupyter_notebook_config_path = (
+            Path.home() / ".jupyter/jupyter_notebook_config.py"
+        )
 
         os.remove(jupyter_notebook_config_path)
 
         cmd = "jupyter notebook --generate-config"
 
         with subprocess.Popen(
-            cmd.split(" "), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=0, close_fds=True
+            cmd.split(" "),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            bufsize=0,
+            close_fds=True,
         ) as proc:
             self._proc = proc
             self.pid = proc.pid
@@ -47,7 +53,11 @@ class JupyterWork(LightningWork):
         cmd = "jupyter lab"
 
         with subprocess.Popen(
-            cmd.split(" "), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=0, close_fds=True
+            cmd.split(" "),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            bufsize=0,
+            close_fds=True,
         ) as proc:
             self._proc = proc
             self.pid = proc.pid
