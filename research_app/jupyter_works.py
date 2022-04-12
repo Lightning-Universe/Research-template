@@ -53,7 +53,7 @@ class JupyterWork(LightningWork):
                 """c.NotebookApp.tornado_settings = {'headers': {'Content-Security-Policy': "frame-ancestors * 'self' "}}"""  # noqa E501
             )
 
-        cmd = "jupyter lab"
+        cmd = f"jupyter-lab --allow-root --no-browser --ip={self.host} --port={self.port} --NotebookApp.token='' --NotebookApp.password=''"
 
         with subprocess.Popen(
             cmd.split(" "),
