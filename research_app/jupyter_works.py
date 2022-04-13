@@ -23,11 +23,8 @@ class JupyterWork(LightningWork):
             Path.home() / ".jupyter/jupyter_notebook_config.py"
         )
 
-        try:
+        if os.path.exists(jupyter_notebook_config_path):
             os.remove(jupyter_notebook_config_path)
-        except FileNotFoundError:
-            logger.debug("Jupyter config didn't exist!")
-
         cmd = "jupyter notebook --generate-config"
 
         with subprocess.Popen(
@@ -53,7 +50,7 @@ class JupyterWork(LightningWork):
                 """c.NotebookApp.tornado_settings = {'headers': {'Content-Security-Policy': "frame-ancestors * 'self' "}}"""  # noqa E501
             )
 
-        cmd = "jupyter lab"
+        cmd = "jupyter lab --ip 0.0.0.0"
 
         with subprocess.Popen(
             cmd.split(" "),
