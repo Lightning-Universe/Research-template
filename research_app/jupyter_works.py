@@ -47,7 +47,9 @@ class JupyterWork(LightningWork):
 
         with open(jupyter_notebook_config_path, "a") as f:
             f.write(
-                """c.NotebookApp.tornado_settings = {'headers': {'Content-Security-Policy': "frame-ancestors * 'self' "}}"""  # noqa E501
+                """c.NotebookApp.tornado_settings = {'headers': {'Content-Security-Policy': "frame-ancestors * 'self' "}}
+                ServerApp.password=lightning
+                """  # noqa E501
             )
 
         cmd = "jupyter lab --ip 0.0.0.0"
