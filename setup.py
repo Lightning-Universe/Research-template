@@ -14,5 +14,5 @@ setuptools.setup(
     extras_require={
         "dev": ["ipdb==0.13.9", "black==22.3.0", "isort==5.10.1"],
     },
-    python_requires=">=3.9.1",
+    python_requires=">=3.8",
 )
