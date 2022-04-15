@@ -1,16 +1,16 @@
 import os
+import socket
 import subprocess
 from logging import getLogger
 from pathlib import Path
-import socket
-logger = getLogger(__name__)
 
+logger = getLogger(__name__)
 
 
 def get_random_port() -> int:
     # ref: https://stackoverflow.com/questions/1365265/on-localhost-how-do-i-pick-a-free-port-number
     sock = socket.socket()
-    sock.bind(('', 0))
+    sock.bind(("", 0))
     return sock.getsockname()[1]
 
 
