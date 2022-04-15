@@ -3,8 +3,7 @@ from typing import Callable
 
 import gradio as gr
 from lightning import LightningWork
-
-from research_app.utils import get_random_port
+from utils import get_random_port
 
 logger = logging.getLogger(__name__)
 
