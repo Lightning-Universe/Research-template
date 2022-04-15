@@ -1,15 +1,21 @@
 import os
+import socket
 import subprocess
 from logging import getLogger
 from pathlib import Path
-from typing import Optional
-
-from lightning import LightningWork
 
 logger = getLogger(__name__)
 
 
+def get_random_port() -> int:
+    # ref: https://stackoverflow.com/questions/1365265/on-localhost-how-do-i-pick-a-free-port-number
+    sock = socket.socket()
+    sock.bind(("", 0))
+    return sock.getsockname()[1]
+
+
 def run_command(cmd):
+    """Runs the command with Subprocess module."""
     with subprocess.Popen(
         cmd.split(" "),
         stdout=subprocess.PIPE,
@@ -28,27 +34,17 @@ def run_command(cmd):
         return exit_code
 
 
-def clone_repo(url):
+def clone_repo(url: str):
+    """Clones the github repo from url to current dir."""
     path = Path.cwd() / "github"
     os.makedirs(path, exist_ok=True)
-    target_path = str(path / os.path.basename(url))[:-4]
+    target_path = str(path / os.path.basename(url)).replace(".git", "")
 
     if os.path.exists(target_path):
         cmd = f"cd {target_path} && git pull"
     else:
         cmd = f"git clone {url} {target_path}"
     return run_command(cmd)
-
-
-class UtilityWork(LightningWork):
-    def __init__(self, github_url: Optional[str] = None, blocking=False):
-        super().__init__(blocking=blocking)
-        self.github_url = github_url
-        self.exit_code = None
-
-    def run(self):
-        if self.github_url:
-            self.exit_code = clone_repo(self.github_url)
 
 
 if __name__ == "__main__":

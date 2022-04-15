@@ -2,22 +2,35 @@ import logging
 import os
 import subprocess
 from pathlib import Path
+from typing import Optional
 
 from lightning import LightningWork
+from utils import clone_repo, get_random_port
 
 logger = logging.getLogger(__name__)
 
 
 class JupyterWork(LightningWork):
-    def __init__(self, host="0.0.0.0", port=8888, blocking=False):
+    def __init__(
+        self,
+        host="0.0.0.0",
+        port=None,
+        github_url: Optional[str] = None,
+        blocking=False,
+    ):
+        port = port or get_random_port()
         super().__init__(exposed_ports={"jupyter": port}, blocking=blocking)
         self._proc = None
         self.host = host
         self.port = port
         self.pid = None
         self.exit_code = None
+        self.github_url = github_url
 
     def run(self):
+
+        if self.github_url:
+            clone_repo(self.github_url)
 
         jupyter_notebook_config_path = (
             Path.home() / ".jupyter/jupyter_notebook_config.py"
@@ -53,7 +66,7 @@ class JupyterWork(LightningWork):
                 """c.NotebookApp.tornado_settings = {'headers': {'Content-Security-Policy': "frame-ancestors * 'self' "}}"""  # noqa E501
             )
 
-        cmd = f"jupyter-lab --allow-root --no-browser --ip={self.host} --port={self.port} --NotebookApp.token='' --NotebookApp.password=''"
+        cmd = f"jupyter-lab --allow-root --no-browser --ip={self.host} --port={self.port} --NotebookApp.token='' --NotebookApp.password=''"  # noqa E501
 
         with subprocess.Popen(
             cmd.split(" "),

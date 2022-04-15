@@ -3,25 +3,39 @@ from typing import Dict, List, Optional
 from gradio_works import GradioWork
 from jupyter_works import JupyterWork
 from lightning import LightningApp, LightningFlow
-from utils import UtilityWork
 
 
 class ResearchAppFlow(LightningFlow):
+    """
+    :param paper: Paper PDF url
+    :param blog: Blog web url
+    :param github: GitHub repo Url. Repo will be cloned into
+    the current directory
+    :param jupyter_port: Jupyter will be launched on the provided port.
+    By default, it will automatically
+    select from a pool of ports
+    :param gradio_port: Gradio will be launched on the provided port.
+    By default, it will automatically
+    select from a pool of ports
+    """
+
     def __init__(
         self,
         paper: Optional[str] = None,
         blog: Optional[str] = None,
         github: Optional[str] = None,
-        jupyter_port=8888,
-        gradio_port=8889,
+        jupyter_port=None,
+        gradio_port=None,
     ) -> None:
+
         super().__init__()
         self.paper = paper
         self.blog = blog
         self.github = github
-        self.jupyter = JupyterWork(port=jupyter_port, blocking=False)
+        self.jupyter = JupyterWork(
+            port=jupyter_port, github_url=github, blocking=False
+        )  # E501
         self.gradio = GradioWork(port=gradio_port, blocking=False)
-        self.utility_work = UtilityWork(github_url=github)
 
     def run(self) -> None:
         self.jupyter.run()
