@@ -3,6 +3,7 @@ from typing import Dict, List, Optional
 from gradio_works import GradioWork
 from jupyter_works import JupyterWork
 from lightning import LightningApp, LightningFlow
+from utils import UtilityWork
 
 
 class ResearchAppFlow(LightningFlow):
@@ -20,14 +21,11 @@ class ResearchAppFlow(LightningFlow):
         self.github = github
         self.jupyter = JupyterWork(port=jupyter_port, blocking=False)
         self.gradio = GradioWork(port=gradio_port, blocking=False)
+        self.utility_work = UtilityWork(github_url=github)
 
     def run(self) -> None:
         self.jupyter.run()
         self.gradio.run()
-
-    @property
-    def vscode(self):
-        return f"https://vscode.dev/{self.github}"
 
     def configure_layout(self) -> List[Dict]:
         tabs = []
@@ -35,14 +33,18 @@ class ResearchAppFlow(LightningFlow):
             tabs.append({"name": "Paper", "content": self.paper})
         if self.blog:
             tabs.append({"name": "Blog", "content": self.blog})
-        if self.github:
-            tabs.append({"name": "vscode", "content": self.vscode})
 
         tabs.append(
-            {"name": "Jupyter", "content": self.jupyter.exposed_url("jupyter")},
+            {
+                "name": "Jupyter",
+                "content": self.jupyter.exposed_url("jupyter"),
+            },  # E501
         )
         tabs.append(
-            {"name": "Deployment", "content": self.gradio.exposed_url("gradio")},
+            {
+                "name": "Deployment",
+                "content": self.gradio.exposed_url("gradio"),
+            },  # E501
         )
         return tabs
 
