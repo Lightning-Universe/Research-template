@@ -1,8 +1,9 @@
 from typing import Dict, List, Optional
 
+from lightning import LightningApp, LightningFlow
+
 from gradio_works import GradioWork
 from jupyter_works import JupyterWork
-from lightning import LightningApp, LightningFlow
 
 
 class Flow(LightningFlow):
@@ -18,12 +19,12 @@ class Flow(LightningFlow):
         self.paper = paper
         self.blog = blog
         self.github = github
-        self.jupyter = JupyterWork(port=jupyter_port)
-        # self.gradio = GradioWork(port=gradio_port, blocking=True)
+        self.jupyter = JupyterWork(port=jupyter_port, blocking=False)
+        self.gradio = GradioWork(port=gradio_port, blocking=False)
 
     def run(self) -> None:
         self.jupyter.run()
-        # self.gradio.run()
+        self.gradio.run()
 
     @property
     def vscode(self):
@@ -37,8 +38,13 @@ class Flow(LightningFlow):
             tabs.append({"name": "Blog", "content": self.blog})
         if self.github:
             tabs.append({"name": "vscode", "content": self.vscode})
+
         tabs.append(
+
             {"name": "Jupyter", "content": self.jupyter.exposed_url("jupyter")},
+        )
+        tabs.append(
+            {"name": "Deployment", "content": self.gradio.exposed_url("gradio")},
         )
         return tabs
 

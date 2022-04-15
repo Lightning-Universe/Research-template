@@ -17,10 +17,10 @@ def predict(name):
 
 class GradioWork(LightningWork):
     def __init__(
-        self,
-        host="0.0.0.0",
-        port=8889,
-        blocking=True,
+            self,
+            host="0.0.0.0",
+            port=8889,
+            blocking=False,
     ):
         super().__init__(exposed_ports={"gradio": port}, blocking=blocking)
         self.host = host
@@ -37,3 +37,4 @@ class GradioWork(LightningWork):
             fn=gradio_fn, inputs=inputs, outputs=outputs, **interface_kwargs
         )
         iface.launch(server_port=self.port)
+        iface.close()
