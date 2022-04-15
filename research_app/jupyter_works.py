@@ -9,8 +9,8 @@ logger = logging.getLogger(__name__)
 
 
 class JupyterWork(LightningWork):
-    def __init__(self, host="0.0.0.0", port=8888):
-        super().__init__(exposed_ports={"jupyter": 8888})
+    def __init__(self, host="0.0.0.0", port=8888, blocking=False):
+        super().__init__(exposed_ports={"jupyter": port}, blocking=blocking)
         self._proc = None
         self.host = host
         self.port = port
