@@ -5,8 +5,15 @@ from pathlib import Path
 
 logger = getLogger(__name__)
 
+PORT_POOL = set(range(8888, 8888 + 10, 1))
+
+
+def get_random_port() -> int:
+    return PORT_POOL.pop()
+
 
 def run_command(cmd):
+    """Runs the command with Subprocess module."""
     with subprocess.Popen(
         cmd.split(" "),
         stdout=subprocess.PIPE,
@@ -25,10 +32,11 @@ def run_command(cmd):
         return exit_code
 
 
-def clone_repo(url):
+def clone_repo(url: str):
+    """Clones the github repo from url to current dir."""
     path = Path.cwd() / "github"
     os.makedirs(path, exist_ok=True)
-    target_path = str(path / os.path.basename(url))[:-4]
+    target_path = str(path / os.path.basename(url)).replace(".git", "")
 
     if os.path.exists(target_path):
         cmd = f"cd {target_path} && git pull"
