@@ -20,8 +20,9 @@ class GradioWork(LightningWork):
         self,
         host="0.0.0.0",
         port=8889,
+        blocking=True,
     ):
-        super().__init__(exposed_ports={"gradio": port}, blocking=False)
+        super().__init__(exposed_ports={"gradio": port}, blocking=blocking)
         self.host = host
         self.port = port
 

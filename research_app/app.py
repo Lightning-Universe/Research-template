@@ -19,11 +19,11 @@ class Flow(LightningFlow):
         self.blog = blog
         self.github = github
         self.jupyter = JupyterWork(port=jupyter_port)
-        self.gradio = GradioWork(port=gradio_port)
+        # self.gradio = GradioWork(port=gradio_port, blocking=True)
 
     def run(self) -> None:
-        self.gradio.run()
         self.jupyter.run()
+        # self.gradio.run()
 
     @property
     def vscode(self):
@@ -38,7 +38,7 @@ class Flow(LightningFlow):
         if self.github:
             tabs.append({"name": "vscode", "content": self.vscode})
         tabs.append(
-            {"name": "Deployment", "content": self.gradio.exposed_url("gradio")},
+            {"name": "Jupyter", "content": self.jupyter.exposed_url("jupyter")},
         )
         return tabs
 
