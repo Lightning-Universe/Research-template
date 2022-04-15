@@ -2,9 +2,6 @@ import os
 import subprocess
 from logging import getLogger
 from pathlib import Path
-from typing import Optional
-
-from lightning import LightningWork
 
 logger = getLogger(__name__)
 
@@ -38,17 +35,6 @@ def clone_repo(url):
     else:
         cmd = f"git clone {url} {target_path}"
     return run_command(cmd)
-
-
-class UtilityWork(LightningWork):
-    def __init__(self, github_url: Optional[str] = None, blocking=False):
-        super().__init__(blocking=blocking)
-        self.github_url = github_url
-        self.exit_code = None
-
-    def run(self):
-        if self.github_url:
-            self.exit_code = clone_repo(self.github_url)
 
 
 if __name__ == "__main__":
