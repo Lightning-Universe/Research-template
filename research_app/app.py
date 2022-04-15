@@ -6,7 +6,7 @@ from gradio_works import GradioWork
 from jupyter_works import JupyterWork
 
 
-class Flow(LightningFlow):
+class ResearchAppFlow(LightningFlow):
     def __init__(
             self,
             paper: Optional[str] = None,
@@ -54,4 +54,4 @@ if __name__ == "__main__":
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/mlfoundations/open_clip"
 
-    app = LightningApp(Flow(paper=paper, blog=blog, github=github))
+    app = LightningApp(ResearchAppFlow(paper=paper, blog=blog, github=github))
