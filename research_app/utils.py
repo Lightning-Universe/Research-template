@@ -2,14 +2,16 @@ import os
 import subprocess
 from logging import getLogger
 from pathlib import Path
-
+import socket
 logger = getLogger(__name__)
 
-PORT_POOL = set(range(8888, 8888 + 10, 1))
 
 
 def get_random_port() -> int:
-    return PORT_POOL.pop()
+    # ref: https://stackoverflow.com/questions/1365265/on-localhost-how-do-i-pick-a-free-port-number
+    sock = socket.socket()
+    sock.bind(('', 0))
+    return sock.getsockname()[1]
 
 
 def run_command(cmd):
