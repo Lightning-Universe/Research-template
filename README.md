@@ -1,6 +1,7 @@
 # lightning-template-research-app
 
 ## Get started
+
 ```bash
 git clone https://github.com/PyTorchLightning/lightning.git
 cd lightning
@@ -17,6 +18,7 @@ pip install -e ".[dev]"
 ```
 
 ### local run
+
 ```bash
 lightning build app research_app/app.py --name jupyter-`date -u +%H:%M`
 ```

@@ -20,7 +20,7 @@ class JupyterWork(LightningWork):
     def run(self):
 
         jupyter_notebook_config_path = (
-                Path.home() / ".jupyter/jupyter_notebook_config.py"
+            Path.home() / ".jupyter/jupyter_notebook_config.py"
         )
 
         try:
