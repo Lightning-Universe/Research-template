@@ -1,19 +1,18 @@
 from typing import Dict, List, Optional
 
-from lightning import LightningApp, LightningFlow
-
 from gradio_works import GradioWork
 from jupyter_works import JupyterWork
+from lightning import LightningApp, LightningFlow
 
 
 class Flow(LightningFlow):
     def __init__(
-            self,
-            paper: Optional[str] = None,
-            blog: Optional[str] = None,
-            github: Optional[str] = None,
-            jupyter_port=8888,
-            gradio_port=8889,
+        self,
+        paper: Optional[str] = None,
+        blog: Optional[str] = None,
+        github: Optional[str] = None,
+        jupyter_port=8888,
+        gradio_port=8889,
     ) -> None:
         super().__init__()
         self.paper = paper
@@ -40,7 +39,6 @@ class Flow(LightningFlow):
             tabs.append({"name": "vscode", "content": self.vscode})
 
         tabs.append(
-
             {"name": "Jupyter", "content": self.jupyter.exposed_url("jupyter")},
         )
         tabs.append(
