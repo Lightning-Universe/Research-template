@@ -28,16 +28,12 @@ class PLTrainerScript(TracerPythonScript):
                 self._work = work
 
             def on_train_start(self, trainer, *_):
-                self._work.run_url = (
-                    trainer.logger.experiment._settings.run_url
-                )  # E501
+                self._work.run_url = trainer.logger.experiment._settings.run_url  # E501
 
         def trainer_pre_fn(self, *args, **kwargs):
             kwargs["callbacks"] = kwargs.get("callbacks", [])
             kwargs["callbacks"].append(CollectWandbURL(self))
-            kwargs["logger"] = [
-                WandbLogger(save_dir=os.path.dirname(__file__))
-            ]  # E501
+            kwargs["logger"] = [WandbLogger(save_dir=os.path.dirname(__file__))]  # E501
             return {}, args, kwargs
 
         tracer = super().configure_tracer()
