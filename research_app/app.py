@@ -1,8 +1,10 @@
 from typing import Dict, List, Optional
 
+from lightning import LightningApp, LightningFlow
+
 from gradio_work import GradioWork
 from jupyter_work import JupyterWork
-from lightning import LightningApp, LightningFlow
+from serve import gradio_app
 from train.train import train_script_path
 from training_work import PLTrainerScript
 
@@ -44,7 +46,7 @@ class ResearchAppFlow(LightningFlow):
 
     def run(self) -> None:
         self.jupyter.run()
-        self.gradio.run()
+        self.gradio.run(gradio_app.iface)
         self.train_script.run()
 
     def configure_layout(self) -> List[Dict]:
