@@ -1,9 +1,8 @@
 from typing import Dict, List, Optional
 
-from lightning import LightningApp, LightningFlow
-
 from gradio_work import GradioWork
 from jupyter_work import JupyterWork
+from lightning import LightningApp, LightningFlow
 from train.train import train_script_path
 from training_work import PLTrainerScript
 
