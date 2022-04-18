@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import Optional
 
 from lightning import LightningWork
-
 from utils import clone_repo, get_random_port
 
 logger = logging.getLogger(__name__)

@@ -22,6 +22,7 @@ class PLTrainerScript(TracerPythonScript):
         self.flash = flash
         self.best_model_path = None
         self.run_url = ""
+        self.completed = False
 
     def configure_tracer(self):
         if self.flash:
@@ -55,3 +56,4 @@ class PLTrainerScript(TracerPythonScript):
         # warnings.simplefilter("ignore")
         logger.info(f"Running train_script: {self.script_path}")
         super().run(*args, **kwargs)
+        self.completed = True

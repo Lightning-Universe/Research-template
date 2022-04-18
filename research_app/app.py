@@ -1,10 +1,9 @@
 from typing import Dict, List, Optional
 
-from lightning import LightningApp, LightningFlow
-
+import serve
 from gradio_work import GradioWork
 from jupyter_work import JupyterWork
-from serve import gradio_app
+from lightning import LightningApp, LightningFlow
 from train.train import train_script_path
 from training_work import PLTrainerScript
 
@@ -46,8 +45,12 @@ class ResearchAppFlow(LightningFlow):
 
     def run(self) -> None:
         self.jupyter.run()
-        self.gradio.run(gradio_app.iface)
         self.train_script.run()
+        self.train_script.completed = True
+        if self.train_script.completed:
+            from serve.gradio_app import iface
+
+            self.gradio.run(iface)
 
     def configure_layout(self) -> List[Dict]:
         tabs = []

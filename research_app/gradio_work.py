@@ -2,18 +2,9 @@ import logging
 
 import gradio as gr
 from lightning import LightningWork
-
 from utils import get_random_port
 
 logger = logging.getLogger(__name__)
-
-
-def predict(name):
-    return (
-        "Hello "
-        + name
-        + "!! Replace `predict` func with prediction function for your model."
-    )
 
 
 class GradioWork(LightningWork):

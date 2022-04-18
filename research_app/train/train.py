@@ -32,4 +32,5 @@ if __name__ == "__main__":
     # 3. Create the trainer and finetune the model
     trainer = flash.Trainer(max_epochs=1)
     trainer.finetune(model, datamodule=datamodule, strategy="freeze")
+    trainer.save_checkpoint("image_classification_model.pt")
     print("training finished!")
