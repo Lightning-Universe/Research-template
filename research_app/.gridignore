@@ -1,0 +1,5 @@
+lightning_logs
+data
+.shared
+*.ckpt
+.shared
