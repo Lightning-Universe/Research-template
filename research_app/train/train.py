@@ -25,5 +25,6 @@ if __name__ == "__main__":
     model = ImageClassifier(backbone="resnet18", labels=datamodule.labels)
 
     # 3. Create the trainer and finetune the model
-    trainer = flash.Trainer(max_epochs=1, fast_dev_run=True)
+    trainer = flash.Trainer(max_epochs=1)
     trainer.finetune(model, datamodule=datamodule, strategy="freeze")
+    print("training finished!")

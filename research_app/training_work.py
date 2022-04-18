@@ -1,7 +1,6 @@
 import logging
 import os
 import sys
-import warnings
 from functools import partial
 
 from lightning.components.python import TracerPythonScript
@@ -24,24 +23,27 @@ class PLTrainerScript(TracerPythonScript):
         from pytorch_lightning.callbacks import Callback
         from pytorch_lightning.loggers import WandbLogger
 
+        tracer = super().configure_tracer()
+
         class CollectWandbURL(Callback):
             def __init__(self, work):
                 self._work = work
 
             def on_train_start(self, trainer, *_):
-                self._work.run_url = trainer.logger.experiment._settings.run_url  # E501
+                self._work.run_url = trainer.logger.experiment._settings.run_url
 
-        def trainer_pre_fn(self, *args, **kwargs):
-            kwargs["callbacks"] = kwargs.get("callbacks", [])
-            kwargs["callbacks"].append(CollectWandbURL(self))
-            kwargs["logger"] = [WandbLogger(save_dir=os.path.dirname(__file__))]  # E501
+        def trainer_pre_fn(self, *args, work=None, **kwargs):
+            kwargs["callbacks"] = [CollectWandbURL(work)]
+            kwargs["logger"] = [WandbLogger(save_dir=os.path.dirname(__file__))]
             return {}, args, kwargs
 
         tracer = super().configure_tracer()
-        tracer.add_traced(Trainer, "__init__", pre_fn=partial(trainer_pre_fn))
+        tracer.add_traced(
+            Trainer, "__init__", pre_fn=partial(trainer_pre_fn, work=self)
+        )
         return tracer
 
     def run(self, *args, **kwargs):
-        warnings.simplefilter("ignore")
+        # warnings.simplefilter("ignore")
         logger.info(f"Running train_script: {self.script_path}")
         super().run(*args, **kwargs)
