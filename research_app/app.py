@@ -41,9 +41,9 @@ class ResearchAppFlow(LightningFlow):
         self.train_script = PLTrainerScript(script_path=train_script_path)
 
     def run(self) -> None:
-        self.train_script.run()
         self.jupyter.run()
         self.gradio.run()
+        self.train_script.run()
 
     def configure_layout(self) -> List[Dict]:
         tabs = []
@@ -74,4 +74,4 @@ if __name__ == "__main__":
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/mlfoundations/open_clip"
 
-    app = LightningApp(ResearchAppFlow(paper=paper, blog=blog, github=github))
+    app = LightningApp(ResearchAppFlow(paper=paper, blog=blog, github=None))

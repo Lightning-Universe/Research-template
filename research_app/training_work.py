@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 class PLTrainerScript(TracerPythonScript):
+    # ref: https://github.com/PyTorchLightning/lightning-quick-start/blob/main/quick_start/components.py#L24
     def __init__(self, *args, **kwargs):
         super().__init__(*args, raise_exception=True, **kwargs)
         self.best_model_path = None
@@ -28,16 +29,12 @@ class PLTrainerScript(TracerPythonScript):
                 self._work = work
 
             def on_train_start(self, trainer, *_):
-                self._work.run_url = (
-                    trainer.logger.experiment._settings.run_url
-                )  # E501
+                self._work.run_url = trainer.logger.experiment._settings.run_url  # E501
 
         def trainer_pre_fn(self, *args, **kwargs):
             kwargs["callbacks"] = kwargs.get("callbacks", [])
             kwargs["callbacks"].append(CollectWandbURL(self))
-            kwargs["logger"] = [
-                WandbLogger(save_dir=os.path.dirname(__file__))
-            ]  # E501
+            kwargs["logger"] = [WandbLogger(save_dir=os.path.dirname(__file__))]  # E501
             return {}, args, kwargs
 
         tracer = super().configure_tracer()
