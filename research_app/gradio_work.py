@@ -1,5 +1,4 @@
 import logging
-from typing import Callable
 
 import gradio as gr
 from lightning import LightningWork
@@ -32,15 +31,6 @@ class GradioWork(LightningWork):
         super().__init__(exposed_ports={"gradio": port}, blocking=blocking)
         self.port = port
 
-    def run(
-        self,
-        gradio_fn: Callable = predict,
-        inputs="text",
-        outputs="text",
-        **interface_kwargs
-    ):
-        iface = gr.Interface(
-            fn=gradio_fn, inputs=inputs, outputs=outputs, **interface_kwargs
-        )
+    def run(self, iface: gr.Interface):
         iface.launch(server_port=self.port)
         iface.close()
