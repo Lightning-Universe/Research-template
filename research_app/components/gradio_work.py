@@ -2,7 +2,8 @@ import logging
 
 import gradio as gr
 from lightning import LightningWork
-from utils import get_random_port
+
+from research_app.utils import get_random_port
 
 logger = logging.getLogger(__name__)
 
