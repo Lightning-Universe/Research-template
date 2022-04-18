@@ -7,7 +7,6 @@ from lightning.components.python import TracerPythonScript
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-
 logger = logging.getLogger(__name__)
 
 

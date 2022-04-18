@@ -1,10 +1,11 @@
 from typing import Dict, List, Optional
 
-from gradio_work import GradioWork
-from jupyter_work import JupyterWork
 from lightning import LightningApp, LightningFlow
-from train.train import train_script_path
-from training_work import PLTrainerScript
+
+from research_app.components.gradio_work import GradioWork
+from research_app.components.jupyter_work import JupyterWork
+from research_app.components.training_work import PLTrainerScript
+from research_app.train.train import train_script_path
 
 
 class ResearchAppFlow(LightningFlow):
