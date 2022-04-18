@@ -36,6 +36,7 @@ def run_command(cmd):
 
 def clone_repo(url: str):
     """Clones the github repo from url to current dir."""
+    assert isinstance(url, str), "url must be a string"
     path = Path.cwd() / "github"
     os.makedirs(path, exist_ok=True)
     target_path = str(path / os.path.basename(url)).replace(".git", "")

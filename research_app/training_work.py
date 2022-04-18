@@ -7,19 +7,27 @@ from lightning.components.python import TracerPythonScript
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-
 logger = logging.getLogger(__name__)
 
 
 class PLTrainerScript(TracerPythonScript):
     # ref: https://github.com/PyTorchLightning/lightning-quick-start/blob/main/quick_start/components.py#L24
-    def __init__(self, *args, **kwargs):
+    def __init__(
+        self,
+        flash: bool = False,
+        *args,
+        **kwargs,
+    ):
         super().__init__(*args, raise_exception=True, **kwargs)
+        self.flash = flash
         self.best_model_path = None
         self.run_url = ""
 
     def configure_tracer(self):
-        from flash import Trainer
+        if self.flash:
+            from flash import Trainer
+        else:
+            from pytorch_lightning import Trainer
         from pytorch_lightning.callbacks import Callback
         from pytorch_lightning.loggers import WandbLogger
 
