@@ -1,8 +1,9 @@
 from typing import Dict, List, Optional
 
+from lightning import LightningApp, LightningFlow
+
 from gradio_work import GradioWork
 from jupyter_work import JupyterWork
-from lightning import LightningApp, LightningFlow
 from train.train import train_script_path
 from training_work import PLTrainerScript
 
@@ -68,8 +69,6 @@ class ResearchAppFlow(LightningFlow):
         )
 
         tabs.append({"name": "WandB", "content": self.train_script.run_url})
-        if self.train_script.run_url:
-            print(self.train_script.run_url)
         return tabs
 
 

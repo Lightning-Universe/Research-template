@@ -1,8 +1,13 @@
+import os
+
 import flash
 from flash.core.data.utils import download_data
 from flash.image import ImageClassificationData, ImageClassifier
 
 train_script_path = __file__
+
+if not os.environ.get("WANDB_API_KEY"):
+    os.environ["WANDB_API_KEY"] = "91a1bdb7f2221dea67aba711651976435a50b4a5"
 
 if __name__ == "__main__":
     # 1. Create the DataModule
