@@ -46,7 +46,6 @@ class ResearchAppFlow(LightningFlow):
     def run(self) -> None:
         self.jupyter.run()
         self.train_script.run()
-        self.train_script.completed = True
         if self.train_script.completed:
             from research_app.serve.gradio_app import iface
 
