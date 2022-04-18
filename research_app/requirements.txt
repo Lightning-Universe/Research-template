@@ -2,3 +2,4 @@ jupyterlab==3.3.3
 pywebview==3.6.3
 Flask==2.1.1
 gradio==2.9.4
+lightning_flash[image]
