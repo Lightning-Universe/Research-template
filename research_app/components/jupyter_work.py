@@ -65,7 +65,7 @@ class JupyterWork(LightningWork):
         with open(jupyter_notebook_config_path, "a") as f:
             f.write(
                 """c.NotebookApp.tornado_settings = {'headers': {'Content-Security-Policy': "frame-ancestors * 'self' "}}"""
-                # noqa E501
+                # E501
             )
 
         cmd = f"jupyter-lab --allow-root --no-browser --ip={self.host} --port={self.port} --NotebookApp.token='' --NotebookApp.password=''"  # noqa E501
