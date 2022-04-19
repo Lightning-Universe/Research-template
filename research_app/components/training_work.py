@@ -15,10 +15,6 @@ logger = logging.getLogger(__name__)
 class PLTrainerScript(TracerPythonScript):
     """
     :param flash: Whether the model is lightning-Flash model
-    :param deployment_port: If you want to deploy the trained model then
-    create a Gradio app specify the port here
-    :param args:
-    :param kwargs:
     """
 
     # ref: https://github.com/PyTorchLightning/lightning-quick-start/blob/main/quick_start/components.py#L24
