@@ -39,9 +39,7 @@ class ResearchAppFlow(LightningFlow):
             port=jupyter_port, github_url=github, blocking=False
         )  # E501
         self.gradio = GradioWork(port=gradio_port, blocking=False)
-        self.train_script = PLTrainerScript(
-            script_path=train_script_path,
-        )
+        self.train_script = PLTrainerScript(script_path=train_script_path, flash=True)
 
     def run(self) -> None:
         self.jupyter.run()

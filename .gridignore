@@ -8,3 +8,5 @@ data
 *.pth
 .DS_Store
 *.zip
+wandb/
+.idea/
