@@ -40,14 +40,16 @@ class ResearchAppFlow(LightningFlow):
         self.jupyter = JupyterWork(
             port=jupyter_port, github_url=github, blocking=False
         )  # E501
-        # self.gradio = GradioWork(port=gradio_port, blocking=False)
-        self.train_script = PLTrainerScript(
-            script_path=train_script_path, deployment_port=gradio_port, flash=True
-        )
+        self.gradio = GradioWork(port=gradio_port, blocking=False)
+        self.train_script = PLTrainerScript(script_path=train_script_path, flash=True)
 
     def run(self) -> None:
         self.jupyter.run()
         self.train_script.run()
+        if self.train_script.completed:
+            from research_app.serve.gradio_app import iface
+
+            self.gradio.run(iface)
 
     def configure_layout(self) -> List[Dict]:
         tabs = []

@@ -25,7 +25,6 @@ class PLTrainerScript(TracerPythonScript):
     def __init__(
         self,
         flash: bool = False,
-        deployment_port: Optional[str] = None,
         *args,
         **kwargs,
     ):
@@ -33,14 +32,12 @@ class PLTrainerScript(TracerPythonScript):
         super().__init__(
             *args,
             raise_exception=True,
-            exposed_ports={"gradio": deployment_port},
             **kwargs,
         )
         self.flash = flash
         self.best_model_path = None
         self.run_url = ""
         self.completed = False
-        self.deployment_port = deployment_port
 
     def configure_tracer(self):
         if self.flash:
@@ -75,8 +72,3 @@ class PLTrainerScript(TracerPythonScript):
         logger.info(f"Running train_script: {self.script_path}")
         super().run(*args, **kwargs)
         self.completed = True
-        if self.deployment_port:
-            from research_app.serve.gradio_app import iface
-
-            iface.launch(server_port=self.deployment_port)
-            iface.close()
