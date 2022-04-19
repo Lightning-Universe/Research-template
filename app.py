@@ -84,5 +84,12 @@ if __name__ == "__main__":
     video = "https://www.youtube.com/embed/W-O7AZNzbzQ"
 
     app = LightningApp(
-        ResearchAppFlow(paper=paper, blog=blog, github=None, video=video)
+        ResearchAppFlow(
+            jupyter_port=8888,
+            gradio_port=8889,
+            paper=paper,
+            blog=blog,
+            github=None,
+            video=video,
+        )
     )

@@ -1,7 +1,9 @@
 import logging
 import os
 import sys
+import warnings
 from functools import partial
+from typing import Optional
 
 from lightning.components.python import TracerPythonScript
 
@@ -11,6 +13,10 @@ logger = logging.getLogger(__name__)
 
 
 class PLTrainerScript(TracerPythonScript):
+    """
+    :param flash: Whether the model is lightning-Flash model
+    """
+
     # ref: https://github.com/PyTorchLightning/lightning-quick-start/blob/main/quick_start/components.py#L24
     def __init__(
         self,
@@ -18,7 +24,12 @@ class PLTrainerScript(TracerPythonScript):
         *args,
         **kwargs,
     ):
-        super().__init__(*args, raise_exception=True, **kwargs)
+
+        super().__init__(
+            *args,
+            raise_exception=True,
+            **kwargs,
+        )
         self.flash = flash
         self.best_model_path = None
         self.run_url = ""
@@ -53,7 +64,7 @@ class PLTrainerScript(TracerPythonScript):
         return tracer
 
     def run(self, *args, **kwargs):
-        # warnings.simplefilter("ignore")
+        warnings.simplefilter("ignore")
         logger.info(f"Running train_script: {self.script_path}")
         super().run(*args, **kwargs)
         self.completed = True
