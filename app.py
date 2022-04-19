@@ -27,6 +27,7 @@ class ResearchAppFlow(LightningFlow):
         paper: Optional[str] = None,
         blog: Optional[str] = None,
         github: Optional[str] = None,
+        video: Optional[str] = None,
         jupyter_port=None,
         gradio_port=None,
     ) -> None:
@@ -35,6 +36,7 @@ class ResearchAppFlow(LightningFlow):
         self.paper = paper
         self.blog = blog
         self.github = github
+        self.video = video
         self.jupyter = JupyterWork(
             port=jupyter_port, github_url=github, blocking=False
         )  # E501
@@ -55,6 +57,8 @@ class ResearchAppFlow(LightningFlow):
             tabs.append({"name": "Paper", "content": self.paper})
         if self.blog:
             tabs.append({"name": "Blog", "content": self.blog})
+        if self.video:
+            tabs.append({"name": "Video", "content": self.video})
 
         tabs.append(
             {
@@ -77,5 +81,8 @@ if __name__ == "__main__":
     paper = "https://arxiv.org/pdf/1811.06965.pdf"
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/mlfoundations/open_clip"
+    video = "https://www.youtube.com/embed/W-O7AZNzbzQ"
 
-    app = LightningApp(ResearchAppFlow(paper=paper, blog=blog, github=None))
+    app = LightningApp(
+        ResearchAppFlow(paper=paper, blog=blog, github=None, video=video)
+    )
