@@ -69,7 +69,7 @@ class ResearchAppFlow(LightningFlow):
         tabs.append(
             {
                 "name": "Deployment",
-                "content": self.train_script.exposed_url("gradio"),
+                "content": self.gradio.exposed_url("gradio"),
             },  # E501
         )
 
