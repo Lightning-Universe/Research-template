@@ -40,16 +40,14 @@ class ResearchAppFlow(LightningFlow):
         self.jupyter = JupyterWork(
             port=jupyter_port, github_url=github, blocking=False
         )  # E501
-        self.gradio = GradioWork(port=gradio_port, blocking=False)
-        self.train_script = PLTrainerScript(script_path=train_script_path, flash=True)
+        # self.gradio = GradioWork(port=gradio_port, blocking=False)
+        self.train_script = PLTrainerScript(
+            script_path=train_script_path, deployment_port=gradio_port, flash=True
+        )
 
     def run(self) -> None:
         self.jupyter.run()
         self.train_script.run()
-        if self.train_script.completed:
-            from research_app.serve.gradio_app import iface
-
-            self.gradio.run(iface)
 
     def configure_layout(self) -> List[Dict]:
         tabs = []
@@ -69,7 +67,7 @@ class ResearchAppFlow(LightningFlow):
         tabs.append(
             {
                 "name": "Deployment",
-                "content": self.gradio.exposed_url("gradio"),
+                "content": self.train_script.exposed_url("gradio"),
             },  # E501
         )
 
@@ -84,5 +82,12 @@ if __name__ == "__main__":
     video = "https://www.youtube.com/embed/W-O7AZNzbzQ"
 
     app = LightningApp(
-        ResearchAppFlow(paper=paper, blog=blog, github=None, video=video)
+        ResearchAppFlow(
+            jupyter_port=8888,
+            gradio_port=8889,
+            paper=paper,
+            blog=blog,
+            github=None,
+            video=video,
+        )
     )

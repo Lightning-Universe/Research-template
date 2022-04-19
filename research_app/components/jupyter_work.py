@@ -20,6 +20,7 @@ class JupyterWork(LightningWork):
         blocking=False,
     ):
         port = port or get_random_port()
+        port = 8888
         super().__init__(exposed_ports={"jupyter": port}, blocking=blocking)
         self._proc = None
         self.host = host
