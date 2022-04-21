@@ -2,8 +2,8 @@ from typing import Dict, List, Optional
 
 from lightning import LightningApp, LightningFlow
 
-from research_app.components.gradio_works import GradioWork
-from research_app.components.jupyter_works import JupyterWork
+from research_app.components.gradio_work import GradioWork
+from research_app.components.jupyter_work import JupyterWork
 
 
 class ResearchAppFlow(LightningFlow):
@@ -53,13 +53,13 @@ class ResearchAppFlow(LightningFlow):
             {
                 "name": "Jupyter",
                 "content": self.jupyter.exposed_url("jupyter"),
-            },  # noqa E501
+            },  # E501
         )
         tabs.append(
             {
                 "name": "Deployment",
                 "content": self.gradio.exposed_url("gradio"),
-            },  # noqa E501
+            },  # E501
         )
 
         return tabs
