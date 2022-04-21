@@ -1,8 +1,20 @@
 from typing import Dict, List, Optional
 
-from gradio_works import GradioWork
-from jupyter_works import JupyterWork
 from lightning import LightningApp, LightningFlow
+from lightning.frontend import StreamlitFrontend
+
+from research_app.gradio_works import GradioWork
+from research_app.jupyter_works import JupyterWork
+
+
+# define this function anywhere you want
+# this gets called anytime the UI needs to refresh
+def my_streamlit_ui(state):
+    import streamlit as st
+
+    st.write("Hello from streamlit!")
+    st.write("Hii" * 100)
+    st.write(state.counter)
 
 
 class ResearchAppFlow(LightningFlow):
@@ -38,10 +50,12 @@ class ResearchAppFlow(LightningFlow):
         self.gradio = GradioWork(port=gradio_port, blocking=False)
 
     def run(self) -> None:
-        self.jupyter.run()
-        self.gradio.run()
+        # self.jupyter.run()
+        # self.gradio.run()
+        pass
 
     def configure_layout(self) -> List[Dict]:
+        return StreamlitFrontend(render_fn=my_streamlit_ui)
         tabs = []
         if self.paper:
             tabs.append({"name": "Paper", "content": self.paper})
@@ -60,6 +74,7 @@ class ResearchAppFlow(LightningFlow):
                 "content": self.gradio.exposed_url("gradio"),
             },  # E501
         )
+
         return tabs
 
 
@@ -68,4 +83,4 @@ if __name__ == "__main__":
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/mlfoundations/open_clip"
 
-    app = LightningApp(ResearchAppFlow(paper=paper, blog=blog, github=github))
+    app = LightningApp(ResearchAppFlow(paper=paper, blog=blog, github=None))
