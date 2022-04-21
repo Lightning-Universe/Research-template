@@ -1,20 +1,9 @@
 from typing import Dict, List, Optional
 
 from lightning import LightningApp, LightningFlow
-from lightning.frontend import StreamlitFrontend
 
-from research_app.gradio_works import GradioWork
-from research_app.jupyter_works import JupyterWork
-
-
-# define this function anywhere you want
-# this gets called anytime the UI needs to refresh
-def my_streamlit_ui(state):
-    import streamlit as st
-
-    st.write("Hello from streamlit!")
-    st.write("Hii" * 100)
-    st.write(state.counter)
+from research_app.components.gradio_works import GradioWork
+from research_app.components.jupyter_works import JupyterWork
 
 
 class ResearchAppFlow(LightningFlow):
@@ -55,7 +44,6 @@ class ResearchAppFlow(LightningFlow):
         pass
 
     def configure_layout(self) -> List[Dict]:
-        return StreamlitFrontend(render_fn=my_streamlit_ui)
         tabs = []
         if self.paper:
             tabs.append({"name": "Paper", "content": self.paper})
@@ -66,7 +54,7 @@ class ResearchAppFlow(LightningFlow):
             {
                 "name": "Jupyter",
                 "content": self.jupyter.exposed_url("jupyter"),
-            },  # E501
+            },  # noqa E501
         )
         tabs.append(
             {
