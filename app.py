@@ -39,9 +39,8 @@ class ResearchAppFlow(LightningFlow):
         self.gradio = GradioWork(port=gradio_port, blocking=False)
 
     def run(self) -> None:
-        # self.jupyter.run()
-        # self.gradio.run()
-        pass
+        self.jupyter.run()
+        self.gradio.run()
 
     def configure_layout(self) -> List[Dict]:
         tabs = []
