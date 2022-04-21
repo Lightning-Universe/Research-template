@@ -53,13 +53,13 @@ class ResearchAppFlow(LightningFlow):
             {
                 "name": "Jupyter",
                 "content": self.jupyter.exposed_url("jupyter"),
-            },  # noqa E501
+            },  # E501
         )
         tabs.append(
             {
                 "name": "Deployment",
                 "content": self.gradio.exposed_url("gradio"),
-            },  # noqa E501
+            },  # E501
         )
 
         return tabs
