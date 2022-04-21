@@ -72,7 +72,7 @@ class ResearchAppFlow(LightningFlow):
             {
                 "name": "Deployment",
                 "content": self.gradio.exposed_url("gradio"),
-            },  # E501
+            },  # noqa E501
         )
 
         return tabs
