@@ -1,0 +1,12 @@
+lightning_logs
+data
+.shared
+*.ckpt
+.shared
+*.pt
+*.tar.gz
+*.pth
+.DS_Store
+*.zip
+wandb/
+.idea/

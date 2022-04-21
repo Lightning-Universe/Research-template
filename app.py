@@ -1,8 +1,9 @@
 from typing import Dict, List, Optional
 
-from gradio_works import GradioWork
-from jupyter_works import JupyterWork
 from lightning import LightningApp, LightningFlow
+
+from research_app.components.gradio_work import GradioWork
+from research_app.components.jupyter_work import JupyterWork
 
 
 class ResearchAppFlow(LightningFlow):
@@ -60,6 +61,7 @@ class ResearchAppFlow(LightningFlow):
                 "content": self.gradio.exposed_url("gradio"),
             },  # E501
         )
+
         return tabs
 
 
@@ -68,4 +70,4 @@ if __name__ == "__main__":
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/mlfoundations/open_clip"
 
-    app = LightningApp(ResearchAppFlow(paper=paper, blog=blog, github=github))
+    app = LightningApp(ResearchAppFlow(paper=paper, blog=blog, github=None))
