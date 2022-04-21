@@ -1,20 +1,11 @@
 import logging
-from typing import Callable
 
-import gradio as gr
 from lightning import LightningWork
 
+from research_app.serve import gradio_app
 from research_app.utils import get_random_port
 
 logger = logging.getLogger(__name__)
-
-
-def predict(name):
-    return (
-        "Hello "
-        + name
-        + "!! Replace `predict` func with prediction function for your model."
-    )
 
 
 class GradioWork(LightningWork):
@@ -33,15 +24,6 @@ class GradioWork(LightningWork):
         super().__init__(exposed_ports={"gradio": port}, blocking=blocking)
         self.port = port
 
-    def run(
-        self,
-        gradio_fn: Callable = predict,
-        inputs="text",
-        outputs="text",
-        **interface_kwargs
-    ):
-        iface = gr.Interface(
-            fn=gradio_fn, inputs=inputs, outputs=outputs, **interface_kwargs
-        )
-        iface.launch(server_port=self.port)
-        iface.close()
+    def run(self, **interface_kwargs):
+        gradio_app.iface.launch(server_port=self.port, **interface_kwargs)
+        gradio_app.iface.close()
