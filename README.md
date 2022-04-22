@@ -20,5 +20,5 @@ pip install -e ".[dev]"
 ### local run
 
 ```bash
-lightning build app research_app/app.py --name jupyter-`date -u +%H:%M`
+lightning build app app.py --name jupyter-`date -u +%H:%M`
 ```

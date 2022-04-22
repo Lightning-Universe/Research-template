@@ -1,4 +1,5 @@
-jupyterlab==3.3.3
-pywebview==3.6.3
-Flask==2.1.1
 gradio==2.9.4
+jupyterlab==3.3.3
+lightning-flash[image]>=0.7.3
+mkposters>=0.0.1
+pytorch-lightning>=1.6.1
