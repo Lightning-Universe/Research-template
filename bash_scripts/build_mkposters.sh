@@ -30,6 +30,3 @@ pip install mkposters==$mkposters_release --quiet
 # move the dart-sass binary to the correct location
 mkloc=$(pip show mkposters | grep Location | cut -d ' ' -f 2)
 rm -rf $mkloc/mkposters/third_party/dart-sass && mv dart-sass $mkloc/mkposters/third_party
-
-
-
