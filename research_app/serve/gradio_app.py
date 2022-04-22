@@ -9,7 +9,7 @@ from PIL import Image
 logger = logging.getLogger(__name__)
 
 model = ImageClassifier.load_from_checkpoint(
-    "https://flash-weights.s3.amazonaws.com/0.7.0/image_classification_model.pt"
+    "https://flash-weights.s3.amazonaws.com/0.7.0/image_classification_model.pt"  # noqa E501
 )
 IMAGE_SIZE = 196, 196
 LABELS = ["ants", "bees"]

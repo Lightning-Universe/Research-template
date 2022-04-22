@@ -1,5 +1,4 @@
 import logging
-import subprocess
 
 from lightning import LightningWork
 from mkposters import mkposter

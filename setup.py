@@ -12,7 +12,12 @@ setuptools.setup(
     install_requires=[requirements],
     include_package_data=True,
     extras_require={
-        "dev": ["ipdb==0.13.9", "black==22.3.0", "isort==5.10.1"],
+        "dev": [
+            "ipdb==0.13.9",
+            "black==22.3.0",
+            "isort==5.10.1",
+            "pre-commit==2.18.1",
+        ],  # E501
     },
     python_requires=">=3.8",
 )
