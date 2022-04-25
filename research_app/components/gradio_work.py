@@ -13,7 +13,7 @@ class GradioWork(LightningWork):
     :param port: Port address for app. By default it will automatically select
     from an internal PORT POOL
     :param blocking: Whether the Work is blocking
-    """
+    """  # E501
 
     def __init__(
         self,

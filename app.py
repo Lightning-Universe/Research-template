@@ -4,6 +4,7 @@ from lightning import LightningApp, LightningFlow
 
 from research_app.components.gradio_work import GradioWork
 from research_app.components.jupyter_work import JupyterWork
+from research_app.components.poster_work import PosterWork
 
 
 class ResearchAppFlow(LightningFlow):
@@ -25,6 +26,7 @@ class ResearchAppFlow(LightningFlow):
         paper: Optional[str] = None,
         blog: Optional[str] = None,
         github: Optional[str] = None,
+        poster_port=8000,
         jupyter_port=None,
         gradio_port=None,
     ) -> None:
@@ -37,13 +39,22 @@ class ResearchAppFlow(LightningFlow):
             port=jupyter_port, github_url=github, blocking=False
         )  # E501
         self.gradio = GradioWork(port=gradio_port, blocking=False)
+        self.poster = PosterWork(port=poster_port, blocking=False)
 
     def run(self) -> None:
         self.jupyter.run()
         self.gradio.run()
+        self.poster.run()
 
     def configure_layout(self) -> List[Dict]:
         tabs = []
+        tabs.append(
+            {
+                "name": "Poster",
+                "content": self.poster.exposed_url("poster") + "/poster.html",
+            }
+        )
+
         if self.paper:
             tabs.append({"name": "Paper", "content": self.paper})
         if self.blog:
