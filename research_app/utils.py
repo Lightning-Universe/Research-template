@@ -8,7 +8,7 @@ logger = getLogger(__name__)
 
 
 def get_random_port() -> int:
-    # ref: https://stackoverflow.com/questions/1365265/on-localhost-how-do-i-pick-a-free-port-number # noqa E501
+    # ref: https://stackoverflow.com/questions/1365265/on-localhost-how-do-i-pick-a-free-port-number  E501
     sock = socket.socket()
     sock.bind(("", 0))
     return sock.getsockname()[1]
@@ -49,5 +49,5 @@ def clone_repo(url: str):
 
 if __name__ == "__main__":
     clone_repo(
-        "https://github.com/PyTorchLightning/lightning-template-research-app.git"  # noqa E501
+        "https://github.com/PyTorchLightning/lightning-template-research-app.git"  # E501
     )
