@@ -89,3 +89,13 @@ class RootFlow(LightningFlow):
         ]
 app = LightningApp(RootFlow())
 ```
+
+### Citation
+```
+@article{YourName,
+  title={Your Title},
+  author={Your team},
+  journal={Location},
+  year={Year}
+}
+```

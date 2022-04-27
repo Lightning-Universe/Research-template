@@ -2,4 +2,4 @@ gradio==2.9.4
 jupyterlab==3.3.3
 lightning-flash[image]>=0.7.3
 pytorch-lightning>=1.6.1
-mkposters @ git+https://github.com/stanbiryukov/mkposters@a08f00bb115d465ae55d12c9f92e457fd0f73139
+mkposters @ git+https://github.com/stanbiryukov/mkposters@34b3d308c6cb201d613c83b4d63fc844eecce67f
