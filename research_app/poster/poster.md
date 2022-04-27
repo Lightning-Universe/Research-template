@@ -45,7 +45,7 @@ graph LR
 
 ### Available at : `lightning/demo/quick_start/app.py`
 
-```python
+<pre><code>
 from lightning import CloudCompute, LightningApp, LightningFlow
 from lightning.demo.quick_start import (
     PyTorchLightningScript,
@@ -88,7 +88,7 @@ class RootFlow(LightningFlow):
             {"name": "Endpoint", "content": self.serve.exposed_url("serving") + "/docs"}
         ]
 app = LightningApp(RootFlow())
-```
+</pre></code>
 
 ### Citation
 ```
