@@ -3,4 +3,3 @@ jupyterlab==3.3.3
 lightning-flash[image]>=0.7.3
 pytorch-lightning>=1.6.1
 mkposters @ git+https://github.com/stanbiryukov/mkposters@34b3d308c6cb201d613c83b4d63fc844eecce67f
-lightning @ git+https://github.com/PyTorchLightning/lightning@ec4f67c70ae001c80104903250403df8a9752229
