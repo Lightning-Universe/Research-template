@@ -33,10 +33,10 @@
 ```mermaid
 graph LR
     A[local ML]
-    A --> B{Lightning Apps<br>Effortless GPU distributed compute}
+    A --> B{<b>Lightning Apps</b><br>Effortless GPU distributed compute}
     B -->|Frontend| C[Lightning Work 1]
     B -->|DB integration| D[Lightning Work 2]
-    B -->|User auth| E[Lightning Work 2]
+    B -->|User auth| E[Lightning Work 3]
 ```
 
 --split--
