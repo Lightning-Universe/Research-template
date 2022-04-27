@@ -30,6 +30,14 @@
     - **Easy to scale**- Lightning provides a common experience locally and in the cloud. The Lightning.ai cloud platform abstracts the infrastructure, so you can run your apps at any scale. The modular and composable framework allows for simpler testing and debugging.
     - **Leverage the power of the community-** Lightning.ai offers a variety of apps for any use case you can use as is or build upon. By following the best MLOps practices provided through the apps and documentation you can deploy state-of-the-art ML applications in days, not months.
 
+```mermaid
+graph LR
+    A[local ML]
+    A --> B{Lightning Apps<br>Effortless GPU distributed compute}
+    B -->|Frontend| C[Lightning Work 1]
+    B -->|DB integration| D[Lightning Work 2]
+    B -->|User auth| E[Lightning Work 2]
+```
 
 --split--
 
