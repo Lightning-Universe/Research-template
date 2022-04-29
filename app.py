@@ -20,6 +20,7 @@ class ResearchAppFlow(LightningFlow):
     :param gradio_port: Gradio will be launched on the provided port.
     By default, it will automatically
     select from a pool of ports
+    :param use_jupyter: Whether to launch a Jupyter Notebook
     """
 
     def __init__(
@@ -28,24 +29,27 @@ class ResearchAppFlow(LightningFlow):
         blog: Optional[str] = None,
         github: Optional[str] = None,
         experiment_manager: Optional[str] = None,
-        poster_port=8000,
-        jupyter_port=None,
-        gradio_port=None,
+        poster_port: int = 8000,
+        jupyter_port: Optional[int] = None,
+        gradio_port: Optional[int] = None,
+        use_jupyter: bool = False,
     ) -> None:
 
         super().__init__()
         self.paper = paper
         self.blog = blog
         self.github = github
+        self.use_jupyter = use_jupyter
         self.experiment_manager = experiment_manager
         self.jupyter = JupyterWork(
-            port=jupyter_port, github_url=github, blocking=False
-        )  # E501
+            port=jupyter_port, github_url=self.github, blocking=False
+        )
         self.gradio = GradioWork(port=gradio_port, blocking=False)
         self.poster = PosterWork(port=poster_port, blocking=False)
 
     def run(self) -> None:
-        self.jupyter.run()
+        if self.use_jupyter:
+            self.jupyter.run()
         self.gradio.run()
         self.poster.run()
 
@@ -57,7 +61,6 @@ class ResearchAppFlow(LightningFlow):
                 "content": self.poster.exposed_url("poster") + "/poster.html",
             }
         )
-
         if self.paper:
             tabs.append({"name": "Paper", "content": self.paper})
         if self.blog:
@@ -67,13 +70,18 @@ class ResearchAppFlow(LightningFlow):
             tabs.append(
                 {"name": "Experiment Manager", "content": self.experiment_manager}
             )
+        if self.use_jupyter:
+            tabs.append(
+                {
+                    "name": "Jupyter",
+                    "content": self.jupyter.exposed_url("jupyter"),
+                },  # E501
+            )
+        if self.github:
+            tabs.append(
+                {"name": "Code", "content": f"https://github.dev/#{self.github}"}
+            )
 
-        tabs.append(
-            {
-                "name": "Jupyter",
-                "content": self.jupyter.exposed_url("jupyter"),
-            },  # E501
-        )
         tabs.append(
             {
                 "name": "Deployment",
@@ -91,5 +99,10 @@ if __name__ == "__main__":
     wandb = "https://wandb.ai/aniketmaurya/content-research_app_train/runs/a0ca17hw"
 
     app = LightningApp(
-        ResearchAppFlow(paper=paper, blog=blog, github=None, experiment_manager=wandb)
+        ResearchAppFlow(
+            paper=paper,
+            blog=blog,
+            github=github,
+            experiment_manager=wandb,
+        )
     )
