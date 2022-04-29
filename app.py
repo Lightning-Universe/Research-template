@@ -96,5 +96,11 @@ if __name__ == "__main__":
     wandb = "https://wandb.ai/aniketmaurya/content-research_app_train/runs/a0ca17hw"
 
     app = LightningApp(
-        ResearchAppFlow(paper=paper, blog=blog, github=None, experiment_manager=wandb)
+        ResearchAppFlow(
+            paper=paper,
+            blog=blog,
+            github=None,
+            experiment_manager=wandb,
+            use_jupyter=True,
+        )
     )
