@@ -76,6 +76,11 @@ class ResearchAppFlow(LightningFlow):
                     "content": self.jupyter.exposed_url("jupyter"),
                 },  # E501
             )
+        elif self.github:
+            tabs.append(
+                {"name": "Code", "content": f"https://github.dev/#{self.github}"}
+            )
+
         tabs.append(
             {
                 "name": "Deployment",
@@ -96,8 +101,8 @@ if __name__ == "__main__":
         ResearchAppFlow(
             paper=paper,
             blog=blog,
-            github=None,
+            github=github,
             experiment_manager=wandb,
-            use_jupyter=True,
+            use_jupyter=False,
         )
     )
