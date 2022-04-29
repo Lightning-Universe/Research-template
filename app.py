@@ -20,6 +20,7 @@ class ResearchAppFlow(LightningFlow):
     :param gradio_port: Gradio will be launched on the provided port.
     By default, it will automatically
     select from a pool of ports
+    :param use_jupyter: Whether to launch a Jupyter Notebook
     """
 
     def __init__(
@@ -28,9 +29,9 @@ class ResearchAppFlow(LightningFlow):
         blog: Optional[str] = None,
         github: Optional[str] = None,
         experiment_manager: Optional[str] = None,
-        poster_port=8000,
-        jupyter_port=None,
-        gradio_port=None,
+        poster_port: int = 8000,
+        jupyter_port: Optional[int] = None,
+        gradio_port: Optional[int] = None,
         use_jupyter: bool = False,
     ) -> None:
 
@@ -76,7 +77,7 @@ class ResearchAppFlow(LightningFlow):
                     "content": self.jupyter.exposed_url("jupyter"),
                 },  # E501
             )
-        elif self.github:
+        if self.github:
             tabs.append(
                 {"name": "Code", "content": f"https://github.dev/#{self.github}"}
             )
@@ -103,6 +104,5 @@ if __name__ == "__main__":
             blog=blog,
             github=github,
             experiment_manager=wandb,
-            use_jupyter=False,
         )
     )
