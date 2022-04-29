@@ -40,16 +40,14 @@ class ResearchAppFlow(LightningFlow):
         self.github = github
         self.use_jupyter = use_jupyter
         self.experiment_manager = experiment_manager
-        self._jupyter_port = jupyter_port
-        self.jupyter = None
+        self.jupyter = JupyterWork(
+            port=jupyter_port, github_url=self.github, blocking=False
+        )
         self.gradio = GradioWork(port=gradio_port, blocking=False)
         self.poster = PosterWork(port=poster_port, blocking=False)
 
     def run(self) -> None:
         if self.use_jupyter:
-            self.jupyter = JupyterWork(
-                port=self._jupyter_port, github_url=self.github, blocking=False
-            )
             self.jupyter.run()
         self.gradio.run()
         self.poster.run()
@@ -62,7 +60,6 @@ class ResearchAppFlow(LightningFlow):
                 "content": self.poster.exposed_url("poster") + "/poster.html",
             }
         )
-
         if self.paper:
             tabs.append({"name": "Paper", "content": self.paper})
         if self.blog:
