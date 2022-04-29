@@ -31,21 +31,26 @@ class ResearchAppFlow(LightningFlow):
         poster_port=8000,
         jupyter_port=None,
         gradio_port=None,
+        use_jupyter: bool = False,
     ) -> None:
 
         super().__init__()
         self.paper = paper
         self.blog = blog
         self.github = github
+        self.use_jupyter = use_jupyter
         self.experiment_manager = experiment_manager
-        self.jupyter = JupyterWork(
-            port=jupyter_port, github_url=github, blocking=False
-        )  # E501
+        self._jupyter_port = jupyter_port
+        self.jupyter = None
         self.gradio = GradioWork(port=gradio_port, blocking=False)
         self.poster = PosterWork(port=poster_port, blocking=False)
 
     def run(self) -> None:
-        self.jupyter.run()
+        if self.use_jupyter:
+            self.jupyter = JupyterWork(
+                port=self._jupyter_port, github_url=self.github, blocking=False
+            )
+            self.jupyter.run()
         self.gradio.run()
         self.poster.run()
 
@@ -67,13 +72,13 @@ class ResearchAppFlow(LightningFlow):
             tabs.append(
                 {"name": "Experiment Manager", "content": self.experiment_manager}
             )
-
-        tabs.append(
-            {
-                "name": "Jupyter",
-                "content": self.jupyter.exposed_url("jupyter"),
-            },  # E501
-        )
+        if self.use_jupyter:
+            tabs.append(
+                {
+                    "name": "Jupyter",
+                    "content": self.jupyter.exposed_url("jupyter"),
+                },  # E501
+            )
         tabs.append(
             {
                 "name": "Deployment",
