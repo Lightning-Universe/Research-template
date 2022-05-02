@@ -16,7 +16,7 @@ class PosterWork(LightningWork):
 
     def __init__(
         self,
-        port=8000,
+        port: int,
         code_style="github",
         background_color="#F6F6EF",
         blocking=False,

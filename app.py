@@ -36,6 +36,8 @@ class ResearchAppFlow(LightningFlow):
     ) -> None:
 
         super().__init__()
+        if not use_jupyter and jupyter_port:
+            raise UserWarning("use_jupyter is False but passed jupyter port!")
         self.paper = paper
         self.blog = blog
         self.github = github

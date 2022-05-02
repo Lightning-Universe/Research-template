@@ -14,14 +14,13 @@ logger = logging.getLogger(__name__)
 class JupyterWork(LightningWork):
     def __init__(
         self,
-        host="0.0.0.0",
-        port=None,
+        port: int,
         github_url: Optional[str] = None,
         blocking=False,
     ):
         super().__init__(exposed_ports={"jupyter": port}, blocking=blocking)
         self._proc = None
-        self.host = host
+        self.host = "0.0.0.0"
         self.port = port
         self.pid = None
         self.exit_code = None

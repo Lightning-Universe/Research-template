@@ -16,8 +16,8 @@ class GradioWork(LightningWork):
 
     def __init__(
         self,
-        port=None,
-        blocking=False,
+        port: int,
+        blocking: bool = False,
     ):
         super().__init__(exposed_ports={"gradio": port}, blocking=blocking)
         self.port = port
