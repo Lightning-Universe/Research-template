@@ -104,5 +104,8 @@ if __name__ == "__main__":
             blog=blog,
             github=github,
             experiment_manager=wandb,
+            use_jupyter=True,
+            jupyter_port=8888,
+            gradio_port=8889,
         )
     )

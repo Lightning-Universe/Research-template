@@ -1,5 +1,5 @@
 lightning_logs
-data
+data/
 .shared
 *.ckpt
 .shared
@@ -10,3 +10,4 @@ data
 *.zip
 wandb/
 .idea/
+.git/

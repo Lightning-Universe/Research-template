@@ -6,7 +6,7 @@ from typing import Optional
 
 from lightning import LightningWork
 
-from research_app.utils import clone_repo, get_random_port
+from research_app.utils import clone_repo
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +19,6 @@ class JupyterWork(LightningWork):
         github_url: Optional[str] = None,
         blocking=False,
     ):
-        port = port or get_random_port()
         super().__init__(exposed_ports={"jupyter": port}, blocking=blocking)
         self._proc = None
         self.host = host
