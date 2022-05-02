@@ -30,8 +30,8 @@ class ResearchAppFlow(LightningFlow):
         github: Optional[str] = None,
         experiment_manager: Optional[str] = None,
         poster_port: int = 8000,
-        jupyter_port: Optional[int] = None,
-        gradio_port: Optional[int] = None,
+        jupyter_port: Optional[int] = 8888,
+        gradio_port: Optional[int] = 8888,
         use_jupyter: bool = False,
     ) -> None:
 
@@ -107,7 +107,5 @@ if __name__ == "__main__":
             github=github,
             experiment_manager=wandb,
             use_jupyter=True,
-            jupyter_port=8888,
-            gradio_port=8889,
         )
     )
