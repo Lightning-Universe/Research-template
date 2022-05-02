@@ -30,24 +30,27 @@ class ResearchAppFlow(LightningFlow):
         github: Optional[str] = None,
         experiment_manager: Optional[str] = None,
         poster_port: int = 8000,
-        jupyter_port: Optional[int] = 8888,
-        gradio_port: Optional[int] = 8888,
+        jupyter_port: Optional[int] = None,
+        gradio_port: Optional[int] = None,
         use_jupyter: bool = False,
     ) -> None:
 
         super().__init__()
         if not use_jupyter and jupyter_port:
             raise UserWarning("use_jupyter is False but passed jupyter port!")
+
         self.paper = paper
         self.blog = blog
         self.github = github
         self.use_jupyter = use_jupyter
         self.experiment_manager = experiment_manager
-        self.jupyter = JupyterWork(
-            port=jupyter_port, github_url=self.github, blocking=False
-        )
+        self.jupyter = None
         self.gradio = GradioWork(port=gradio_port, blocking=False)
         self.poster = PosterWork(port=poster_port, blocking=False)
+        if use_jupyter:
+            self.jupyter = JupyterWork(
+                port=jupyter_port, github_url=self.github, blocking=False
+            )
 
     def run(self) -> None:
         if self.use_jupyter:
@@ -106,6 +109,8 @@ if __name__ == "__main__":
             blog=blog,
             github=github,
             experiment_manager=wandb,
+            jupyter_port=8888,
+            gradio_port=8889,
             use_jupyter=True,
         )
     )
