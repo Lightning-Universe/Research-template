@@ -107,7 +107,7 @@ if __name__ == "__main__":
         ResearchAppFlow(
             paper=paper,
             blog=blog,
-            github=github,
+            # github=github,
             experiment_manager=wandb,
             jupyter_port=8888,
             gradio_port=8889,

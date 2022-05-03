@@ -3,8 +3,6 @@ import logging
 from lightning import LightningWork
 from mkposters import mkposter
 
-from research_app.utils import get_random_port
-
 logger = logging.getLogger(__name__)
 
 
@@ -21,7 +19,6 @@ class PosterWork(LightningWork):
         background_color="#F6F6EF",
         blocking=False,
     ):
-        port = port or get_random_port()
         super().__init__(exposed_ports={"poster": port}, blocking=blocking)
         self.port = port
         self.code_style = code_style
