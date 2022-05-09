@@ -19,6 +19,8 @@ class GradioWork(LightningWork):
         port: int,
         blocking: bool = False,
     ):
+        if not port:
+            raise UserWarning("Gradio port must not be None!")
         super().__init__(exposed_ports={"gradio": port}, blocking=blocking)
         self.port = port
 

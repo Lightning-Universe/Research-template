@@ -18,6 +18,8 @@ class JupyterWork(LightningWork):
         github_url: Optional[str] = None,
         blocking=False,
     ):
+        if not port:
+            raise UserWarning("Jupyter port must not be None!")
         super().__init__(exposed_ports={"jupyter": port}, blocking=blocking)
         self._proc = None
         self.host = "0.0.0.0"
