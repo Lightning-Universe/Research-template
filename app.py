@@ -14,9 +14,6 @@ class ResearchAppFlow(LightningFlow):
     :param github: GitHub repo Url. Repo will be cloned into
     the current directory
     :param experiment_manager: Link for experiment manager like wandb/tensorboard
-    :param jupyter_port: Jupyter will be launched on the provided port.
-    By default, it will automatically
-    select from a pool of ports
     :param gradio_port: Gradio will be launched on the provided port.
     By default, it will automatically
     select from a pool of ports
@@ -36,18 +33,15 @@ class ResearchAppFlow(LightningFlow):
     ) -> None:
 
         super().__init__()
-        if not use_jupyter and jupyter_port:
-            raise UserWarning("use_jupyter is False but passed jupyter port!")
-
         self.paper = paper
         self.blog = blog
         self.github = github
-        self.use_jupyter = use_jupyter
+        self.use_jupyter = jupyter_port is not None
         self.experiment_manager = experiment_manager
         self.jupyter = None
         self.gradio = GradioWork(port=gradio_port, blocking=False)
         self.poster = PosterWork(port=poster_port, blocking=False)
-        if use_jupyter:
+        if self.use_jupyter:
             self.jupyter = JupyterWork(
                 port=jupyter_port, github_url=self.github, blocking=False
             )
@@ -101,16 +95,14 @@ if __name__ == "__main__":
     paper = "https://arxiv.org/pdf/1811.06965.pdf"
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/mlfoundations/open_clip"
-    wandb = "https://wandb.ai/aniketmaurya/content-research_app_train/runs/a0ca17hw"
+    wandb = "https://wandb.ai/aniketmaurya/herbarium-2022/runs/2dvwrme5"
 
     app = LightningApp(
         ResearchAppFlow(
             paper=paper,
             blog=blog,
-            # github=github,
             experiment_manager=wandb,
-            jupyter_port=8888,
+            # jupyter_port=8888,
             gradio_port=8889,
-            use_jupyter=True,
         )
     )
