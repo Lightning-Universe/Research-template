@@ -19,8 +19,7 @@ class PosterWork(LightningWork):
         background_color="#F6F6EF",
         blocking=False,
     ):
-        super().__init__(exposed_ports={"poster": port}, blocking=blocking)
-        self.port = port
+        super().__init__(port=port, blocking=blocking)
         self.code_style = code_style
         self.background_color = background_color
 

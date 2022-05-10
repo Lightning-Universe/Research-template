@@ -29,7 +29,6 @@ class ResearchAppFlow(LightningFlow):
         poster_port: int = 8000,
         jupyter_port: Optional[int] = None,
         gradio_port: Optional[int] = None,
-        use_jupyter: bool = False,
     ) -> None:
 
         super().__init__()
@@ -57,7 +56,7 @@ class ResearchAppFlow(LightningFlow):
         tabs.append(
             {
                 "name": "Poster",
-                "content": self.poster.exposed_url("poster") + "/poster.html",
+                "content": self.poster.url + "/poster.html",
             }
         )
         if self.paper:
@@ -73,7 +72,7 @@ class ResearchAppFlow(LightningFlow):
             tabs.append(
                 {
                     "name": "Jupyter",
-                    "content": self.jupyter.exposed_url("jupyter"),
+                    "content": self.jupyter.url,
                 },  # E501
             )
         if self.github:
@@ -84,7 +83,7 @@ class ResearchAppFlow(LightningFlow):
         tabs.append(
             {
                 "name": "Deployment",
-                "content": self.gradio.exposed_url("gradio"),
+                "content": self.gradio.url,
             },  # E501
         )
 
@@ -92,7 +91,7 @@ class ResearchAppFlow(LightningFlow):
 
 
 if __name__ == "__main__":
-    paper = "https://arxiv.org/pdf/1811.06965.pdf"
+    paper = "https://arxiv.org/pdf/2103.00020.pdf"
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/mlfoundations/open_clip"
     wandb = "https://wandb.ai/aniketmaurya/herbarium-2022/runs/2dvwrme5"

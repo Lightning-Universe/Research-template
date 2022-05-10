@@ -21,8 +21,7 @@ class GradioWork(LightningWork):
     ):
         if not port:
             raise UserWarning("Gradio port must not be None!")
-        super().__init__(exposed_ports={"gradio": port}, blocking=blocking)
-        self.port = port
+        super().__init__(port=port, blocking=blocking)
 
     def run(self, **interface_kwargs):
         gradio_app.iface.launch(server_port=self.port, **interface_kwargs)
