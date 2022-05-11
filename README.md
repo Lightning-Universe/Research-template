@@ -36,7 +36,42 @@ python setup.py install develop
 **2. Run on the Lightning cloud**
 `` lightning run app app.py --name poster-`date -u +%H:%M --cloud ``
 
-### Making contributions
+### How to share your research
+
+The poster app provides `ResearchAppFlow` class that allows you to share your research paper, article, GitHub codebase,
+Gradio app,
+
+You can provide the links for each flag, and the app will automatically load and show each of the content in tabs.
+
+You can fork and clone the repo to edit the arguments and update the markdown poster or Gradio app.
+
+```python
+from lightning import LightningApp
+from app import ResearchAppFlow
+
+paper = "https://arxiv.org/pdf/2103.00020.pdf"
+blog = "https://openai.com/blog/clip/"
+github = "https://github.com/mlfoundations/open_clip"
+wandb = "https://wandb.ai/aniketmaurya/herbarium-2022/runs/2dvwrme5"
+
+app = LightningApp(
+    ResearchAppFlow(
+        paper=paper,
+        blog=blog,
+        experiment_manager=wandb,
+        enable_jupyter=True,
+        enable_gradio=True,
+    )
+)
+```
+
+To run this app, launch the terminal and enter `lightning run app FILENAME.py`
+
+You should see something like this in your browser:
+
+![image](./assets/demo.png)
+
+## Making contributions
 
 **Step 1:** Install the `pre-commit` hook `pre-commit install`.
 
