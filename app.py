@@ -16,8 +16,6 @@ class ResearchAppFlow(LightningFlow):
     :param experiment_manager: Link for experiment manager like wandb/tensorboard
     :param jupyter_port: Provide a port to launch Jupyter
     :param gradio_port: Gradio will be launched on the provided port.
-    By default, it will automatically
-    select from a pool of ports
     """
 
     def __init__(
