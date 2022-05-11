@@ -28,15 +28,7 @@ cd lightning-template-research-app
 python setup.py install develop
 ```
 
-### How to Run?
-
-**1. Run locally**
-`` lightning run app app.py --name poster-`date -u +%H:%M ``
-
-**2. Run on the Lightning cloud**
-`` lightning run app app.py --name poster-`date -u +%H:%M --cloud ``
-
-### How to share your research
+### Share your Research with Lightning App
 
 The poster app has a `ResearchAppFlow` class that provides flags that you can use to build an app without knowing
 quickly any web development.
@@ -70,6 +62,9 @@ To run this app, launch the terminal and enter `lightning run app FILENAME.py`
 You should see something like this in your browser:
 
 ![image](./assets/demo.png)
+
+You can also run the app on cloud by just providing `cloud` flag in the command.
+`lightning run app app.py --name my_research_app --cloud`
 
 ## Making contributions
 
