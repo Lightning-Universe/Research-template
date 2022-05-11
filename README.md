@@ -38,8 +38,8 @@ python setup.py install develop
 
 ### How to share your research
 
-The poster app provides `ResearchAppFlow` class that allows you to share your research paper, article, GitHub codebase,
-Gradio app,
+The poster app has a `ResearchAppFlow` class that provides flags that you can use to build an app without knowing
+quickly any web development.
 
 You can provide the links for each flag, and the app will automatically load and show each of the content in tabs.
 
