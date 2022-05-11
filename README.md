@@ -28,10 +28,10 @@ cd lightning-template-research-app
 python setup.py install develop
 ```
 
-### Share your Research with Lightning App
+### Share Research with Lightning App
 
-The poster app has a `ResearchAppFlow` class that provides flags that you can use to build an app without knowing
-quickly any web development.
+The poster app has a `ResearchAppFlow` class that provides flags that you can use to quickly build an app without knowing
+any web development.
 
 You can provide the links for each flag, and the app will automatically load and show each of the content in tabs.
 
