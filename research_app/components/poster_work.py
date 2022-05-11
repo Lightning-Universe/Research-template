@@ -14,18 +14,21 @@ class PosterWork(LightningWork):
 
     def __init__(
         self,
-        port: int,
+        resource_path: str,
         code_style="github",
         background_color="#F6F6EF",
         blocking=False,
     ):
-        super().__init__(port=port, blocking=blocking)
+        super().__init__(blocking=blocking)
+        self.resource_path = resource_path
         self.code_style = code_style
         self.background_color = background_color
 
     def run(self):
+        print(self.resource_path)
         mkposter(
-            datadir="research_app/poster",
+            datadir=self.resource_path,
             background_color=self.background_color,
             code_style=self.code_style,
+            port=self.port,
         )

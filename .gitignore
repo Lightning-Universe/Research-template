@@ -373,3 +373,5 @@ data/
 lightning_logs/
 wandb/
 .idea/
+flagged/
+.python-version
