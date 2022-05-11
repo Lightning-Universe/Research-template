@@ -18,12 +18,8 @@ class JupyterWork(LightningWork):
         github_url: Optional[str] = None,
         blocking=False,
     ):
-        if not port:
-            raise UserWarning("Jupyter port must not be None!")
-        super().__init__(exposed_ports={"jupyter": port}, blocking=blocking)
+        super().__init__(host="0.0.0.0", port=port, blocking=blocking)
         self._proc = None
-        self.host = "0.0.0.0"
-        self.port = port
         self.pid = None
         self.exit_code = None
         self.github_url = github_url
@@ -64,7 +60,8 @@ class JupyterWork(LightningWork):
 
         with open(jupyter_notebook_config_path, "a") as f:
             f.write(
-                """c.NotebookApp.tornado_settings = {'headers': {'Content-Security-Policy': "frame-ancestors * 'self' "}}"""  # noqa: E501
+                """c.NotebookApp.tornado_settings = {'headers': {'Content-Security-Policy': "frame-ancestors * 'self'
+                "}} """
             )
 
         cmd = f"jupyter-lab --allow-root --no-browser --ip={self.host} --port={self.port} --NotebookApp.token='' --NotebookApp.password=''"  # noqa: E501
