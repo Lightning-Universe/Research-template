@@ -30,9 +30,12 @@ class GradioWork(ServeGradio):
         self._build_fn = import_fn_by_name(build_fn, resource_path)
         self._predict_fn = import_fn_by_name(predict_fn, resource_path)
         self._model = None
+        self.ready = False
 
     def build_model(self) -> Any:
-        return self._build_fn()
+        result = self._build_fn()
+        self.ready = True
+        return result
 
     def predict(self, *args, **kwargs):
         return self._predict_fn(self.model, *args, **kwargs)

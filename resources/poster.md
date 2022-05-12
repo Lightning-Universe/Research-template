@@ -48,6 +48,7 @@ graph LR
 ### Available at : `lightning/demo/quick_start/app.py`
 
 ```python
+
 from lightning import CloudCompute, LightningApp, LightningFlow
 from lightning.demo.quick_start import (
     PyTorchLightningScript,
@@ -96,15 +97,18 @@ class RootFlow(LightningFlow):
 
 
 app = LightningApp(RootFlow())
+
 ```
 
 ### Citation
 
 ```bibtex
+
 @article{YourName,
   title={Your Title},
   author={Your team},
   journal={Location},
   year={Year}
 }
+
 ```

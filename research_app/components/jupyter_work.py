@@ -22,9 +22,9 @@ class JupyterWork(LightningWork):
         self.pid = None
         self.exit_code = None
         self.github_url = github_url
+        self.ready = False
 
     def run(self):
-
         if self.github_url:
             clone_repo(self.github_url)
 
@@ -73,6 +73,7 @@ class JupyterWork(LightningWork):
             bufsize=0,
             close_fds=True,
         ) as proc:
+            self.ready = True
             self._proc = proc
             self.pid = proc.pid
             if proc.stdout:
