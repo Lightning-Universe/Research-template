@@ -1,13 +1,14 @@
 import logging
+from typing import Any, Optional
 
-from lightning import LightningWork
+from lightning.components.serve import ServeGradio
 
-from research_app.serve import gradio_app
+from ..utils import import_fn_by_name
 
 logger = logging.getLogger(__name__)
 
 
-class GradioWork(LightningWork):
+class GradioWork(ServeGradio):
     """
     :param port: Port address for app. By default it will automatically select
     from an internal PORT POOL
@@ -16,11 +17,22 @@ class GradioWork(LightningWork):
 
     def __init__(
         self,
-        port: int,
+        inputs: Any,
+        outputs: Any,
+        build_fn: str,
+        predict_fn: str,
         blocking: bool = False,
+        resource_path: Optional[str] = None,
     ):
-        super().__init__(port=port, blocking=blocking)
+        super(ServeGradio, self).__init__(blocking=blocking)
+        self.inputs = inputs
+        self.outputs = outputs
+        self._build_fn = import_fn_by_name(build_fn, resource_path)
+        self._predict_fn = import_fn_by_name(predict_fn, resource_path)
+        self._model = None
 
-    def run(self, **interface_kwargs):
-        gradio_app.iface.launch(server_port=self.port, **interface_kwargs)
-        gradio_app.iface.close()
+    def build_model(self) -> Any:
+        return self._build_fn()
+
+    def predict(self, *args, **kwargs):
+        return self._predict_fn(self.model, *args, **kwargs)

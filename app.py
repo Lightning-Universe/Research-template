@@ -1,3 +1,4 @@
+import os
 from typing import Dict, List, Optional
 
 from lightning import LightningApp, LightningFlow
@@ -23,31 +24,35 @@ class ResearchAppFlow(LightningFlow):
 
     def __init__(
         self,
+        resource_path: str,
         paper: Optional[str] = None,
         blog: Optional[str] = None,
         github: Optional[str] = None,
         experiment_manager: Optional[str] = None,
-        poster_port: int = 8000,
         enable_jupyter: bool = False,
         enable_gradio: bool = False,
-        jupyter_port: Optional[int] = None,
-        gradio_port: Optional[int] = None,
     ) -> None:
 
         super().__init__()
+        self.resource_path = os.path.abspath(resource_path)
         self.paper = paper
         self.blog = blog
         self.github = github
         self.experiment_manager = experiment_manager
         self.jupyter = None
         self.gradio = None
-        self.poster = PosterWork(port=poster_port, blocking=False)
+        self.poster = PosterWork(blocking=False, resource_path=self.resource_path)
         if enable_jupyter:
-            self.jupyter = JupyterWork(
-                port=jupyter_port, github_url=self.github, blocking=False
-            )
+            self.jupyter = JupyterWork(github_url=self.github, blocking=False)
         if enable_gradio:
-            self.gradio = GradioWork(port=gradio_port, blocking=False)
+            self.gradio = GradioWork(
+                "image",
+                "text",
+                "predict.build_model",
+                "predict.predict",
+                blocking=False,
+                resource_path=self.resource_path,
+            )
 
     def run(self) -> None:
         if self.jupyter:
@@ -97,6 +102,7 @@ class ResearchAppFlow(LightningFlow):
 
 
 if __name__ == "__main__":
+    resource_path = "resources"
     paper = "https://arxiv.org/pdf/2103.00020.pdf"
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/mlfoundations/open_clip"
@@ -104,6 +110,7 @@ if __name__ == "__main__":
 
     app = LightningApp(
         ResearchAppFlow(
+            resource_path=resource_path,
             paper=paper,
             blog=blog,
             experiment_manager=wandb,
