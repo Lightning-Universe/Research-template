@@ -13,10 +13,10 @@ logger = getLogger(__name__)
 def import_fn_by_name(fn_name: str, resource_path: Optional[str] = None) -> Callable:
     fn_name_split = fn_name.split(".")
     try:
-        patched = False
+
         if resource_path is not None:
             sys.path = [resource_path] + sys.path
-            patched = True
+
         module = importlib.import_module(".".join(fn_name_split[:-1]))
         fn = getattr(module, fn_name_split[-1])
 
@@ -26,9 +26,6 @@ def import_fn_by_name(fn_name: str, resource_path: Optional[str] = None) -> Call
         raise ImportError(
             f"We were able to import your module, but it does not have an object of the name {fn_name_split[-1]}"
         )
-    finally:
-        if patched:
-            sys.path = sys.path[1:]
 
     if not callable(fn):
         raise TypeError(
