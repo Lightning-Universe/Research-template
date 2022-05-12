@@ -20,15 +20,17 @@
 --split--
 
 # Lightning Apps
-## A framework for building AI apps where the components you want, interact together.
-## Apps can be built for any AI use case, including AI research, fault-tolerant production-ready pipelines, and everything in between.
 
+## A framework for building AI apps where the components you want, interact together.
+
+## Apps can be built for any AI use case, including AI research, fault-tolerant production-ready pipelines, and everything in between.
 
 !!! abstract "Key Features"
 
     - **Easy to use-** Lightning apps follow the Lightning philosophy- easy to read, modular, intuitive, pythonic and highly composable interface that allows you to focus on what's important for you, and automate the rest.
     - **Easy to scale**- Lightning provides a common experience locally and in the cloud. The Lightning.ai cloud platform abstracts the infrastructure, so you can run your apps at any scale. The modular and composable framework allows for simpler testing and debugging.
     - **Leverage the power of the community-** Lightning.ai offers a variety of apps for any use case you can use as is or build upon. By following the best MLOps practices provided through the apps and documentation you can deploy state-of-the-art ML applications in days, not months.
+
 
 ```mermaid
 graph LR
@@ -45,7 +47,7 @@ graph LR
 
 ### Available at : `lightning/demo/quick_start/app.py`
 
-<pre><code>
+```python
 from lightning import CloudCompute, LightningApp, LightningFlow
 from lightning.demo.quick_start import (
     PyTorchLightningScript,
@@ -53,6 +55,8 @@ from lightning.demo.quick_start import (
     ServeScript,
     train_script_path,
 )
+
+
 class RootFlow(LightningFlow):
     def __init__(self):
         super().__init__()
@@ -74,6 +78,7 @@ class RootFlow(LightningFlow):
             exposed_ports={"serving": 8888},
             cloud_compute=CloudCompute("cpu", 1),
         )
+
     def run(self):
         # 1. Run the ``train_script_path`` that trains a PyTorch model.
         self.train.run()
@@ -83,15 +88,19 @@ class RootFlow(LightningFlow):
             # 3. Serve the model until killed.
             self.serve.run(self.train.best_model_path)
             self._exit("Hello World End")
+
     def configure_layout(self):
         return [
             {"name": "Endpoint", "content": self.serve.exposed_url("serving") + "/docs"}
         ]
+
+
 app = LightningApp(RootFlow())
-</pre></code>
+```
 
 ### Citation
-```
+
+```bibtex
 @article{YourName,
   title={Your Title},
   author={Your team},

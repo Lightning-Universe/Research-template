@@ -14,11 +14,10 @@ logger = logging.getLogger(__name__)
 class JupyterWork(LightningWork):
     def __init__(
         self,
-        port: int,
         github_url: Optional[str] = None,
         blocking=False,
     ):
-        super().__init__(host="0.0.0.0", port=port, blocking=blocking)
+        super().__init__(host="0.0.0.0", blocking=blocking)
         self._proc = None
         self.pid = None
         self.exit_code = None
@@ -60,8 +59,9 @@ class JupyterWork(LightningWork):
 
         with open(jupyter_notebook_config_path, "a") as f:
             f.write(
-                """c.NotebookApp.tornado_settings = {'headers': {'Content-Security-Policy': "frame-ancestors * 'self'
-                "}} """
+                "c.NotebookApp.tornado_settings = {'headers': {'Content-Security-Policy': "
+                "\"frame-ancestors * 'self' http://0.0.0.0:7501\","
+                ' "Access-Control-Allow-Origin": "http://0.0.0.0:7501"}}'
             )
 
         cmd = f"jupyter-lab --allow-root --no-browser --ip={self.host} --port={self.port} --NotebookApp.token='' --NotebookApp.password=''"  # noqa: E501
