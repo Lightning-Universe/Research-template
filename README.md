@@ -66,6 +66,10 @@ You should see something like this in your browser:
 You can also run the app on cloud by just providing `cloud` flag in the command.
 `lightning run app app.py --name my_research_app --cloud`
 
+Here is a quick video walk-through of this app -
+
+<iframe src="https://www.loom.com/embed/b2ede1c24314479786e06f97331f52ff" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+
 ## Making contributions
 
 **Step 1:** Install the `pre-commit` hook `pre-commit install`.
