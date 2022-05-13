@@ -23,9 +23,10 @@ class PosterWork(LightningWork):
         self.resource_path = resource_path
         self.code_style = code_style
         self.background_color = background_color
+        self.ready = False
 
     def run(self):
-        print(self.resource_path)
+        self.ready = True
         mkposter(
             datadir=self.resource_path,
             background_color=self.background_color,

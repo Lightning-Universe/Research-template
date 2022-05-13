@@ -6,6 +6,7 @@ from lightning import LightningApp, LightningFlow
 from research_app.components.gradio_work import GradioWork
 from research_app.components.jupyter_work import JupyterWork
 from research_app.components.poster_work import PosterWork
+from research_app.components.work_manager_flow import ManagedWork, WorkManagerFlow
 
 
 class ResearchAppFlow(LightningFlow):
@@ -39,64 +40,60 @@ class ResearchAppFlow(LightningFlow):
         self.blog = blog
         self.github = github
         self.experiment_manager = experiment_manager
-        self.jupyter = None
-        self.gradio = None
-        self.poster = PosterWork(blocking=False, resource_path=self.resource_path)
+
+        works = [
+            ManagedWork(
+                work=PosterWork(blocking=False, resource_path=self.resource_path),
+                name="poster",
+                extra_url="/poster.html",
+            )
+        ]
         if enable_jupyter:
-            self.jupyter = JupyterWork(github_url=self.github, blocking=False)
+            works.append(
+                ManagedWork(
+                    work=JupyterWork(github_url=self.github, blocking=False),
+                    name="jupyter",
+                )
+            )
         if enable_gradio:
-            self.gradio = GradioWork(
-                "image",
-                "text",
-                "predict.build_model",
-                "predict.predict",
-                blocking=False,
-                resource_path=self.resource_path,
+            works.append(
+                ManagedWork(
+                    work=GradioWork(
+                        "image",
+                        "text",
+                        "predict.build_model",
+                        "predict.predict",
+                        blocking=False,
+                        resource_path=self.resource_path,
+                    ),
+                    name="predict",
+                )
             )
 
+        self.work_manager = WorkManagerFlow(*works)
+
     def run(self) -> None:
-        if self.jupyter:
-            self.jupyter.run()
-        if self.gradio:
-            self.gradio.run()
-        self.poster.run()
+        self.work_manager.run()
 
     def configure_layout(self) -> List[Dict]:
         tabs = []
-        tabs.append(
-            {
-                "name": "Poster",
-                "content": self.poster.url + "/poster.html",
-            }
-        )
+
         if self.paper:
             tabs.append({"name": "Paper", "content": self.paper})
         if self.blog:
             tabs.append({"name": "Blog", "content": self.blog})
 
         if self.experiment_manager:
-            tabs.append(
-                {"name": "Experiment Manager", "content": self.experiment_manager}
-            )
-        if self.jupyter:
-            tabs.append(
-                {
-                    "name": "Jupyter",
-                    "content": self.jupyter.url,
-                },  # E501
-            )
+            tabs.append({"name": "Experiment Manager", "content": self.experiment_manager})
         if self.github:
-            tabs.append(
-                {"name": "Code", "content": f"https://github.dev/#{self.github}"}
-            )
+            tabs.append({"name": "Code", "content": f"https://github.dev/#{self.github}"})
 
-        if self.gradio:
-            tabs.append(
-                {
-                    "name": "Deployment",
-                    "content": self.gradio.url,
-                },  # E501
-            )
+        if not self.work_manager.all_ready:
+            tabs.append({"name": "Waiting room", "content": self.work_manager})
+
+        for work in ManagedWork.get_all_from_instance(self.work_manager):
+            if work.work.ready:
+                tabs.append({"name": work.name, "content": work.work.url + work.extra_url})
 
         return tabs
 

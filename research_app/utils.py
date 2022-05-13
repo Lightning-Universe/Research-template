@@ -28,9 +28,7 @@ def import_fn_by_name(fn_name: str, resource_path: Optional[str] = None) -> Call
         )
 
     if not callable(fn):
-        raise TypeError(
-            "We were able to import requested object, but it is not callable!"
-        )
+        raise TypeError("We were able to import requested object, but it is not callable!")
 
     return fn
 
@@ -76,6 +74,4 @@ def clone_repo(url: str):
 
 
 if __name__ == "__main__":
-    clone_repo(
-        "https://github.com/PyTorchLightning/lightning-template-research-app.git"  # E501
-    )
+    clone_repo("https://github.com/PyTorchLightning/lightning-template-research-app.git")  # E501
