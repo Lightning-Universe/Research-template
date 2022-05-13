@@ -28,15 +28,47 @@ cd lightning-template-research-app
 python setup.py install develop
 ```
 
-### How to Run?
+### Share Research with Lightning App
 
-**1. Run locally**
-`` lightning run app app.py --name poster-`date -u +%H:%M ``
+The poster app has a `ResearchAppFlow` class that provides flags that you can use to quickly build an app without knowing
+any web development.
 
-**2. Run on the Lightning cloud**
-`` lightning run app app.py --name poster-`date -u +%H:%M --cloud ``
+You can provide the links for each flag, and the app will automatically load and show each of the content in tabs.
 
-### Making contributions
+You can fork and clone the repo to edit the arguments and update the markdown poster or Gradio app.
+
+```python
+from lightning import LightningApp
+from app import ResearchAppFlow
+
+paper = "https://arxiv.org/pdf/2103.00020.pdf"
+blog = "https://openai.com/blog/clip/"
+github = "https://github.com/mlfoundations/open_clip"
+wandb = "https://wandb.ai/aniketmaurya/herbarium-2022/runs/2dvwrme5"
+
+app = LightningApp(
+    ResearchAppFlow(
+        paper=paper,
+        blog=blog,
+        experiment_manager=wandb,
+        enable_jupyter=True,
+        enable_gradio=True,
+    )
+)
+```
+
+To run this app, launch the terminal and enter `lightning run app FILENAME.py`
+
+You should see something like this in your browser:
+
+![image](./assets/demo.png)
+
+You can also run the app on cloud by just providing `cloud` flag in the command.
+`lightning run app app.py --name my_research_app --cloud`
+
+Here is a quick video walk-through of this app -
+
+## Making contributions
 
 **Step 1:** Install the `pre-commit` hook `pre-commit install`.
 
