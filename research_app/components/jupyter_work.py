@@ -17,7 +17,7 @@ class JupyterWork(LightningWork):
         github_url: Optional[str] = None,
         blocking=False,
     ):
-        super().__init__(host="0.0.0.0", blocking=blocking)
+        super().__init__(blocking=blocking)
         self._proc = None
         self.pid = None
         self.exit_code = None
@@ -28,9 +28,7 @@ class JupyterWork(LightningWork):
         if self.github_url:
             clone_repo(self.github_url)
 
-        jupyter_notebook_config_path = (
-            Path.home() / ".jupyter/jupyter_notebook_config.py"
-        )
+        jupyter_notebook_config_path = Path.home() / ".jupyter/jupyter_notebook_config.py"
 
         try:
             os.remove(jupyter_notebook_config_path)
