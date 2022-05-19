@@ -43,7 +43,7 @@ class ResearchAppFlow(LightningFlow):
 
         works = [
             ManagedWork(
-                work=PosterWork(blocking=False, resource_path=self.resource_path),
+                work=PosterWork(parallel=True, resource_path=self.resource_path),
                 name="poster",
                 extra_url="/poster.html",
             )
@@ -51,7 +51,7 @@ class ResearchAppFlow(LightningFlow):
         if enable_jupyter:
             works.append(
                 ManagedWork(
-                    work=JupyterWork(github_url=self.github, blocking=False),
+                    work=JupyterWork(github_url=self.github, parallel=True),
                     name="jupyter",
                 )
             )
@@ -63,7 +63,7 @@ class ResearchAppFlow(LightningFlow):
                         "text",
                         "predict.build_model",
                         "predict.predict",
-                        blocking=False,
+                        parallel=True,
                         resource_path=self.resource_path,
                     ),
                     name="predict",
