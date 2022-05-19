@@ -17,7 +17,7 @@ class PosterWork(LightningWork):
         resource_path: str,
         code_style="github",
         background_color="#F6F6EF",
-        parallel=False,
+        parallel=True,
     ):
         super().__init__(parallel=parallel)
         self.resource_path = resource_path

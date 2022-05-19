@@ -15,7 +15,7 @@ class JupyterWork(LightningWork):
     def __init__(
         self,
         github_url: Optional[str] = None,
-        parallel=False,
+        parallel=True,
     ):
         super().__init__(parallel=parallel)
         self._proc = None
