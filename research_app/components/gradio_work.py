@@ -12,7 +12,7 @@ class GradioWork(ServeGradio):
     """
     :param port: Port address for app. By default it will automatically select
     from an internal PORT POOL
-    :param blocking: Whether the Work is blocking
+    :param parallel: Whether the Work is parallel
     """  # E501
 
     def __init__(
@@ -21,10 +21,10 @@ class GradioWork(ServeGradio):
         outputs: Any,
         build_fn: str,
         predict_fn: str,
-        blocking: bool = False,
+        parallel: bool = False,
         resource_path: Optional[str] = None,
     ):
-        super(ServeGradio, self).__init__(blocking=blocking)
+        super(ServeGradio, self).__init__(parallel=parallel)
         self.inputs = inputs
         self.outputs = outputs
         self._build_fn = import_fn_by_name(build_fn, resource_path)

@@ -15,9 +15,9 @@ class JupyterWork(LightningWork):
     def __init__(
         self,
         github_url: Optional[str] = None,
-        blocking=False,
+        parallel=False,
     ):
-        super().__init__(blocking=blocking)
+        super().__init__(parallel=parallel)
         self._proc = None
         self.pid = None
         self.exit_code = None
