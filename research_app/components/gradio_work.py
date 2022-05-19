@@ -21,7 +21,7 @@ class GradioWork(ServeGradio):
         outputs: Any,
         build_fn: str,
         predict_fn: str,
-        parallel: bool = False,
+        parallel: bool = True,
         resource_path: Optional[str] = None,
     ):
         super(ServeGradio, self).__init__(parallel=parallel)
