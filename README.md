@@ -25,7 +25,8 @@ Step 2: Clone Research App
 ```
 git clone https://github.com/PyTorchLightning/lightning-template-research-app.git
 cd lightning-template-research-app
-python setup.py install develop
+pip install -r requirements.txt
+pip install -e .
 ```
 
 ### Share Research with Lightning App
