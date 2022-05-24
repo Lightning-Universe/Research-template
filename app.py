@@ -9,8 +9,9 @@ from research_app.components.poster_work import PosterWork
 from research_app.components.work_manager_flow import ManagedWork, WorkManagerFlow
 
 
-class ResearchAppFlow(LightningFlow):
-    """
+class ResearchApp(LightningFlow):
+    """Share everything about your research within a single app.
+
     :param paper: Paper PDF url
     :param blog: Blog web url
     :param github: GitHub repo Url. Repo will be cloned into
@@ -107,7 +108,7 @@ if __name__ == "__main__":
     wandb = "https://wandb.ai/aniketmaurya/herbarium-2022/runs/2dvwrme5"
 
     app = LightningApp(
-        ResearchAppFlow(
+        ResearchApp(
             resource_path=resource_path,
             paper=paper,
             blog=blog,

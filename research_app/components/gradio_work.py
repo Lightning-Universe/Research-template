@@ -9,11 +9,10 @@ logger = logging.getLogger(__name__)
 
 
 class GradioWork(ServeGradio):
+    """Serve model with Gradio UI.
+
+    You need to create a predict.py module with build_model and predict function.
     """
-    :param port: Port address for app. By default it will automatically select
-    from an internal PORT POOL
-    :param parallel: Whether the Work is parallel
-    """  # E501
 
     def __init__(
         self,
