@@ -35,6 +35,7 @@ class ResearchAppFlow(LightningFlow):
     ) -> None:
 
         super().__init__()
+        print("⚡ Lightning Research App! ⚡")
         self.resource_path = os.path.abspath(resource_path)
         self.paper = paper
         self.blog = blog
