@@ -40,7 +40,7 @@ You can fork and clone the repo to edit the arguments and update the markdown po
 
 ```python
 from lightning import LightningApp
-from app import ResearchAppFlow
+from research_app import ResearchApp
 
 paper = "https://arxiv.org/pdf/2103.00020.pdf"
 blog = "https://openai.com/blog/clip/"
@@ -48,7 +48,7 @@ github = "https://github.com/mlfoundations/open_clip"
 wandb = "https://wandb.ai/aniketmaurya/herbarium-2022/runs/2dvwrme5"
 
 app = LightningApp(
-    ResearchAppFlow(
+    ResearchApp(
         paper=paper,
         blog=blog,
         experiment_manager=wandb,

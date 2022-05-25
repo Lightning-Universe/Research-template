@@ -11,7 +11,7 @@ from research_app.utils import clone_repo
 logger = logging.getLogger(__name__)
 
 
-class JupyterWork(LightningWork):
+class JupyterNotebookWork(LightningWork):
     def __init__(
         self,
         github_url: Optional[str] = None,
