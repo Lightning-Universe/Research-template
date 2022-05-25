@@ -15,7 +15,7 @@ if __name__ == "__main__":
             paper=paper,
             blog=blog,
             experiment_manager=wandb,
-            enable_jupyter=True,
+            enable_notebook=True,
             enable_gradio=True,
         )
     )

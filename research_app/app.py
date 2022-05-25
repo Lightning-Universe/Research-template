@@ -17,11 +17,9 @@ class ResearchApp(LightningFlow):
     :param github: GitHub repo Url. Repo will be cloned into
     the current directory
     :param experiment_manager: Link for experiment manager like wandb/tensorboard
-    :param enable_jupyter: To launch a Jupyter notebook set this to True
+    :param enable_notebook: To launch a Jupyter notebook set this to True
     :param enable_gradio: To launch a Gradio notebook set this to True.
     You should update the `research_app/serve/gradio_app.py` file to your use case.
-    :param jupyter_port: Provide a port to launch Jupyter
-    :param gradio_port: Gradio will be launched on the provided port.
     """
 
     def __init__(
@@ -31,7 +29,7 @@ class ResearchApp(LightningFlow):
         blog: Optional[str] = None,
         github: Optional[str] = None,
         experiment_manager: Optional[str] = None,
-        enable_jupyter: bool = False,
+        enable_notebook: bool = False,
         enable_gradio: bool = False,
     ) -> None:
 
@@ -50,7 +48,7 @@ class ResearchApp(LightningFlow):
                 extra_url="/poster.html",
             )
         ]
-        if enable_jupyter:
+        if enable_notebook:
             works.append(
                 ManagedWork(
                     work=JupyterNotebookWork(github_url=self.github, parallel=True),
