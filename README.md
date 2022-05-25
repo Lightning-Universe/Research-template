@@ -40,7 +40,7 @@ You can fork and clone the repo to edit the arguments and update the markdown po
 
 ```python
 from lightning import LightningApp
-from app import ResearchApp
+from research_app import ResearchApp
 
 paper = "https://arxiv.org/pdf/2103.00020.pdf"
 blog = "https://openai.com/blog/clip/"
