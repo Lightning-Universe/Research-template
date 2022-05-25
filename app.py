@@ -4,10 +4,10 @@ from research_app import ResearchApp
 
 if __name__ == "__main__":
     resource_path = "resources"
-    paper = "https://arxiv.org/pdf/2103.00020.pdf"
-    blog = "https://openai.com/blog/clip/"
-    github = "https://github.com/mlfoundations/open_clip"
-    wandb = "https://wandb.ai/aniketmaurya/herbarium-2022/runs/2dvwrme5"
+    paper = "https://arxiv.org/pdf/2102.12092"
+    blog = "https://wandb.ai/dalle-mini/dalle-mini/reports/DALL-E-Mini-Explained-with-Demo--Vmlldzo4NjIxODA"
+    github = "https://github.com/borisdayma/dalle-mini"
+    wandb = "https://wandb.ai/dalle-mini/dalle-mini/runs/3r9ew7qt?workspace="
 
     app = LightningApp(
         ResearchApp(

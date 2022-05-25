@@ -4,7 +4,7 @@
 </div>
 <div style="flex: 0 0 65%; text-align: center;">
 <h1 style="margin-bottom: 10pt;">Awesome ML Poster</h1>
-<h2>The PyTorch Lightning team.</h2>
+<h2>The Lightning team.</h2>
 </div>
 <div style="flex: 1">
     <div style="display: flex; align-items: center;">
@@ -45,59 +45,26 @@ graph LR
 
 # Easy-to-use syntax
 
-### Available at : `lightning/demo/quick_start/app.py`
+### Available at : `PyTorchLightning/lightning-template-research-app/app.py`
 
 ```python
+from lightning import LightningApp
+from research_app import ResearchApp
 
-from lightning import CloudCompute, LightningApp, LightningFlow
-from lightning.demo.quick_start import (
-    PyTorchLightningScript,
-    serve_script_path,
-    ServeScript,
-    train_script_path,
+paper = "https://arxiv.org/pdf/2103.00020.pdf"
+blog = "https://openai.com/blog/clip/"
+github = "https://github.com/mlfoundations/open_clip"
+wandb = "https://wandb.ai/aniketmaurya/herbarium-2022/runs/2dvwrme5"
+
+app = LightningApp(
+    ResearchApp(
+        paper=paper,
+        blog=blog,
+        experiment_manager=wandb,
+        enable_jupyter=True,
+        enable_gradio=True,
+    )
 )
-
-
-class RootFlow(LightningFlow):
-    def __init__(self):
-        super().__init__()
-        # Those are custom components for demo purposes
-        # and you can modify them or create your own.
-        self.train = PyTorchLightningScript(
-            script_path=train_script_path,
-            script_args=[
-                "--trainer.max_epochs=4",
-                "--trainer.limit_train_batches=4",
-                "--trainer.limit_val_batches=4",
-                "--trainer.callbacks=ModelCheckpoint",
-                "--trainer.callbacks.monitor=val_acc",
-            ],
-            cloud_compute=CloudCompute("cpu", 1),
-        )
-        self.serve = ServeScript(
-            script_path=serve_script_path,
-            exposed_ports={"serving": 8888},
-            cloud_compute=CloudCompute("cpu", 1),
-        )
-
-    def run(self):
-        # 1. Run the ``train_script_path`` that trains a PyTorch model.
-        self.train.run()
-        # 2. Will be True when a checkpoint is created by the ``train_script_path``
-        # and added to the train work state.
-        if self.train.best_model_path is not None:
-            # 3. Serve the model until killed.
-            self.serve.run(self.train.best_model_path)
-            self._exit("Hello World End")
-
-    def configure_layout(self):
-        return [
-            {"name": "Endpoint", "content": self.serve.exposed_url("serving") + "/docs"}
-        ]
-
-
-app = LightningApp(RootFlow())
-
 ```
 
 ### Citation
