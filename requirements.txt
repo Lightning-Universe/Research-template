@@ -2,6 +2,6 @@ gradio==2.9.4
 jupyterlab==3.3.3
 lightning-flash[image]>=0.7.3
 pytorch-lightning>=1.6.1
-mkposters @ git+https://github.com/stanbiryukov/mkposters@522858cfe06d5438094302ff3d5c8b9256a5a4de
-streamlit>=1.8.0
-streamlit_autorefresh
+mkposters@ git+https://github.com/stanbiryukov/mkposters@522858cfe06d5438094302ff3d5c8b9256a5a4de
+streamlit==1.9.0
+streamlit-autorefresh==0.0.1
