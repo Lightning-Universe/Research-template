@@ -31,7 +31,7 @@ pip install -e .
 
 ### Share Research with Lightning App
 
-The poster app has a `ResearchAppFlow` class that provides flags that you can use to quickly build an app without knowing
+The poster app has a `ResearchApp` class that provides flags that you can use to quickly build an app without knowing
 any web development.
 
 You can provide the links for each flag, and the app will automatically load and show each of the content in tabs.
@@ -39,8 +39,7 @@ You can provide the links for each flag, and the app will automatically load and
 You can fork and clone the repo to edit the arguments and update the markdown poster or Gradio app.
 
 ```python
-from lightning import LightningApp
-from research_app import ResearchApp
+# update app.py at the root of the repo
 
 paper = "https://arxiv.org/pdf/2103.00020.pdf"
 blog = "https://openai.com/blog/clip/"
