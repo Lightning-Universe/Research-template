@@ -1,15 +1,11 @@
 import setuptools
 
-with open("requirements.txt") as f:
-    requirements = f.read().splitlines()
-
 setuptools.setup(
     name="research_app",
     version="0.0.1",
     description="Research App",
     author="Grid.ai",
     packages=setuptools.find_packages(where="research_app*"),
-    install_requires=[requirements],
     include_package_data=False,
     extras_require={
         "dev": [
