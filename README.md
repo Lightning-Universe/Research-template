@@ -9,19 +9,6 @@ You can fork or clone this template app and start editing or overriding the cont
 
 ### Installation
 
-Step 1: Install `lightning`
-
-```bash
-git clone https://github.com/PyTorchLightning/lightning.git
-cd lightning
-# mandatory step to pull the dependencies from extra-index-url
-pip install -r requirements.txt
-pip install -e .
-python scripts/download_frontend.py
-```
-
-Step 2: Clone Research App
-
 ```
 git clone https://github.com/PyTorchLightning/lightning-template-research-app.git
 cd lightning-template-research-app
