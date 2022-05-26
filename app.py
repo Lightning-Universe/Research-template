@@ -66,7 +66,7 @@ class ResearchApp(LightningFlow):
                         parallel=True,
                         resource_path=self.resource_path,
                     ),
-                    name="model demo",
+                    name="demo",
                 )
             )
 
