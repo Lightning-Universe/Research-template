@@ -3,10 +3,10 @@ from typing import Dict, List, Optional
 
 from lightning import LightningApp, LightningFlow
 
-from research_app.components.gradio_demo import GradioWork
-from research_app.components.markdown_poster import PosterWork
-from research_app.components.notebook import JupyterNotebookWork
-from research_app.components.work_manager import ManagedWork, WorkManagerFlow
+from research_app.components.gradio_work import GradioWork
+from research_app.components.jupyter_work import JupyterNotebookWork
+from research_app.components.poster_work import PosterWork
+from research_app.components.work_manager_flow import ManagedWork, WorkManagerFlow
 
 
 class ResearchApp(LightningFlow):
