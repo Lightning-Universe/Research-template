@@ -61,8 +61,6 @@ class ResearchApp(LightningFlow):
             works.append(
                 ManagedWork(
                     work=GradioWork(
-                        "text",
-                        "html",
                         "predict.build_model",
                         "predict.predict",
                         parallel=True,

@@ -21,8 +21,7 @@
 
 # CLIP: Connecting Text and Images
 
-OpenAI introduced a neural network called CLIP which efficiently learns visual concepts from natural language
-supervision.
+## OpenAI introduced a neural network called CLIP which efficiently learns visual concepts from natural language supervision.
 
 This app is a demo
 of [Lightning Research Template app](https://github.com/PyTorchLightning/lightning-template-research-app) which allows
@@ -35,15 +34,24 @@ You can fork this app and edit to customize according to your need.
 Thanks to [Vivien](https://github.com/vivien000) for building amazing application using
 CLIP [Minimal user-friendly demo of OpenAI's CLIP for semantic image search](https://github.com/vivien000/clip-demo).
 
-### Lightning Apps can be built for any AI use case, including AI research, fault-tolerant production-ready pipelines, and everything in between.
+<img src="https://openaiassets.blob.core.windows.net/$web/clip/draft/20210104b/overview-a.svg">
+
+CLIP pre-trains an image encoder and a text encoder to predict which images were paired with which texts in our dataset.
+We then use this behavior to turn CLIP into a zero-shot classifier. We convert all of a dataset’s classes into captions
+such as “a photo of a dog” and predict the class of the caption CLIP estimates best pairs with a given image.
+
+
+--split--
+
+# Lightning Apps
+
+## Lightning Apps can be built for any AI use case, including AI research, fault-tolerant production-ready pipelines, and everything in between.
 
 !!! abstract "Key Features"
 
-```
-- **Easy to use-** Lightning apps follow the Lightning philosophy- easy to read, modular, intuitive, pythonic and highly composable interface that allows you to focus on what's important for you, and automate the rest.
-- **Easy to scale**- Lightning provides a common experience locally and in the cloud. The Lightning.ai cloud platform abstracts the infrastructure, so you can run your apps at any scale. The modular and composable framework allows for simpler testing and debugging.
-- **Leverage the power of the community-** Lightning.ai offers a variety of apps for any use case you can use as is or build upon. By following the best MLOps practices provided through the apps and documentation you can deploy state-of-the-art ML applications in days, not months.
-```
+    - **Easy to use-** Lightning apps follow the Lightning philosophy- easy to read, modular, intuitive, pythonic and highly composable interface that allows you to focus on what's important for you, and automate the rest.
+    - **Easy to scale**- Lightning provides a common experience locally and in the cloud. The Lightning.ai cloud platform abstracts the infrastructure, so you can run your apps at any scale. The modular and composable framework allows for simpler testing and debugging.
+    - **Leverage the power of the community-** Lightning.ai offers a variety of apps for any use case you can use as is or build upon. By following the best MLOps practices provided through the apps and documentation you can deploy state-of-the-art ML applications in days, not months.
 
 ```mermaid
 graph LR
@@ -53,10 +61,6 @@ graph LR
     B -->|DB integration| D[Lightning Work 2]
     B -->|User auth| E[Lightning Work 3]
 ```
-
---split--
-
-# Easy-to-use syntax
 
 ### Available at : `PyTorchLightning/lightning-template-research-app/app.py`
 
@@ -82,11 +86,13 @@ app = LightningApp(
 
 ### Citation
 
-```
+```bibtex
+
 @article{YourName,
   title={Your Title},
   author={Your team},
   journal={Location},
   year={Year}
 }
+
 ```
