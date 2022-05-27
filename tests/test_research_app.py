@@ -12,6 +12,8 @@ from contextlib import redirect_stdout
 
 from lightning.testing.testing import LightningTestApp, application_testing
 
+os.environ["TESTING_LAI"] = "true"
+
 
 class LightningAppTestInt(LightningTestApp):
     def run_once(self) -> bool:
@@ -19,6 +21,7 @@ class LightningAppTestInt(LightningTestApp):
         with redirect_stdout(f):
             super().run_once()
         out = f.getvalue()
+        assert "⚡ Lightning Research App! ⚡\n" == out
         return True
 
 
