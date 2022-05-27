@@ -19,7 +19,7 @@ class ResearchApp(LightningFlow):
     :param blog: Blog web url
     :param github: GitHub repo Url. Repo will be cloned into
     the current directory
-    :param experiment_manager: Link for experiment manager like wandb/tensorboard
+    :param training_log_url: Link for experiment manager like wandb/tensorboard
     :param enable_notebook: To launch a Jupyter notebook set this to True
     :param enable_gradio: To launch a Gradio notebook set this to True.
     You should update the `research_app/serve/gradio_app.py` file to your use case.
@@ -31,7 +31,7 @@ class ResearchApp(LightningFlow):
         paper: Optional[str] = None,
         blog: Optional[str] = None,
         github: Optional[str] = None,
-        experiment_manager: Optional[str] = None,
+        training_log_url: Optional[str] = None,
         enable_notebook: bool = False,
         enable_gradio: bool = False,
     ) -> None:
@@ -41,7 +41,7 @@ class ResearchApp(LightningFlow):
         self.paper = paper
         self.blog = blog
         self.github = github
-        self.experiment_manager = experiment_manager
+        self.training_logs = training_log_url
 
         works = [
             ManagedWork(
@@ -61,8 +61,8 @@ class ResearchApp(LightningFlow):
             works.append(
                 ManagedWork(
                     work=GradioWork(
-                        "image",
                         "text",
+                        "html",
                         "predict.build_model",
                         "predict.predict",
                         parallel=True,
@@ -82,13 +82,15 @@ class ResearchApp(LightningFlow):
     def configure_layout(self) -> List[Dict]:
         tabs = []
 
-        if self.paper:
-            tabs.append({"name": "Paper", "content": self.paper})
         if self.blog:
             tabs.append({"name": "Blog", "content": self.blog})
 
-        if self.experiment_manager:
-            tabs.append({"name": "Experiment Manager", "content": self.experiment_manager})
+        if self.paper:
+            tabs.append({"name": "Paper", "content": self.paper})
+
+        if self.training_logs:
+            tabs.append({"name": "Training Logs", "content": self.training_logs})
+
         if self.github:
             tabs.append({"name": "Code", "content": f"https://github.dev/#{self.github}"})
 
@@ -114,7 +116,7 @@ if __name__ == "__main__":
             resource_path=resource_path,
             paper=paper,
             blog=blog,
-            experiment_manager=wandb,
+            training_log_url=wandb,
             enable_notebook=True,
             enable_gradio=True,
         )
