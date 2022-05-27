@@ -1,12 +1,15 @@
+import logging
 import os
 from typing import Dict, List, Optional
 
 from lightning import LightningApp, LightningFlow
 
-from research_app.components.gradio_work import GradioWork
-from research_app.components.jupyter_work import JupyterNotebookWork
-from research_app.components.poster_work import PosterWork
-from research_app.components.work_manager_flow import ManagedWork, WorkManagerFlow
+from research_app.components.gradio_demo import GradioWork
+from research_app.components.markdown_poster import PosterWork
+from research_app.components.notebook import JupyterNotebookWork
+from research_app.components.work_manager import ManagedWork, WorkManagerFlow
+
+logger = logging.getLogger(__name__)
 
 
 class ResearchApp(LightningFlow):
@@ -34,7 +37,6 @@ class ResearchApp(LightningFlow):
     ) -> None:
 
         super().__init__()
-        print("⚡ Lightning Research App! ⚡")
         self.resource_path = os.path.abspath(resource_path)
         self.paper = paper
         self.blog = blog
@@ -73,6 +75,8 @@ class ResearchApp(LightningFlow):
         self.work_manager = WorkManagerFlow(*works)
 
     def run(self) -> None:
+        if os.environ.get("TESTING_LAI"):
+            print("⚡ Lightning Research App! ⚡")
         self.work_manager.run()
 
     def configure_layout(self) -> List[Dict]:
