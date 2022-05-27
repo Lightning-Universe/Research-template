@@ -1,6 +1,7 @@
 import logging
 from typing import Any, Optional
 
+import gradio as gr
 from lightning.components.serve import ServeGradio
 
 from ..utils import import_fn_by_name
@@ -14,18 +15,18 @@ class GradioWork(ServeGradio):
     You need to create a predict.py module with build_model and predict function.
     """
 
+    inputs = gr.inputs.Textbox(default="Doctor Strange Multiverse", label="Search your favourite movie here")
+    outputs = gr.outputs.HTML(label="Fetch Images from <b>themoviedb.org</b>")
+    # examples = [["A cat reading a book"]]
+
     def __init__(
         self,
-        inputs: Any,
-        outputs: Any,
         build_fn: str,
         predict_fn: str,
         parallel: bool = True,
         resource_path: Optional[str] = None,
     ):
         super(ServeGradio, self).__init__(parallel=parallel)
-        self.inputs = inputs
-        self.outputs = outputs
         self._build_fn = import_fn_by_name(build_fn, resource_path)
         self._predict_fn = import_fn_by_name(predict_fn, resource_path)
         self._model = None
