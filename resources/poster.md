@@ -37,9 +37,8 @@ CLIP [Minimal user-friendly demo of OpenAI's CLIP for semantic image search](htt
 <img src="https://openaiassets.blob.core.windows.net/$web/clip/draft/20210104b/overview-a.svg">
 
 CLIP pre-trains an image encoder and a text encoder to predict which images were paired with which texts in our dataset.
-We then use this behavior to turn CLIP into a zero-shot classifier. We convert all of a dataset’s classes into captions
-such as “a photo of a dog” and predict the class of the caption CLIP estimates best pairs with a given image.
-
+We then use this behavior to turn CLIP into a zero-shot classifier. We convert all of a dataset's classes into captions
+such as "a photo of a dog" and predict the class of the caption CLIP estimates best pairs with a given image.
 
 --split--
 
