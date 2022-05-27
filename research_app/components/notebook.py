@@ -62,7 +62,7 @@ class JupyterNotebookWork(LightningWork):
                 ' "Access-Control-Allow-Origin": "http://0.0.0.0"}}'
             )
 
-        cmd = f"jupyter-lab --allow-root --no-browser --ip={self.host} --port={self.port} --NotebookApp.token='' --NotebookApp.password=''"  # noqa: E501
+        cmd = f"jupyter-notebook --allow-root --no-browser --ip={self.host} --port={self.port} --NotebookApp.token='' --NotebookApp.password=''"  # noqa: E501
 
         with subprocess.Popen(
             cmd.split(" "),

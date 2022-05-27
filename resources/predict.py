@@ -12,29 +12,29 @@ def download_files():
     print("Downloading embeddings, this might take some time!")
     urllib.request.urlretrieve(
         "https://drive.google.com/uc?export=download&id=1onKr-pfWb4l6LgL-z8WDod3NMW-nIJxE",
-        "resouexamples/clip/resources/embeddings.npy",
+        "resources/embeddings.npy",
     )
     urllib.request.urlretrieve(
         "https://drive.google.com/uc?export=download&id=1KbwUkE0T8bpnHraqSzTeGGV4-TZO_CFB",
-        "examples/clip/resources/embeddings2.npy",
+        "resources/embeddings2.npy",
     )
     urllib.request.urlretrieve(
         "https://drive.google.com/uc?export=download&id=1bt1O-iArKuU9LGkMV1zUPTEHZk8k7L65",
-        "examples/clip/resources/data.csv",
+        "resources/data.csv",
     )
     urllib.request.urlretrieve(
         "https://drive.google.com/uc?export=download&id=19aVnFBY-Rc0-3VErF_C7PojmWpBsb5wk",
-        "examples/clip/resources/data2.csv",
+        "resources/data2.csv",
     )
 
 
-if not os.path.exists("examples/clip/resources/data.csv"):
+if not os.path.exists("resources/data.csv"):
     download_files()
 
-df = {0: pd.read_csv("examples/clip/resources/data.csv"), 1: pd.read_csv("examples/clip/resources/data2.csv")}
+df = {0: pd.read_csv("resources/data.csv"), 1: pd.read_csv("resources/data2.csv")}
 EMBEDDINGS = {
-    0: np.load("examples/clip/resources/embeddings.npy"),
-    1: np.load("examples/clip/resources/embeddings2.npy"),
+    0: np.load("resources/embeddings.npy"),
+    1: np.load("resources/embeddings2.npy"),
 }
 for k in [0, 1]:
     EMBEDDINGS[k] = np.divide(EMBEDDINGS[k], np.sqrt(np.sum(EMBEDDINGS[k] ** 2, axis=1, keepdims=True)))
