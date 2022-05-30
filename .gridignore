@@ -391,3 +391,5 @@ wandb/
 .git/
 *.npy
 *.csv
+github/
+_output/
