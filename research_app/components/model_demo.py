@@ -9,7 +9,7 @@ from ..utils import import_fn_by_name
 logger = logging.getLogger(__name__)
 
 
-class GradioWork(ServeGradio):
+class ModelDemo(ServeGradio):
     """Serve model with Gradio UI.
 
     You need to create a predict.py module with build_model and predict function.
@@ -17,6 +17,7 @@ class GradioWork(ServeGradio):
 
     inputs = gr.inputs.Textbox(default="Doctor Strange Multiverse", label="Search your favourite movie here")
     outputs = gr.outputs.HTML(label="Fetch Images from <b>themoviedb.org</b>")
+
     # examples = [["A cat reading a book"]]
 
     def __init__(

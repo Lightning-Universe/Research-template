@@ -6,7 +6,7 @@ from mkposters import mkposter
 logger = logging.getLogger(__name__)
 
 
-class PosterWork(LightningWork):
+class Poster(LightningWork):
     """
     :param port: Port address for app.
     :param parallel: Whether the Work is parallel
