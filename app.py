@@ -4,9 +4,9 @@ from typing import Dict, List, Optional
 
 from lightning import LightningApp, LightningFlow
 
+from research_app.components.jupyter_lite import JupyterLite
 from research_app.components.markdown_poster import Poster
 from research_app.components.model_demo import ModelDemo
-from research_app.components.notebook import JupyterNotebook
 
 logger = logging.getLogger(__name__)
 
@@ -43,10 +43,10 @@ class ResearchApp(LightningFlow):
         self.training_logs = training_log_url
         self.enable_notebook = enable_notebook
         self.enable_gradio = enable_gradio
-        self.poster_work = Poster(parallel=True, resource_path=self.resource_path)
+        self.poster = Poster(parallel=True, resource_path=self.resource_path)
 
         if enable_notebook:
-            self.notebook = JupyterNotebook(github_url=self.github, parallel=True)
+            self.notebook = JupyterLite(self.github)
 
         if enable_gradio:
             self.model_demo = ModelDemo(
@@ -59,7 +59,7 @@ class ResearchApp(LightningFlow):
     def run(self) -> None:
         if os.environ.get("TESTING_LAI"):
             print("⚡ Lightning Research App! ⚡")
-        self.poster_work.run()
+        self.poster.run()
         if self.enable_notebook:
             self.notebook.run()
         if self.enable_gradio:
@@ -74,7 +74,7 @@ class ResearchApp(LightningFlow):
         if self.paper:
             tabs.append({"name": "Paper", "content": self.paper})
 
-        tabs.append({"name": "Poster", "content": self.poster_work.url + "/poster.html"})
+        tabs.append({"name": "Poster", "content": self.poster.url + "/poster.html"})
 
         if self.enable_notebook:
             tabs.append({"name": "Notebook", "content": self.notebook.url})
@@ -101,6 +101,7 @@ if __name__ == "__main__":
             paper=paper,
             blog=blog,
             training_log_url=wandb,
+            github=github,
             enable_notebook=True,
             enable_gradio=True,
         )
