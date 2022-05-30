@@ -46,7 +46,7 @@ class ResearchApp(LightningFlow):
         self.poster = Poster(parallel=True, resource_path=self.resource_path)
 
         if enable_notebook:
-            self.jupyter_lite = JupyterLite(self.github)
+            self.notebook = JupyterLite(self.github)
 
         if enable_gradio:
             self.model_demo = ModelDemo(
@@ -61,7 +61,7 @@ class ResearchApp(LightningFlow):
             print("⚡ Lightning Research App! ⚡")
         self.poster_work.run()
         if self.enable_notebook:
-            self.jupyter_lite.run()
+            self.notebook.run()
         if self.enable_gradio:
             self.model_demo.run()
 
@@ -77,7 +77,7 @@ class ResearchApp(LightningFlow):
         tabs.append({"name": "Poster", "content": self.poster.url + "/poster.html"})
 
         if self.enable_notebook:
-            tabs.append({"name": "Notebook", "content": self.jupyter_lite.url})
+            tabs.append({"name": "Notebook", "content": self.notebook.url})
 
         if self.training_logs:
             tabs.append({"name": "Training Logs", "content": self.training_logs})
