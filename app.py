@@ -59,7 +59,7 @@ class ResearchApp(LightningFlow):
     def run(self) -> None:
         if os.environ.get("TESTING_LAI"):
             print("⚡ Lightning Research App! ⚡")
-        self.poster_work.run()
+        self.poster.run()
         if self.enable_notebook:
             self.notebook.run()
         if self.enable_gradio:
