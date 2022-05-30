@@ -70,7 +70,7 @@ def clone_repo(url: str):
         cmd = f"cd {target_path} && git pull"
     else:
         cmd = f"git clone {url} {target_path}"
-    return run_command(cmd)
+    return subprocess.run(cmd, shell=True), target_path
 
 
 if __name__ == "__main__":
