@@ -4,9 +4,9 @@ from typing import Dict, List, Optional
 
 from lightning import LightningApp, LightningFlow
 
-from research_app.components.gradio_demo import GradioWork
-from research_app.components.markdown_poster import PosterWork
-from research_app.components.notebook import JupyterNotebookWork
+from research_app.components.markdown_poster import Poster
+from research_app.components.model_demo import ModelDemo
+from research_app.components.notebook import JupyterNotebook
 
 logger = logging.getLogger(__name__)
 
@@ -43,13 +43,13 @@ class ResearchApp(LightningFlow):
         self.training_logs = training_log_url
         self.enable_notebook = enable_notebook
         self.enable_gradio = enable_gradio
-        self.poster_work = PosterWork(parallel=True, resource_path=self.resource_path)
+        self.poster_work = Poster(parallel=True, resource_path=self.resource_path)
 
         if enable_notebook:
-            self.notebook = JupyterNotebookWork(github_url=self.github, parallel=True)
+            self.notebook = JupyterNotebook(github_url=self.github, parallel=True)
 
         if enable_gradio:
-            self.gradio = GradioWork(
+            self.model_demo = ModelDemo(
                 "predict.build_model",
                 "predict.predict",
                 parallel=True,
@@ -59,7 +59,11 @@ class ResearchApp(LightningFlow):
     def run(self) -> None:
         if os.environ.get("TESTING_LAI"):
             print("⚡ Lightning Research App! ⚡")
-        self.work_manager.run()
+        self.poster_work.run()
+        if self.enable_notebook:
+            self.notebook.run()
+        if self.enable_gradio:
+            self.model_demo.run()
 
     def configure_layout(self) -> List[Dict]:
         tabs = []
@@ -79,7 +83,7 @@ class ResearchApp(LightningFlow):
             tabs.append({"name": "Training Logs", "content": self.training_logs})
 
         if self.enable_gradio:
-            tabs.append({"name": "Model Demo", "content": self.gradio.url})
+            tabs.append({"name": "Model Demo", "content": self.model_demo.url})
 
         return tabs
 
