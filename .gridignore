@@ -393,3 +393,4 @@ wandb/
 *.csv
 github/
 _output/
+*.db
