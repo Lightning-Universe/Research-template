@@ -43,7 +43,7 @@ class ResearchApp(LightningFlow):
         self.training_logs = training_log_url
         self.enable_notebook = enable_notebook
         self.enable_gradio = enable_gradio
-        self.poster = Poster(parallel=True, resource_path=self.resource_path)
+        self.poster = Poster(resource_path=self.resource_path)
 
         if enable_notebook:
             self.notebook = JupyterLite(self.github)

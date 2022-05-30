@@ -8,7 +8,6 @@ logger = logging.getLogger(__name__)
 
 class Poster(LightningWork):
     """
-    :param port: Port address for app.
     :param parallel: Whether the Work is parallel
     """
 
@@ -17,9 +16,8 @@ class Poster(LightningWork):
         resource_path: str,
         code_style="github",
         background_color="#F6F6EF",
-        parallel=True,
     ):
-        super().__init__(parallel=parallel)
+        super().__init__(parallel=True)
         self.resource_path = resource_path
         self.code_style = code_style
         self.background_color = background_color
