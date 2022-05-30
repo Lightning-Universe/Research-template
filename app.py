@@ -7,7 +7,6 @@ from lightning import LightningApp, LightningFlow
 from research_app.components.gradio_demo import GradioWork
 from research_app.components.markdown_poster import PosterWork
 from research_app.components.notebook import JupyterNotebookWork
-from research_app.components.work_manager import ManagedWork, WorkManagerFlow
 
 logger = logging.getLogger(__name__)
 
@@ -42,35 +41,20 @@ class ResearchApp(LightningFlow):
         self.blog = blog
         self.github = github
         self.training_logs = training_log_url
+        self.enable_notebook = enable_notebook
+        self.enable_gradio = enable_gradio
+        self.poster_work = PosterWork(parallel=True, resource_path=self.resource_path)
 
-        works = [
-            ManagedWork(
-                work=PosterWork(parallel=True, resource_path=self.resource_path),
-                name="poster",
-                extra_url="/poster.html",
-            )
-        ]
         if enable_notebook:
-            works.append(
-                ManagedWork(
-                    work=JupyterNotebookWork(github_url=self.github, parallel=True),
-                    name="notebook",
-                )
-            )
-        if enable_gradio:
-            works.append(
-                ManagedWork(
-                    work=GradioWork(
-                        "predict.build_model",
-                        "predict.predict",
-                        parallel=True,
-                        resource_path=self.resource_path,
-                    ),
-                    name="demo",
-                )
-            )
+            self.notebook = JupyterNotebookWork(github_url=self.github, parallel=True)
 
-        self.work_manager = WorkManagerFlow(*works)
+        if enable_gradio:
+            self.gradio = GradioWork(
+                "predict.build_model",
+                "predict.predict",
+                parallel=True,
+                resource_path=self.resource_path,
+            )
 
     def run(self) -> None:
         if os.environ.get("TESTING_LAI"):
@@ -86,18 +70,16 @@ class ResearchApp(LightningFlow):
         if self.paper:
             tabs.append({"name": "Paper", "content": self.paper})
 
+        tabs.append({"name": "Poster", "content": self.poster_work.url + "/poster.html"})
+
+        if self.enable_notebook:
+            tabs.append({"name": "Notebook", "content": self.notebook.url})
+
         if self.training_logs:
             tabs.append({"name": "Training Logs", "content": self.training_logs})
 
-        if self.github:
-            tabs.append({"name": "Code", "content": f"https://github.dev/#{self.github}"})
-
-        if not self.work_manager.all_ready:
-            tabs.append({"name": "Waiting room", "content": self.work_manager})
-
-        for work in ManagedWork.get_all_from_instance(self.work_manager):
-            if work.work.ready:
-                tabs.append({"name": work.name, "content": work.work.url + work.extra_url})
+        if self.enable_gradio:
+            tabs.append({"name": "Model Demo", "content": self.gradio.url})
 
         return tabs
 
