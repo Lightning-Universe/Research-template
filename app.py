@@ -4,10 +4,9 @@ from typing import Dict, List, Optional
 
 from lightning import LightningApp, LightningFlow
 
-from research_app.components.gradio_demo import GradioWork
 from research_app.components.jupyter_lite import JupyterLite
-from research_app.components.markdown_poster import PosterWork
-from research_app.components.work_manager import ManagedWork, WorkManagerFlow
+from research_app.components.markdown_poster import Poster
+from research_app.components.model_demo import ModelDemo
 
 logger = logging.getLogger(__name__)
 
@@ -43,38 +42,28 @@ class ResearchApp(LightningFlow):
         self.github = github
         self.training_logs = training_log_url
         self.enable_notebook = enable_notebook
+        self.enable_gradio = enable_gradio
+        self.poster = Poster(parallel=True, resource_path=self.resource_path)
 
         if enable_notebook:
             self.jupyter_lite = JupyterLite(self.github)
 
-        works = [
-            ManagedWork(
-                work=PosterWork(parallel=True, resource_path=self.resource_path),
-                name="poster",
-                extra_url="/poster.html",
-            )
-        ]
         if enable_gradio:
-            works.append(
-                ManagedWork(
-                    work=GradioWork(
-                        "predict.build_model",
-                        "predict.predict",
-                        parallel=True,
-                        resource_path=self.resource_path,
-                    ),
-                    name="demo",
-                )
+            self.model_demo = ModelDemo(
+                "predict.build_model",
+                "predict.predict",
+                parallel=True,
+                resource_path=self.resource_path,
             )
-
-        self.work_manager = WorkManagerFlow(*works)
 
     def run(self) -> None:
         if os.environ.get("TESTING_LAI"):
             print("⚡ Lightning Research App! ⚡")
+        self.poster_work.run()
         if self.enable_notebook:
             self.jupyter_lite.run()
-        self.work_manager.run()
+        if self.enable_gradio:
+            self.model_demo.run()
 
     def configure_layout(self) -> List[Dict]:
         tabs = []
@@ -85,18 +74,16 @@ class ResearchApp(LightningFlow):
         if self.paper:
             tabs.append({"name": "Paper", "content": self.paper})
 
-        if self.training_logs:
-            tabs.append({"name": "Training Logs", "content": self.training_logs})
-
-        if not self.work_manager.all_ready:
-            tabs.append({"name": "Waiting room", "content": self.work_manager})
-
-        for work in ManagedWork.get_all_from_instance(self.work_manager):
-            if work.work.ready:
-                tabs.append({"name": work.name, "content": work.work.url + work.extra_url})
+        tabs.append({"name": "Poster", "content": self.poster.url + "/poster.html"})
 
         if self.enable_notebook:
             tabs.append({"name": "Notebook", "content": self.jupyter_lite.url})
+
+        if self.training_logs:
+            tabs.append({"name": "Training Logs", "content": self.training_logs})
+
+        if self.enable_gradio:
+            tabs.append({"name": "Model Demo", "content": self.model_demo.url})
 
         return tabs
 
@@ -114,6 +101,7 @@ if __name__ == "__main__":
             paper=paper,
             blog=blog,
             training_log_url=wandb,
+            github=github,
             enable_notebook=True,
             enable_gradio=True,
         )

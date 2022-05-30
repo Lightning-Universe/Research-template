@@ -3,9 +3,9 @@ from typing import Dict, List, Optional
 
 from lightning import LightningApp, LightningFlow
 
-from research_app.components.gradio_demo import GradioWork
-from research_app.components.markdown_poster import PosterWork
-from research_app.components.notebook import JupyterNotebookWork
+from research_app.components.markdown_poster import Poster
+from research_app.components.model_demo import ModelDemo
+from research_app.components.notebook import JupyterNotebook
 from research_app.components.work_manager import ManagedWork, WorkManagerFlow
 
 
@@ -49,7 +49,7 @@ class ResearchApp(LightningFlow):
 
         works = [
             ManagedWork(
-                work=PosterWork(parallel=True, resource_path=self.resource_path),
+                work=Poster(parallel=True, resource_path=self.resource_path),
                 name="poster",
                 extra_url="/poster.html",
             )
@@ -57,14 +57,14 @@ class ResearchApp(LightningFlow):
         if enable_notebook:
             works.append(
                 ManagedWork(
-                    work=JupyterNotebookWork(github_url=self.github, parallel=True),
+                    work=JupyterNotebook(github_url=self.github, parallel=True),
                     name="notebook",
                 )
             )
         if gradio_config:
             works.append(
                 ManagedWork(
-                    work=GradioWork(
+                    work=ModelDemo(
                         gradio_config["inputs"],
                         gradio_config["outputs"],
                         "predict.build_model",
