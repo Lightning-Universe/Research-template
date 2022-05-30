@@ -49,12 +49,7 @@ class ResearchApp(LightningFlow):
             self.notebook = JupyterLite(self.github)
 
         if enable_gradio:
-            self.model_demo = ModelDemo(
-                "predict.build_model",
-                "predict.predict",
-                parallel=True,
-                resource_path=self.resource_path,
-            )
+            self.model_demo = ModelDemo()
 
     def run(self) -> None:
         if os.environ.get("TESTING_LAI"):
