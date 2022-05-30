@@ -11,6 +11,16 @@ logger = logging.getLogger(__name__)
 
 
 class JupyterLite(L.LightningWork):
+    """
+    This work will-
+    1. Launch JupyterLab
+    2. Clone Github repo and load the directory in Jupyter
+
+    It uses JupyterLite that is a JupyterLab distribution that runs entirely in the browser built from the ground-up using JupyterLab
+    components and extensions.
+    https://jupyterlite.readthedocs.io/en/latest/
+    """
+
     def __init__(self, github_url: Optional[str] = None, contents="research_app", **kwargs):
         super().__init__(parallel=True, **kwargs)
         assert os.path.exists(contents), f"{contents} not exist at {os.getcwd()}"
