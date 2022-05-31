@@ -12,7 +12,8 @@ logger = logging.getLogger(__name__)
 
 
 class ResearchApp(LightningFlow):
-    """Share your paper "bundled" with the arxiv link, poster, live jupyter notebook, interactive demo to try the model and more!
+    """Share your paper "bundled" with the arxiv link, poster, live jupyter notebook, interactive demo to try the model
+    and more!
 
     :param paper: Paper PDF url
     :param blog: Blog web url

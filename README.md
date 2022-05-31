@@ -2,7 +2,6 @@
 
 Use this app to share your research paper results. This app lets you connect a blogpost, arxiv paper, and jupyter notebook and even have an interactive demo for people to play with the model. This app also allows industry practitioners to productionize your work by adding inference components (sub 1ms inference time), data pipelines, etc.
 
-
 Research Poster App helps Authors and Readers to publish and view research, code, experiment reports,
 articles or any resource within the same app.
 
