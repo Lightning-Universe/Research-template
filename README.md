@@ -40,7 +40,7 @@ app = LightningApp(
         paper=paper,
         blog=blog,
         experiment_manager=wandb,
-        enable_jupyter=True,
+        enable_notebook=True,
         enable_gradio=True,
     )
 )
@@ -57,7 +57,7 @@ You can also run the app on cloud by just providing `cloud` flag in the command.
 
 Here is a quick video walk-through of this app -
 
-## Making contributions
+## Contributions
 
 **Step 1:** Install the `pre-commit` hook `pre-commit install`.
 

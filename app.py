@@ -15,14 +15,15 @@ class ResearchApp(LightningFlow):
     """Share your paper "bundled" with the arxiv link, poster, live jupyter notebook, interactive demo to try the model
     and more!
 
-    :param paper: Paper PDF url
-    :param blog: Blog web url
-    :param github: GitHub repo Url. Repo will be cloned into
+    paper: Paper PDF url
+    blog: Blog web url
+    github: GitHub repo Url. Repo will be cloned into
     the current directory
-    :param training_log_url: Link for experiment manager like wandb/tensorboard
-    :param enable_notebook: To launch a Jupyter notebook set this to True
-    :param enable_gradio: To launch a Gradio notebook set this to True.
+    training_log_url: Link for experiment manager like wandb/tensorboard
+    enable_notebook: To launch a Jupyter notebook set this to True
+    enable_gradio: To launch a Gradio notebook set this to True.
     You should update the `research_app/serve/gradio_app.py` file to your use case.
+    tab_order: Tabs will appear in UI in the same order as the provided list of tab names.
     """
 
     def __init__(
@@ -34,6 +35,7 @@ class ResearchApp(LightningFlow):
         training_log_url: Optional[str] = None,
         enable_notebook: bool = False,
         enable_gradio: bool = False,
+        tab_order: Optional[List[str]] = None,
     ) -> None:
 
         super().__init__()
@@ -45,6 +47,7 @@ class ResearchApp(LightningFlow):
         self.enable_notebook = enable_notebook
         self.enable_gradio = enable_gradio
         self.poster = Poster(resource_path=self.resource_path)
+        self.tab_order = tab_order
 
         if enable_notebook:
             self.notebook = JupyterLite(self.github)
@@ -81,7 +84,13 @@ class ResearchApp(LightningFlow):
         if self.enable_gradio:
             tabs.append({"name": "Model Demo", "content": self.model_demo.url})
 
-        return tabs
+        return self.order_tabs(tabs)
+
+    def order_tabs(self, tabs: List[dict]):
+        if self.tab_order is None:
+            return tabs
+        order_int = {e: i for i, e in enumerate(self.tab_order)}
+        return sorted(tabs, key=lambda x: order_int[x["name"]])
 
 
 if __name__ == "__main__":
@@ -90,6 +99,7 @@ if __name__ == "__main__":
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/openai/CLIP"
     wandb = "https://wandb.ai/cceyda/flax-clip/runs/wlad2c2p?workspace=user-aniketmaurya"
+    tab_order = ["Poster", "Blog", "Paper", "Notebook", "Training Logs", "Model Demo"]
 
     app = LightningApp(
         ResearchApp(
@@ -100,5 +110,6 @@ if __name__ == "__main__":
             github=github,
             enable_notebook=True,
             enable_gradio=True,
+            tab_order=tab_order,
         )
     )
