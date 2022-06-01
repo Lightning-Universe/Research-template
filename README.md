@@ -1,15 +1,23 @@
 # Lightning Research Poster Template
 
-Use this app to share your research paper results. This app lets you connect a blogpost, arxiv paper, and jupyter notebook and even have an interactive demo for people to play with the model. This app also allows industry practitioners to productionize your work by adding inference components (sub 1ms inference time), data pipelines, etc.
+Use this app to share your research paper results. This app lets you connect a blogpost, arxiv paper, and jupyter
+notebook and even have an interactive demo for people to play with the model. This app also allows industry
+practitioners to productionize your work by adding inference components (sub 1ms inference time), data pipelines, etc.
 
 Research Poster App helps Authors and Readers to publish and view research, code, experiment reports,
 articles or any resource within the same app.
 
-## Get started
+## Getting started
 
-You can fork or clone this template app and start editing or overriding the content.
+Use this template and customize for your research paper.
 
 ### Installation
+
+#### With Lightning
+
+`lightning install app lightning/research_poster`
+
+#### Manual
 
 ```
 git clone https://github.com/PyTorchLightning/lightning-template-research-app.git
@@ -23,12 +31,18 @@ pip install -e .
 The poster app has a `ResearchApp` class that provides flags that you can use to quickly build an app without knowing
 any web development.
 
-You can provide the links for each flag, and the app will automatically load and show each of the content in tabs.
+#### Highlights
 
-You can fork and clone the repo to edit the arguments and update the markdown poster or Gradio app.
+- Provide the link for paper, blog or training log manager like WandB as argument and `ResearchApp` will
+  create a tab for each of these.
+- Make a poster for your research by editing the markdown file in the [resources](./resources/poster.md) folder.
+- Add interactive model demo with Gradio app, update the gradio component present in
+  the [research_app](./research_app/components/model_demo.py) folder.
+- Launch Jupyter Notebook to show the code demo.
 
 ```python
 # update app.py at the root of the repo
+from lightning import LightningApp
 
 paper = "https://arxiv.org/pdf/2103.00020.pdf"
 blog = "https://openai.com/blog/clip/"
@@ -46,23 +60,8 @@ app = LightningApp(
 )
 ```
 
-To run this app, launch the terminal and enter `lightning run app FILENAME.py`
+To run this app, launch the terminal and run `lightning run app app.py`
 
 You should see something like this in your browser:
 
 ![image](./assets/demo.png)
-
-You can also run the app on cloud by just providing `cloud` flag in the command.
-`lightning run app app.py --name my_research_app --cloud`
-
-Here is a quick video walk-through of this app -
-
-## Contributions
-
-**Step 1:** Install the `pre-commit` hook `pre-commit install`.
-
-**Step 2:** Create a new branch with your code changes.
-
-(Optional) Run pre-commit locally to check for any errors before committing: `pre-commit run --all-files`.
-
-**Step 3:** Submit a pull request to the `lightning-template-research-app` main branch repository.

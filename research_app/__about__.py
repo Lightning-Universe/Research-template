@@ -9,10 +9,9 @@ __docs__ = (
     "interactive demo to try the model and more!"
 )
 __long_doc__ = """
-Use this app to share your research paper results. This app lets you connect a blogpost, arxiv paper, jupyter notebook,
-and even have an interactive demo for people to play with the model.
-This app also allows industry practitioners to productionize your work by adding inference components
-(sub 1ms inference time), data pipelines, etc.
+Use this app to share your research paper results. This app lets you connect a blogpost, arxiv paper, and jupyter
+notebook and even have an interactive demo for people to play with the model. This app also allows industry
+practitioners to productionize your work by adding inference components (sub 1ms inference time), data pipelines, etc.
 """
 
 __all__ = [
