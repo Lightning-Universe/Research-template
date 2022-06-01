@@ -7,9 +7,15 @@ articles or any resource within the same app.
 
 ## Get started
 
-You can fork or clone this template app and start editing or overriding the content.
+You can fork or clone this template app and start editing the content.
 
 ### Installation
+
+#### With Lightning
+
+`lightning install app lightning/research_poster`
+
+#### Manual
 
 ```
 git clone https://github.com/PyTorchLightning/lightning-template-research-app.git
@@ -51,18 +57,3 @@ To run this app, launch the terminal and enter `lightning run app FILENAME.py`
 You should see something like this in your browser:
 
 ![image](./assets/demo.png)
-
-You can also run the app on cloud by just providing `cloud` flag in the command.
-`lightning run app app.py --name my_research_app --cloud`
-
-Here is a quick video walk-through of this app -
-
-## Contributions
-
-**Step 1:** Install the `pre-commit` hook `pre-commit install`.
-
-**Step 2:** Create a new branch with your code changes.
-
-(Optional) Run pre-commit locally to check for any errors before committing: `pre-commit run --all-files`.
-
-**Step 3:** Submit a pull request to the `lightning-template-research-app` main branch repository.
