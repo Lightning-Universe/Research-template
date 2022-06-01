@@ -1,13 +1,15 @@
 # Lightning Research Poster Template
 
-Use this app to share your research paper results. This app lets you connect a blogpost, arxiv paper, and jupyter notebook and even have an interactive demo for people to play with the model. This app also allows industry practitioners to productionize your work by adding inference components (sub 1ms inference time), data pipelines, etc.
+Use this app to share your research paper results. This app lets you connect a blogpost, arxiv paper, and jupyter
+notebook and even have an interactive demo for people to play with the model. This app also allows industry
+practitioners to productionize your work by adding inference components (sub 1ms inference time), data pipelines, etc.
 
 Research Poster App helps Authors and Readers to publish and view research, code, experiment reports,
 articles or any resource within the same app.
 
-## Get started
+## Getting started
 
-You can fork or clone this template app and start editing the content.
+Use this template and customize for your research paper.
 
 ### Installation
 
@@ -29,9 +31,14 @@ pip install -e .
 The poster app has a `ResearchApp` class that provides flags that you can use to quickly build an app without knowing
 any web development.
 
-You can provide the links for each flag, and the app will automatically load and show each of the content in tabs.
+#### Highlights
 
-You can fork and clone the repo to edit the arguments and update the markdown poster or Gradio app.
+- Provide the link for paper, blog or training log manager like WandB as argument and `ResearchApp` will
+  create a tab for each of these.
+- Make a poster for your research by editing the markdown file in the [resources](./resources/poster.md) folder.
+- Add interactive model demo with Gradio app, update the gradio component present in
+  the [research_app](./research_app/components/model_demo.py) folder.
+- Launch Jupyter Notebook to show the code demo.
 
 ```python
 # update app.py at the root of the repo
