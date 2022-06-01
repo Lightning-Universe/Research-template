@@ -42,6 +42,7 @@ any web development.
 
 ```python
 # update app.py at the root of the repo
+from lightning import LightningApp
 
 paper = "https://arxiv.org/pdf/2103.00020.pdf"
 blog = "https://openai.com/blog/clip/"
@@ -59,7 +60,7 @@ app = LightningApp(
 )
 ```
 
-To run this app, launch the terminal and enter `lightning run app FILENAME.py`
+To run this app, launch the terminal and run `lightning run app app.py`
 
 You should see something like this in your browser:
 
