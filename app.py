@@ -4,9 +4,9 @@ from typing import Dict, List, Optional
 
 from lightning import LightningApp, LightningFlow
 
-from research_app.components.jupyter_lite import JupyterLite
 from research_app.components.markdown_poster import Poster
 from research_app.components.model_demo import ModelDemo
+from research_app.components.notebook import LitJupyter
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +50,7 @@ class ResearchApp(LightningFlow):
         self.tab_order = tab_order
 
         if enable_notebook:
-            self.notebook = JupyterLite(self.github)
+            self.notebook = LitJupyter("github")
 
         if enable_gradio:
             self.model_demo = ModelDemo()
