@@ -103,7 +103,7 @@ class ModelDemo(ServeGradio):
     ):
         super(ServeGradio, self).__init__(parallel=True)
         self._model = None
-        print("initialized")
+        print("Model Demo initialized")
 
     def build_model(self):
         print("loading model...")
