@@ -3,10 +3,10 @@ import os
 from typing import Dict, List, Optional
 
 from lightning import LightningApp, LightningFlow
+from lit_jupyter import LitJupyter
 
 from research_app.components.markdown_poster import Poster
 from research_app.components.model_demo import ModelDemo
-from research_app.components.notebook import LitJupyter
 
 logger = logging.getLogger(__name__)
 
@@ -64,7 +64,7 @@ class ResearchApp(LightningFlow):
         if self.enable_gradio:
             self.model_demo.run()
 
-    def configure_layout(self) -> List[Dict]:
+    def configure_layout(self) -> List[Dict[str, str]]:
         tabs = []
 
         if self.blog:
@@ -84,9 +84,10 @@ class ResearchApp(LightningFlow):
         if self.enable_gradio:
             tabs.append({"name": "Model Demo", "content": self.model_demo.url})
 
-        return self.order_tabs(tabs)
+        return self._order_tabs(tabs)
 
-    def order_tabs(self, tabs: List[dict]):
+    def _order_tabs(self, tabs: List[dict]):
+        """Reorder the tab layout."""
         if self.tab_order is None:
             return tabs
         order_int = {e: i for i, e in enumerate(self.tab_order)}
