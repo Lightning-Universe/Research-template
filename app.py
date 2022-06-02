@@ -2,16 +2,26 @@ import logging
 import os
 from typing import Dict, List, Optional
 
-from lightning import LightningApp, LightningFlow
+import lightning as L
+from lit_jupyter import LitJupyter
 
-from research_app.components.jupyter_lite import JupyterLite
 from research_app.components.markdown_poster import Poster
 from research_app.components.model_demo import ModelDemo
+from research_app.utils import notebook_to_html
 
 logger = logging.getLogger(__name__)
 
 
-class ResearchApp(LightningFlow):
+class StaticNotebook(L.LightningFlow):
+    def __init__(self, serve_dir: str):
+        super().__init__()
+        self.serve_dir = serve_dir
+
+    def configure_layout(self):
+        return L.frontend.web.StaticWebFrontend(serve_dir=self.serve_dir)
+
+
+class ResearchApp(L.LightningFlow):
     """Share your paper "bundled" with the arxiv link, poster, live jupyter notebook, interactive demo to try the model
     and more!
 
@@ -20,7 +30,8 @@ class ResearchApp(LightningFlow):
     github: GitHub repo Url. Repo will be cloned into
     the current directory
     training_log_url: Link for experiment manager like wandb/tensorboard
-    enable_notebook: To launch a Jupyter notebook set this to True
+    notebook_path: View a Jupyter Notebook as static html tab
+    launch_jupyter_lab: Launch a full-fledged Jupyter Lab instance
     enable_gradio: To launch a Gradio notebook set this to True.
     You should update the `research_app/serve/gradio_app.py` file to your use case.
     tab_order: Tabs will appear in UI in the same order as the provided list of tab names.
@@ -32,8 +43,9 @@ class ResearchApp(LightningFlow):
         paper: Optional[str] = None,
         blog: Optional[str] = None,
         github: Optional[str] = None,
+        notebook_path: Optional[str] = None,
         training_log_url: Optional[str] = None,
-        enable_notebook: bool = False,
+        launch_jupyter_lab: bool = False,
         enable_gradio: bool = False,
         tab_order: Optional[List[str]] = None,
     ) -> None:
@@ -44,27 +56,32 @@ class ResearchApp(LightningFlow):
         self.blog = blog
         self.github = github
         self.training_logs = training_log_url
-        self.enable_notebook = enable_notebook
+        self.notebook_path = notebook_path
+        self.launch_jupyter_lab = launch_jupyter_lab
         self.enable_gradio = enable_gradio
         self.poster = Poster(resource_path=self.resource_path)
         self.tab_order = tab_order
 
-        if enable_notebook:
-            self.notebook = JupyterLite(self.github)
+        if launch_jupyter_lab:
+            self.jupyter_lab = LitJupyter("github")
 
         if enable_gradio:
             self.model_demo = ModelDemo()
+
+        if notebook_path:
+            serve_dir = notebook_to_html(notebook_path)
+            self.notebook = StaticNotebook(serve_dir)
 
     def run(self) -> None:
         if os.environ.get("TESTING_LAI"):
             print("⚡ Lightning Research App! ⚡")
         self.poster.run()
-        if self.enable_notebook:
-            self.notebook.run()
+        if self.launch_jupyter_lab:
+            self.jupyter_lab.run()
         if self.enable_gradio:
             self.model_demo.run()
 
-    def configure_layout(self) -> List[Dict]:
+    def configure_layout(self) -> List[Dict[str, str]]:
         tabs = []
 
         if self.blog:
@@ -75,8 +92,8 @@ class ResearchApp(LightningFlow):
 
         tabs.append({"name": "Poster", "content": self.poster.url + "/poster.html"})
 
-        if self.enable_notebook:
-            tabs.append({"name": "Notebook", "content": self.notebook.url})
+        if self.launch_jupyter_lab:
+            tabs.append({"name": "JupyterLab", "content": self.jupyter_lab.url})
 
         if self.training_logs:
             tabs.append({"name": "Training Logs", "content": self.training_logs})
@@ -84,9 +101,12 @@ class ResearchApp(LightningFlow):
         if self.enable_gradio:
             tabs.append({"name": "Model Demo", "content": self.model_demo.url})
 
-        return self.order_tabs(tabs)
+        tabs.append({"name": "Notebook", "content": self.notebook})
 
-    def order_tabs(self, tabs: List[dict]):
+        return self._order_tabs(tabs)
+
+    def _order_tabs(self, tabs: List[dict]):
+        """Reorder the tab layout."""
         if self.tab_order is None:
             return tabs
         order_int = {e: i for i, e in enumerate(self.tab_order)}
@@ -99,17 +119,18 @@ if __name__ == "__main__":
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/openai/CLIP"
     wandb = "https://wandb.ai/cceyda/flax-clip/runs/wlad2c2p?workspace=user-aniketmaurya"
-    tab_order = ["Poster", "Blog", "Paper", "Notebook", "Training Logs", "Model Demo"]
+    tabs = ["Poster", "Blog", "Paper", "Notebook", "Training Logs", "Model Demo"]
 
-    app = LightningApp(
+    app = L.LightningApp(
         ResearchApp(
             resource_path=resource_path,
             paper=paper,
             blog=blog,
             training_log_url=wandb,
             github=github,
-            enable_notebook=True,
+            notebook_path="resources/Interacting_with_CLIP.ipynb",
+            launch_jupyter_lab=False,
             enable_gradio=True,
-            tab_order=tab_order,
+            tab_order=tabs,
         )
     )
