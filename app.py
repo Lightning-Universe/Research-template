@@ -30,8 +30,8 @@ class ResearchApp(L.LightningFlow):
     github: GitHub repo Url. Repo will be cloned into
     the current directory
     training_log_url: Link for experiment manager like wandb/tensorboard
-    notebook_path: View a Jupyter notebook converted into html
-    launch_jupyter_lab: Launch a Jupyter Lab instance
+    notebook_path: View a Jupyter Notebook as static html tab
+    launch_jupyter_lab: Launch a full-fledged Jupyter Lab instance
     enable_gradio: To launch a Gradio notebook set this to True.
     You should update the `research_app/serve/gradio_app.py` file to your use case.
     tab_order: Tabs will appear in UI in the same order as the provided list of tab names.
@@ -119,7 +119,7 @@ if __name__ == "__main__":
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/openai/CLIP"
     wandb = "https://wandb.ai/cceyda/flax-clip/runs/wlad2c2p?workspace=user-aniketmaurya"
-    tab_order = ["Poster", "Blog", "Paper", "Notebook", "Training Logs", "Model Demo"]
+    tabs = ["Poster", "Blog", "Paper", "Notebook", "Training Logs", "Model Demo"]
 
     app = L.LightningApp(
         ResearchApp(
@@ -131,6 +131,6 @@ if __name__ == "__main__":
             notebook_path="resources/Interacting_with_CLIP.ipynb",
             launch_jupyter_lab=False,
             enable_gradio=True,
-            tab_order=tab_order,
+            tab_order=tabs,
         )
     )
