@@ -109,8 +109,8 @@ class ResearchApp(L.LightningFlow):
         """Reorder the tab layout."""
         if self.tab_order is None:
             return tabs
-        order_int = {e: i for i, e in enumerate(self.tab_order)}
-        return sorted(tabs, key=lambda x: order_int[x["name"]])
+        order_int: Dict[str, int] = {e.lower(): i for i, e in enumerate(self.tab_order)}
+        return sorted(tabs, key=lambda x: order_int[x["name"].lower()])
 
 
 if __name__ == "__main__":
