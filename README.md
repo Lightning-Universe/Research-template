@@ -42,20 +42,25 @@ any web development.
 
 ```python
 # update app.py at the root of the repo
-from lightning import LightningApp
+import lightning as L
 
 paper = "https://arxiv.org/pdf/2103.00020.pdf"
 blog = "https://openai.com/blog/clip/"
 github = "https://github.com/mlfoundations/open_clip"
 wandb = "https://wandb.ai/aniketmaurya/herbarium-2022/runs/2dvwrme5"
+tabs = ["Poster", "Blog", "Paper", "Notebook", "Training Logs", "Model Demo"]
 
-app = LightningApp(
+app = L.LightningApp(
     ResearchApp(
+        resource_path="resources",
         paper=paper,
         blog=blog,
-        experiment_manager=wandb,
-        enable_notebook=True,
+        training_log_url=wandb,
+        github=github,
+        notebook_path="resources/Interacting_with_CLIP.ipynb",
+        launch_jupyter_lab=True,
         enable_gradio=True,
+        tab_order=tabs,
     )
 )
 ```
