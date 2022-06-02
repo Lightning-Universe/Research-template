@@ -12,6 +12,7 @@ def notebook_to_html(path: str):
     folder = "/".join(path.split("/")[:-1])
     html = path.replace("ipynb", "html")
     os.rename(html, folder + "/index.html")
+    return folder
 
 
 def clone_repo(url: str):

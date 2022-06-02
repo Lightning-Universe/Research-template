@@ -3,7 +3,6 @@ import os
 from typing import Dict, List, Optional
 
 import lightning as L
-from lightning import LightningApp, LightningFlow
 from lit_jupyter import LitJupyter
 
 from research_app.components.markdown_poster import Poster
@@ -13,12 +12,16 @@ from research_app.utils import notebook_to_html
 logger = logging.getLogger(__name__)
 
 
-class HelloComponent(L.LightningFlow):
+class StaticNotebook(L.LightningFlow):
+    def __init__(self, serve_dir: str):
+        super().__init__()
+        self.serve_dir = serve_dir
+
     def configure_layout(self):
-        return L.frontend.web.StaticWebFrontend(serve_dir="resources")
+        return L.frontend.web.StaticWebFrontend(serve_dir=self.serve_dir)
 
 
-class ResearchApp(LightningFlow):
+class ResearchApp(L.LightningFlow):
     """Share your paper "bundled" with the arxiv link, poster, live jupyter notebook, interactive demo to try the model
     and more!
 
@@ -66,8 +69,8 @@ class ResearchApp(LightningFlow):
             self.model_demo = ModelDemo()
 
         if notebook_path:
-            notebook_to_html(notebook_path)
-            self.notebook = HelloComponent()
+            serve_dir = notebook_to_html(notebook_path)
+            self.notebook = StaticNotebook(serve_dir)
 
     def run(self) -> None:
         if os.environ.get("TESTING_LAI"):
@@ -118,7 +121,7 @@ if __name__ == "__main__":
     wandb = "https://wandb.ai/cceyda/flax-clip/runs/wlad2c2p?workspace=user-aniketmaurya"
     tab_order = ["Poster", "Blog", "Paper", "Notebook", "Training Logs", "Model Demo"]
 
-    app = LightningApp(
+    app = L.LightningApp(
         ResearchApp(
             resource_path=resource_path,
             paper=paper,
