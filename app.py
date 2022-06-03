@@ -8,7 +8,7 @@ from rich import print
 
 from research_app.components.markdown_poster import Poster
 from research_app.components.model_demo import ModelDemo
-from research_app.utils import notebook_to_html
+from research_app.utils import clone_repo, notebook_to_html
 
 logger = logging.getLogger(__name__)
 
@@ -26,15 +26,14 @@ class ResearchApp(L.LightningFlow):
     """Share your paper "bundled" with the arxiv link, poster, live jupyter notebook, interactive demo to try the model
     and more!
 
-    paper: Paper PDF url
-    blog: Blog web url
-    github: GitHub repo Url. Repo will be cloned into
-    the current directory
-    training_log_url: Link for experiment manager like wandb/tensorboard
+    paper: Arxiv link to your paper
+    blog: Link to a blog post for your research
+    github: Clone GitHub repo to the current directory.
+    training_log_url: Link for experiment manager like wandb or tensorboard
     notebook_path: View a Jupyter Notebook as static html tab
     launch_jupyter_lab: Launch a full-fledged Jupyter Lab instance
-    enable_gradio: To launch a Gradio notebook set this to True.
-    You should update the `research_app/serve/gradio_app.py` file to your use case.
+    launch_gradio: Launch Gradio demo.
+        You should update the `research_app/serve/gradio_app.py` file to your use case.
     tab_order: Tabs will appear in UI in the same order as the provided list of tab names.
     """
 
@@ -47,7 +46,7 @@ class ResearchApp(L.LightningFlow):
         notebook_path: Optional[str] = None,
         training_log_url: Optional[str] = None,
         launch_jupyter_lab: bool = False,
-        enable_gradio: bool = False,
+        launch_gradio: bool = False,
         tab_order: Optional[List[str]] = None,
     ) -> None:
 
@@ -55,18 +54,20 @@ class ResearchApp(L.LightningFlow):
         self.resource_path = os.path.abspath(resource_path)
         self.paper = paper
         self.blog = blog
-        self.github = github
         self.training_logs = training_log_url
         self.notebook_path = notebook_path
         self.launch_jupyter_lab = launch_jupyter_lab
-        self.enable_gradio = enable_gradio
+        self.enable_gradio = launch_gradio
         self.poster = Poster(resource_path=self.resource_path)
         self.tab_order = tab_order
 
-        if launch_jupyter_lab:
-            self.jupyter_lab = LitJupyter("github")
+        if github:
+            clone_repo(github)
 
-        if enable_gradio:
+        if launch_jupyter_lab:
+            self.jupyter_lab = LitJupyter()
+
+        if launch_gradio:
             self.model_demo = ModelDemo()
 
         if notebook_path:
@@ -131,7 +132,7 @@ if __name__ == "__main__":
             github=github,
             notebook_path="resources/Interacting_with_CLIP.ipynb",
             launch_jupyter_lab=False,
-            enable_gradio=True,
+            launch_gradio=True,
             tab_order=tabs,
         )
     )

@@ -3,6 +3,8 @@ import subprocess
 from logging import getLogger
 from pathlib import Path
 
+from rich import print
+
 logger = getLogger(__name__)
 
 
@@ -17,6 +19,7 @@ def notebook_to_html(path: str):
 
 def clone_repo(url: str):
     """Clones the github repo from url to current dir."""
+    print(f"cloning {url}")
     path = Path.cwd() / "github"
     os.makedirs(path, exist_ok=True)
     target_path = str(path / os.path.basename(url)).replace(".git", "")
