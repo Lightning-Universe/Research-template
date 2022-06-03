@@ -81,7 +81,7 @@ app = L.LightningApp(
         github=github,
         notebook_path="resources/Interacting_with_CLIP.ipynb",
         launch_jupyter_lab=True,
-        enable_gradio=True,
+        launch_gradio=True,
         tab_order=tabs,
     )
 )

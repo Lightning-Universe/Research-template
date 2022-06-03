@@ -1,4 +1,5 @@
 import logging
+import time
 
 from lightning import LightningWork
 from mkposters import mkposter
@@ -24,6 +25,7 @@ class Poster(LightningWork):
         self.ready = False
 
     def run(self):
+        time.sleep(60)
         self.ready = True
         mkposter(
             datadir=self.resource_path,

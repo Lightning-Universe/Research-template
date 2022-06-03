@@ -5,19 +5,12 @@ from typing import Optional
 
 import lightning as L
 
-from research_app.utils import clone_repo
-
 logger = logging.getLogger(__name__)
 
 
 class JupyterLite(L.LightningWork):
-    """
-    This work will-
-    1. Launch JupyterLab
-    2. Clone Github repo and load the directory in Jupyter
+    """This component will launch JupyterLab instance that runs entirely in the browser.
 
-    It uses JupyterLite that is a JupyterLab distribution that runs entirely in the browser built from the ground-up using JupyterLab
-    components and extensions.
     https://jupyterlite.readthedocs.io/en/latest/
     """
 
@@ -26,8 +19,7 @@ class JupyterLite(L.LightningWork):
         assert os.path.exists(contents), f"{contents} not exist at {os.getcwd()}"
         self.contents = contents
         self.github_url = github_url
-        if self.github_url:
-            _, self.contents = clone_repo(self.github_url)
+        self.ready = False
 
     def run(self):
         cmd = "jupyter lite init"
@@ -38,6 +30,7 @@ class JupyterLite(L.LightningWork):
 
         cmd = f"jupyter lite serve --contents {self.contents} --port {self.port}"
         subprocess.run(cmd, shell=True)
+        self.ready = True
 
 
 if __name__ == "__main__":
