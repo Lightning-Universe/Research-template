@@ -16,15 +16,15 @@ logger = logging.getLogger(__name__)
 def download_files():
     print("Downloading embeddings, this might take some time!")
     urllib.request.urlretrieve(
-        "https://drive.google.com/uc?export=download&id=1onKr-pfWb4l6LgL-z8WDod3NMW-nIJxE",
+        "https://github.com/aniketmaurya/temp-poster-assets/blob/main/embeddings.npy?raw=true",
         "resources/embeddings.npy",
     )
     urllib.request.urlretrieve(
-        "https://drive.google.com/uc?export=download&id=1KbwUkE0T8bpnHraqSzTeGGV4-TZO_CFB",
+        "https://github.com/aniketmaurya/temp-poster-assets/blob/main/embeddings2.npy?raw=true",
         "resources/embeddings2.npy",
     )
     urllib.request.urlretrieve(
-        "https://drive.google.com/uc?export=download&id=1bt1O-iArKuU9LGkMV1zUPTEHZk8k7L65",
+        "https://github.com/aniketmaurya/temp-poster-assets/blob/main/data.csv?raw=true",
         "resources/data.csv",
     )
     urllib.request.urlretrieve(
@@ -103,7 +103,7 @@ class ModelDemo(ServeGradio):
     ):
         super(ServeGradio, self).__init__(parallel=True)
         self._model = None
-        print("initialized")
+        print("Model Demo initialized")
 
     def build_model(self):
         print("loading model...")
