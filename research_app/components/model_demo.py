@@ -80,7 +80,7 @@ class CLIP:
         assert isinstance(query, str), f"query is of type {type(query)}"
         text_embeddings = self.compute_text_embeddings([query]).detach().numpy()
         k = 0 if dataset == "Unsplash" else 1
-        results = np.argsort((EMBEDDINGS[k] @ text_embeddings.T)[:, 0])[-1 : -n_results - 1 : -1]
+        results = np.argsort((EMBEDDINGS[k] @ text_embeddings.T)[:, 0])[-1 : -n_results - 1 : -1]  # noqa E203
         result = [(df[k].iloc[i]["path"], df[k].iloc[i]["tooltip"] + source[k], df[k].iloc[i]["link"]) for i in results]
         return result
 
