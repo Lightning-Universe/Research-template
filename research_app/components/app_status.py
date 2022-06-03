@@ -40,7 +40,6 @@ def render(state: AppState):
     if not state.all_ready:
         st.title("App status")
         st.write("Some components of this app is not ready yet! Please wait for sometime...")
-        print(status)
 
         md = ""
         for component in status.components:
