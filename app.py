@@ -83,7 +83,6 @@ class ResearchApp(L.LightningFlow):
             self.jupyter_lab.run()
         if self.enable_gradio:
             self.model_demo.run()
-        self.app_status.run()
 
     def configure_layout(self) -> List[Dict[str, str]]:
         tabs = []
