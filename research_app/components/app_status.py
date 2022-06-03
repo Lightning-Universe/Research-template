@@ -46,7 +46,7 @@ def render(state: AppState):
         for component in status.components:
             print(f"{component} not ready!")
             if getattr(component, "ready") is False:
-                md += f"* fr{component.name.capitalize()}\n"
+                md += f"* {component.name.capitalize()} ❌\n"
 
         st.markdown(md)
 
