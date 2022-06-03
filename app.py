@@ -4,6 +4,7 @@ from typing import Dict, List, Optional
 
 import lightning as L
 from lit_jupyter import LitJupyter
+from rich import print
 
 from research_app.components.markdown_poster import Poster
 from research_app.components.model_demo import ModelDemo

@@ -8,6 +8,7 @@ import gradio as gr
 import numpy as np
 import pandas as pd
 from lightning.components.serve import ServeGradio
+from rich import print
 from transformers import CLIPModel, CLIPProcessor
 
 logger = logging.getLogger(__name__)
@@ -31,6 +32,7 @@ def download_files():
         "https://drive.google.com/uc?export=download&id=19aVnFBY-Rc0-3VErF_C7PojmWpBsb5wk",
         "resources/data2.csv",
     )
+    print("✅ Downloaded embeddings")
 
 
 if not os.path.exists("resources/data.csv"):
@@ -103,7 +105,7 @@ class ModelDemo(ServeGradio):
     ):
         super(ServeGradio, self).__init__(parallel=True)
         self._model = None
-        print("Model Demo initialized")
+        print("initializing Model Demo...")
 
     def build_model(self):
         print("loading model...")
@@ -112,6 +114,7 @@ class ModelDemo(ServeGradio):
             p.requires_grad = False
         processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
         clip = CLIP(processor=processor, model=model)
+        print("built model!")
         return clip
 
     def predict(self, query: str):
