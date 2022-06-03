@@ -42,9 +42,9 @@ def render(state: AppState):
         st.write("Some components of this app is not ready yet! Please wait for sometime...")
         print(status)
 
-        md = "* what the hell\n"
+        md = ""
         for component in status.components:
-            print(component)
+            print(f"{component} not ready!")
             if getattr(component, "ready") is False:
                 md += f"* fr{component.name.capitalize()}\n"
 
