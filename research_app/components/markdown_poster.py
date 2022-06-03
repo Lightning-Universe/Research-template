@@ -7,10 +7,6 @@ logger = logging.getLogger(__name__)
 
 
 class Poster(LightningWork):
-    """
-    :param parallel: Whether the Work is parallel
-    """
-
     def __init__(
         self,
         resource_path: str,
