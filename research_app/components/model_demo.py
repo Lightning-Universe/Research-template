@@ -13,7 +13,7 @@ from transformers import CLIPModel, CLIPProcessor
 
 logger = logging.getLogger(__name__)
 
-
+# Move this / Clean it
 def download_files():
     print("Downloading embeddings, this might take some time!")
     urllib.request.urlretrieve(
@@ -106,16 +106,20 @@ class ModelDemo(ServeGradio):
         super(ServeGradio, self).__init__(parallel=True)
         self._model = None
         self.ready = False
+        # @Aniket use logging ?
         print("initializing Model Demo...")
 
     def build_model(self):
         print("loading model...")
+        # @Aniket can you clean this up a bit? ie. maybe import from another file and make it more readaable so if someone want to re-use it they feel they have sepearation of concern between model stuff and gradio?
+        # Also add a few more comment within the code so people can follow. Just because not everyone knows gradio
         model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").eval()
         for p in model.parameters():
             p.requires_grad = False
         processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
         clip = CLIP(processor=processor, model=model)
         print("built model!")
+        # Explain why you need ready? can you abstract it even so user don't have to even think about it?
         self.ready = True
         return clip
 

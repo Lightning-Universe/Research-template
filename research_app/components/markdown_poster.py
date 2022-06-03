@@ -13,6 +13,7 @@ class Poster(LightningWork):
         code_style="github",
         background_color="#F6F6EF",
     ):
+        # @Aniket docstring?
         super().__init__(parallel=True)
         self.resource_path = resource_path
         self.code_style = code_style

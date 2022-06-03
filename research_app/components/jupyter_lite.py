@@ -13,7 +13,7 @@ class JupyterLite(L.LightningWork):
 
     https://jupyterlite.readthedocs.io/en/latest/
     """
-
+# @Aniket describe init param?
     def __init__(self, github_url: Optional[str] = None, contents="research_app", **kwargs):
         super().__init__(parallel=True, **kwargs)
         assert os.path.exists(contents), f"{contents} not exist at {os.getcwd()}"
@@ -32,7 +32,7 @@ class JupyterLite(L.LightningWork):
         subprocess.run(cmd, shell=True)
         self.ready = True
 
-
+# @Aniket do you need this code here?
 if __name__ == "__main__":
     from lightning import LightningApp, LightningFlow
 

@@ -7,7 +7,7 @@ from rich import print
 
 logger = getLogger(__name__)
 
-
+# @Aniket docstring with arguments
 def notebook_to_html(path: str):
     command = f"jupyter nbconvert --to html {path}"
     subprocess.run(command, shell=True)
@@ -17,6 +17,7 @@ def notebook_to_html(path: str):
     return folder
 
 
+# @Aniket docstring with arguments
 def clone_repo(url: str):
     """Clones the github repo from url to current dir."""
     print(f"cloning {url}")

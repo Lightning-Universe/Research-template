@@ -32,7 +32,7 @@ class ResearchApp(L.LightningFlow):
     github: Clone GitHub repo to the current directory.
     training_log_url: Link for experiment manager like wandb or tensorboard
     notebook_path: View a Jupyter Notebook as static html tab
-    launch_jupyter_lab: Launch a full-fledged Jupyter Lab instance
+    launch_jupyter_lab: Launch a full-fledged Jupyter Lab instance @Aniket might be worth mentioning somewhere that if you do then it might be subject to abuse if you share the url on the cloud
     launch_gradio: Launch Gradio demo.
         You should update the `research_app/serve/gradio_app.py` file to your use case.
     tab_order: Tabs will appear in UI in the same order as the provided list of tab names.
@@ -61,7 +61,6 @@ class ResearchApp(L.LightningFlow):
         self.enable_gradio = launch_gradio
         self.poster = Poster(resource_path=self.resource_path)
         self.tab_order = tab_order
-
         if github:
             clone_repo(github)
 
@@ -70,7 +69,7 @@ class ResearchApp(L.LightningFlow):
 
         if launch_gradio:
             self.model_demo = ModelDemo()
-
+        # @Aniket what happen if i do launch_jupyterlab = true + give a notebook_path?
         if notebook_path:
             serve_dir = notebook_to_html(notebook_path)
             self.notebook = StaticNotebook(serve_dir)
@@ -117,6 +116,7 @@ class ResearchApp(L.LightningFlow):
 
 
 if __name__ == "__main__":
+    # @Aniket maybe comment to say this is a running example, change your code here.
     resource_path = "resources"
     paper = "https://arxiv.org/pdf/2103.00020"
     blog = "https://openai.com/blog/clip/"
