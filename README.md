@@ -44,7 +44,7 @@ any web development.
 - Add interactive model demo with Gradio app, update the gradio component present in
   the [research_app](./research_app/components/model_demo.py) folder.
 - Launch Jupyter Notebook to show the code demo.
-@Aniket is this relevant the jupyter side now?
+  @Aniket is this relevant the jupyter side now?
 
 ```python
 # update app.py at the root of the repo
@@ -59,14 +59,14 @@ tabs = ["Poster", "Blog", "Paper", "Notebook", "Training Logs", "Model Demo"]
 # @Aniket how is gradio being working here? What if my app need image upload, how do I do it?
 app = L.LightningApp(
     ResearchApp(
-        resource_path="resources", 
+        resource_path="resources",
         paper=paper,
         blog=blog,
         training_log_url=wandb,
         github=github,
         notebook_path="resources/Interacting_with_CLIP.ipynb",
-        launch_jupyter_lab=True, #TODO: Add comment what does it do
-        launch_gradio=True, #TODO: Add comment what does it do
+        launch_jupyter_lab=True,  # TODO: Add comment what does it do
+        launch_gradio=True,  # TODO: Add comment what does it do
         tab_order=tabs,
     )
 )
