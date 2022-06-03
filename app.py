@@ -4,6 +4,7 @@ from typing import Dict, List, Optional
 
 import lightning as L
 from lit_jupyter import LitJupyter
+from rich import print
 
 from research_app.components.markdown_poster import Poster
 from research_app.components.model_demo import ModelDemo
@@ -84,13 +85,13 @@ class ResearchApp(L.LightningFlow):
     def configure_layout(self) -> List[Dict[str, str]]:
         tabs = []
 
+        tabs.append({"name": "Poster", "content": self.poster.url + "/poster.html"})
+
         if self.blog:
             tabs.append({"name": "Blog", "content": self.blog})
 
         if self.paper:
             tabs.append({"name": "Paper", "content": self.paper})
-
-        tabs.append({"name": "Poster", "content": self.poster.url + "/poster.html"})
 
         if self.launch_jupyter_lab:
             tabs.append({"name": "JupyterLab", "content": self.jupyter_lab.url})
@@ -119,7 +120,7 @@ if __name__ == "__main__":
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/openai/CLIP"
     wandb = "https://wandb.ai/cceyda/flax-clip/runs/wlad2c2p?workspace=user-aniketmaurya"
-    tabs = ["Poster", "Blog", "Paper", "Notebook", "Training Logs", "Model Demo"]
+    tabs = ["Blog", "Paper", "Poster", "Notebook", "Training Logs", "Model Demo"]
 
     app = L.LightningApp(
         ResearchApp(
