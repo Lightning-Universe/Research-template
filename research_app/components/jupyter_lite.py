@@ -19,6 +19,7 @@ class JupyterLite(L.LightningWork):
         assert os.path.exists(contents), f"{contents} not exist at {os.getcwd()}"
         self.contents = contents
         self.github_url = github_url
+        self.ready = False
 
     def run(self):
         cmd = "jupyter lite init"
@@ -29,6 +30,7 @@ class JupyterLite(L.LightningWork):
 
         cmd = f"jupyter lite serve --contents {self.contents} --port {self.port}"
         subprocess.run(cmd, shell=True)
+        self.ready = True
 
 
 if __name__ == "__main__":

@@ -6,6 +6,7 @@ import lightning as L
 from lit_jupyter import LitJupyter
 from rich import print
 
+from research_app.components.app_status import AppStatus
 from research_app.components.markdown_poster import Poster
 from research_app.components.model_demo import ModelDemo
 from research_app.utils import clone_repo, notebook_to_html
@@ -17,6 +18,7 @@ class StaticNotebook(L.LightningFlow):
     def __init__(self, serve_dir: str):
         super().__init__()
         self.serve_dir = serve_dir
+        self.ready = True
 
     def configure_layout(self):
         return L.frontend.web.StaticWebFrontend(serve_dir=self.serve_dir)
@@ -60,19 +62,25 @@ class ResearchApp(L.LightningFlow):
         self.enable_gradio = launch_gradio
         self.poster = Poster(resource_path=self.resource_path)
         self.tab_order = tab_order
+        component_status = [self.poster]
 
         if github:
             clone_repo(github)
 
         if launch_jupyter_lab:
             self.jupyter_lab = LitJupyter()
+            component_status.append(self.jupyter_lab)
 
         if launch_gradio:
             self.model_demo = ModelDemo()
+            component_status.append(self.model_demo)
 
         if notebook_path:
             serve_dir = notebook_to_html(notebook_path)
             self.notebook = StaticNotebook(serve_dir)
+            component_status.append(self.notebook)
+
+        self.app_status = AppStatus(component_status)
 
     def run(self) -> None:
         if os.environ.get("TESTING_LAI"):
@@ -82,6 +90,8 @@ class ResearchApp(L.LightningFlow):
             self.jupyter_lab.run()
         if self.enable_gradio:
             self.model_demo.run()
+        if not self.app_status.all_ready:
+            self.app_status.run()
 
     def configure_layout(self) -> List[Dict[str, str]]:
         tabs = []
@@ -105,6 +115,9 @@ class ResearchApp(L.LightningFlow):
 
         tabs.append({"name": "Notebook", "content": self.notebook})
 
+        if not self.app_status.all_ready:
+            tabs.append({"name": "App Status", "content": self.app_status})
+
         return self._order_tabs(tabs)
 
     def _order_tabs(self, tabs: List[dict]):
@@ -121,7 +134,7 @@ if __name__ == "__main__":
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/openai/CLIP"
     wandb = "https://wandb.ai/cceyda/flax-clip/runs/wlad2c2p?workspace=user-aniketmaurya"
-    tabs = ["Blog", "Paper", "Poster", "Notebook", "Training Logs", "Model Demo"]
+    tabs = ["Blog", "Paper", "Poster", "Notebook", "Training Logs", "Model Demo", "app status"]
 
     app = L.LightningApp(
         ResearchApp(
