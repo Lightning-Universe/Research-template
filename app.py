@@ -62,25 +62,25 @@ class ResearchApp(L.LightningFlow):
         self.enable_gradio = launch_gradio
         self.poster = Poster(resource_path=self.resource_path)
         self.tab_order = tab_order
-        component_status = [self.poster]
+        status = [self.poster]
 
         if github:
             clone_repo(github)
 
         if launch_jupyter_lab:
             self.jupyter_lab = LitJupyter()
-            component_status.append(self.jupyter_lab)
+            status.append(self.jupyter_lab)
 
         if launch_gradio:
             self.model_demo = ModelDemo()
-            component_status.append(self.model_demo)
+            status.append(self.model_demo)
 
         if notebook_path:
             serve_dir = notebook_to_html(notebook_path)
             self.notebook = StaticNotebook(serve_dir)
-            component_status.append(self.notebook)
+            status.append(self.notebook)
 
-        self.app_status = AppStatus(component_status)
+        self.app_status = AppStatus(status)
 
     def run(self) -> None:
         if os.environ.get("TESTING_LAI"):
