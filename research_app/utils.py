@@ -9,6 +9,7 @@ logger = getLogger(__name__)
 
 
 def notebook_to_html(path: str):
+    """Provided notebook file path will be converted into html."""
     command = f"jupyter nbconvert --to html {path}"
     subprocess.run(command, shell=True)
     folder = "/".join(path.split("/")[:-1])

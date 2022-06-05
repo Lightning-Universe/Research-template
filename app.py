@@ -27,15 +27,16 @@ class ResearchApp(L.LightningFlow):
     """Share your paper "bundled" with the arxiv link, poster, live jupyter notebook, interactive demo to try the model
     and more!
 
-    paper: Arxiv link to your paper
-    blog: Link to a blog post for your research
-    github: Clone GitHub repo to the current directory.
-    training_log_url: Link for experiment manager like wandb or tensorboard
-    notebook_path: View a Jupyter Notebook as static html tab
-    launch_jupyter_lab: Launch a full-fledged Jupyter Lab instance
-    launch_gradio: Launch Gradio demo.
-        You should update the `research_app/serve/gradio_app.py` file to your use case.
-    tab_order: Tabs will appear in UI in the same order as the provided list of tab names.
+    paper: [Optional] Arxiv link to your paper
+    blog: [Optional] Link to a blog post for your research
+    github: [Optional] Clone GitHub repo to the current directory.
+    training_log_url: [Optional] Link for experiment manager like wandb or tensorboard
+    notebook_path: [Optional] View a Jupyter Notebook as static html tab
+    launch_jupyter_lab: Launch a full-fledged Jupyter Lab instance. Note that sharing Jupyter publicly is not
+        recommended and leads to security vulnerability to the cloud. Defaults to False.
+    launch_gradio: Launch Gradio demo. Defaults to False. You should update the `research_app/components/model_demo.py`
+        file to your use case.
+    tab_order: Optionally reorder the tab layout by providing a list of tab name.
     """
 
     def __init__(

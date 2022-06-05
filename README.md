@@ -6,11 +6,9 @@ practitioners to reproduce your work.
 
 ## Getting started
 
-Use this template and customize for your research paper.
-
 ### Installation
 
-#### With Lightning
+#### With Lightning CLI
 
 `lightning install app lightning/research_poster`
 
@@ -24,7 +22,7 @@ pip install -e .
 ```
 
 Once you have installed the app, you can goto the `lightning-template-research-app` folder and
-run `lightning run app app.py` from terminal.
+run `lightning run app app.py --cloud` from terminal.
 This will launch the template app in your default browser with multiple tabs containing research paper, blog, Training
 logs, and Model Demo.
 To share your research, you should modify the content of this app.
@@ -67,7 +65,7 @@ app = L.LightningApp(
 )
 ```
 
-To run this app, launch the terminal and run `lightning run app app.py`
+To run this app, launch the terminal and run `lightning run app app.py --cloud`
 
 You should see something like this in your browser:
 
