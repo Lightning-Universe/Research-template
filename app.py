@@ -73,6 +73,10 @@ class ResearchApp(L.LightningFlow):
 
         if launch_jupyter_lab:
             self.jupyter_lab = LitJupyter()
+            logger.warning(
+                "Sharing Jupyter publicly is not recommended and exposes security vulnerability "
+                "to the cloud instance."
+            )
 
         if launch_gradio:
             self.model_demo = ModelDemo()
