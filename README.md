@@ -18,7 +18,8 @@ manually install the app as mentioned below.
 
 #### Use GitHub template
 
-Click on `Use this template` button at the top, name your app repo and GitHub will create a fork of this app your account.
+Click on `Use this template` button at the top, name your app repo and GitHub will create a fork of this app your
+account.
 
 ![use-template.png](./assets/use-template.png)
 
@@ -48,7 +49,8 @@ arguments do in the docstrings.
 - Make a poster for your research by editing the markdown file in the [resources](./resources/poster.md) folder.
 - Add interactive model demo with Gradio app, update the gradio component present in
   the [research_app](./research_app/components/model_demo.py) folder.
-- Launch Jupyter Notebook to show the code demo.
+- View a Jupyter Notebook or launch fully fledged notebook instance. (Sharing a Jupyter Notebook instance can expose the
+  cloud instance to security vulnerability.)
 
 ```python
 # update app.py at the root of the repo
