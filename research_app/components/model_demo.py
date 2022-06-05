@@ -105,7 +105,6 @@ class ModelDemo(ServeGradio):
     ):
         super(ServeGradio, self).__init__(parallel=True)
         self._model = None
-        self.ready = False
         print("initializing Model Demo...")
 
     def build_model(self):
@@ -116,7 +115,6 @@ class ModelDemo(ServeGradio):
         processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
         clip = CLIP(processor=processor, model=model)
         print("built model!")
-        self.ready = True
         return clip
 
     def predict(self, query: str):
