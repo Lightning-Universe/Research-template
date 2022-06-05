@@ -17,7 +17,6 @@ class StaticNotebook(L.LightningFlow):
     def __init__(self, serve_dir: str):
         super().__init__()
         self.serve_dir = serve_dir
-        self.ready = True
 
     def configure_layout(self):
         return L.frontend.web.StaticWebFrontend(serve_dir=self.serve_dir)

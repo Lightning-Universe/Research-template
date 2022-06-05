@@ -7,7 +7,10 @@ from lightning.utilities.state import AppState
 from streamlit_autorefresh import st_autorefresh
 
 
+# This component is WIP @aniketmaurya
 class AppStatus(LightningFlow):
+    """This component shows the list of Works which are not ready."""
+
     def __init__(self, components: List[Union[LightningWork, LightningFlow]]) -> None:
         super().__init__()
         self.components: Dict[str, bool] = {}
