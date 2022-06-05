@@ -41,7 +41,7 @@ class ResearchApp(L.LightningFlow):
 
     def __init__(
         self,
-        resource_path: str,
+        poster_dir: str,
         paper: Optional[str] = None,
         blog: Optional[str] = None,
         github: Optional[str] = None,
@@ -53,14 +53,14 @@ class ResearchApp(L.LightningFlow):
     ) -> None:
 
         super().__init__()
-        self.resource_path = os.path.abspath(resource_path)
+        self.poster_dir = os.path.abspath(poster_dir)
         self.paper = paper
         self.blog = blog
         self.training_logs = training_log_url
         self.notebook_path = notebook_path
         self.launch_jupyter_lab = launch_jupyter_lab
         self.enable_gradio = launch_gradio
-        self.poster = Poster(resource_path=self.resource_path)
+        self.poster = Poster(resource_path=self.poster_dir)
         self.tab_order = tab_order
 
         if github:
@@ -127,7 +127,7 @@ if __name__ == "__main__":
 
     app = L.LightningApp(
         ResearchApp(
-            resource_path=resource_path,
+            poster_dir=resource_path,
             paper=paper,
             blog=blog,
             training_log_url=wandb,
