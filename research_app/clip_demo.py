@@ -12,6 +12,7 @@ import numpy as np
 import pandas as pd
 from rich import print
 from rich.logging import RichHandler
+from transformers import CLIPModel, CLIPProcessor
 
 FORMAT = "%(message)s"
 logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()])
@@ -75,15 +76,19 @@ class CLIPDemo:
             )
         self.source = {0: "\nSource: Unsplash", 1: "\nSource: The Movie Database (TMDB)"}
 
-    def __init__(self, processor, model):
+    def __init__(
+        self,
+    ):
         self.source = None
         self.df = None
         self.EMBEDDINGS = None
-        for p in model.parameters():
-            p.requires_grad = False
+
         self._pre_setup()
-        self.processor = processor
-        self.model = model
+
+        self.model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").eval()
+        self.processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+        for p in self.model.parameters():
+            p.requires_grad = False
 
     def _compute_text_embeddings(self, list_of_strings: List[str]):
         inputs = self.processor(text=list_of_strings, return_tensors="pt", padding=True)

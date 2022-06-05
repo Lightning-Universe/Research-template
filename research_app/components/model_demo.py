@@ -1,10 +1,8 @@
 import logging
-from typing import Optional
 
 import gradio as gr
 from lightning.components.serve import ServeGradio
 from rich.logging import RichHandler
-from transformers import CLIPModel, CLIPProcessor
 
 from ..clip_demo import CLIPDemo
 
@@ -28,14 +26,11 @@ class ModelDemo(ServeGradio):
         self,
     ):
         super(ServeGradio, self).__init__(parallel=True)
-        self._model: Optional[CLIPDemo] = None
         logger.info("initializing Model Demo...")
 
-    def build_model(self):
+    def build_model(self) -> CLIPDemo:
         logger.info("loading model...")
-        model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").eval()
-        processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
-        clip = CLIPDemo(processor=processor, model=model)
+        clip = CLIPDemo()
         logger.info("built model!")
         return clip
 
