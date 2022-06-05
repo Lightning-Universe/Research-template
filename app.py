@@ -63,7 +63,7 @@ class ResearchApp(L.LightningFlow):
         self.training_logs = training_log_url
         self.notebook_path = notebook_path
         self.jupyter_lab = None
-        self.enable_gradio = launch_gradio
+        self.model_demo = None
         self.poster = Poster(resource_dir=self.poster_dir)
         self.notebook = None
         self.tab_order = tab_order
@@ -89,9 +89,9 @@ class ResearchApp(L.LightningFlow):
         if os.environ.get("TESTING_LAI"):
             print("⚡ Lightning Research App! ⚡")
         self.poster.run()
-        if self.launch_jupyter_lab:
+        if self.jupyter_lab:
             self.jupyter_lab.run()
-        if self.enable_gradio:
+        if self.model_demo:
             self.model_demo.run()
 
     def configure_layout(self) -> List[Dict[str, str]]:
@@ -111,7 +111,7 @@ class ResearchApp(L.LightningFlow):
         if self.training_logs:
             tabs.append({"name": "Training Logs", "content": self.training_logs})
 
-        if self.enable_gradio:
+        if self.model_demo:
             tabs.append({"name": "Model Demo", "content": self.model_demo.url})
 
         if self.jupyter_lab:
