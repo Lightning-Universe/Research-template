@@ -18,8 +18,8 @@ manually install the app as mentioned below.
 
 #### Use GitHub template
 
-Click on `Use this template` button at the top, name your app repo and GitHub will create a fork of this app your
-account.
+Click on the "Use this template" button at the top, name your app repo, and GitHub will create a fork of this app to
+your account.
 
 ![use-template.png](./assets/use-template.png)
 
@@ -36,22 +36,26 @@ Once you have installed the app, you can goto the `lightning-template-research-a
 run `lightning run app app.py --cloud` from terminal.
 This will launch the template app in your default browser with tabs containing research paper, blog, Training
 logs, and Model Demo.
-You can modify the content of this app to customize to your research.
 
-At the root of this template you will find [app.py](./app.py) that contains `ResearchApp` class, this class provides
-arguments like link to paper, blog, and whether to launch a Gradio demo. You can read more about what each of the
-arguments do in the docstrings.
+You should see something like this in your browser:
+
+![image](./assets/demo.png)
+
+You can modify the content of this app and customize it to your research.
+At the root of this template, you will find [app.py](./app.py) that contains the `ResearchApp` class. This class
+provides arguments like a link to a paper, a blog, and whether to launch a Gradio demo. You can read more about what
+each of the arguments does in the docstrings.
 
 #### Highlights
 
-- Provide the link for paper, blog or training log manager like WandB as argument and `ResearchApp` will
-  create a tab for each of these.
+- Provide the link for paper, blog, or training logger like WandB as an argument, and `ResearchApp` will create a tab
+  for each.
 - Make a poster for your research by editing the markdown file in the [resources](./resources/poster.md) folder.
-- Add interactive model demo with Gradio app, update the gradio component present in
-  the [research_app](./research_app/components/model_demo.py) folder.
-- View a Jupyter Notebook or launch fully fledged notebook instance. (Sharing a Jupyter Notebook instance can expose the
-  cloud instance to security vulnerability.)
-- Reorder the tab layout using `tab_order` argument.
+- Add interactive model demo with Gradio app, update the gradio component present in the \[research_app (
+  ./research_app/components/model_demo.py) folder.
+- View a Jupyter Notebook or launch a fully-fledged notebook instance (Sharing a Jupyter Notebook instance can expose
+  the cloud instance to security vulnerability.)
+- Reorder the tab layout using the `tab_order` argument.
 
 ```python
 # update app.py at the root of the repo
@@ -77,9 +81,3 @@ app = L.LightningApp(
     )
 )
 ```
-
-To run this app, launch the terminal and run `lightning run app app.py --cloud`
-
-You should see something like this in your browser:
-
-![image](./assets/demo.png)
