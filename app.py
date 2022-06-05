@@ -33,7 +33,7 @@ class ResearchApp(L.LightningFlow):
     training_log_url: [Optional] Link for experiment manager like wandb or tensorboard
     notebook_path: [Optional] View a Jupyter Notebook as static html tab
     launch_jupyter_lab: Launch a full-fledged Jupyter Lab instance. Note that sharing Jupyter publicly is not
-        recommended and leads to security vulnerability to the cloud. Defaults to False.
+        recommended and exposes security vulnerability to the cloud. Defaults to False.
     launch_gradio: Launch Gradio demo. Defaults to False. You should update the `research_app/components/model_demo.py`
         file to your use case.
     tab_order: You can optionally reorder the tab layout by providing a list of tab name.
@@ -133,7 +133,7 @@ if __name__ == "__main__":
             training_log_url=wandb,
             github=github,
             notebook_path="resources/Interacting_with_CLIP.ipynb",
-            launch_jupyter_lab=False,
+            launch_jupyter_lab=False,  # don't launch for public app, can expose to security vulnerability
             launch_gradio=True,
             tab_order=tabs,
         )
