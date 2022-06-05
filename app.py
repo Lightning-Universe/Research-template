@@ -1,4 +1,3 @@
-import logging
 import os
 from typing import Dict, List, Optional
 
@@ -9,8 +8,6 @@ from rich import print
 from research_app.components.markdown_poster import Poster
 from research_app.components.model_demo import ModelDemo
 from research_app.utils import clone_repo, notebook_to_html
-
-logger = logging.getLogger(__name__)
 
 
 class StaticNotebook(L.LightningFlow):
