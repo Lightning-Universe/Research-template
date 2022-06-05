@@ -36,7 +36,7 @@ class ResearchApp(L.LightningFlow):
         recommended and leads to security vulnerability to the cloud. Defaults to False.
     launch_gradio: Launch Gradio demo. Defaults to False. You should update the `research_app/components/model_demo.py`
         file to your use case.
-    tab_order: Optionally reorder the tab layout by providing a list of tab name.
+    tab_order: You can optionally reorder the tab layout by providing a list of tab name.
     """
 
     def __init__(
@@ -60,7 +60,7 @@ class ResearchApp(L.LightningFlow):
         self.notebook_path = notebook_path
         self.launch_jupyter_lab = launch_jupyter_lab
         self.enable_gradio = launch_gradio
-        self.poster = Poster(resource_path=self.poster_dir)
+        self.poster = Poster(resource_dir=self.poster_dir)
         self.tab_order = tab_order
 
         if github:
