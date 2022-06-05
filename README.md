@@ -46,7 +46,7 @@ At the root of this template, you will find [app.py](./app.py) that contains the
 provides arguments like a link to a paper, a blog, and whether to launch a Gradio demo. You can read more about what
 each of the arguments does in the docstrings.
 
-#### Highlights
+### Highlights
 
 - Provide the link for paper, blog, or training logger like WandB as an argument, and `ResearchApp` will create a tab
   for each.
@@ -56,6 +56,8 @@ each of the arguments does in the docstrings.
 - View a Jupyter Notebook or launch a fully-fledged notebook instance (Sharing a Jupyter Notebook instance can expose
   the cloud instance to security vulnerability.)
 - Reorder the tab layout using the `tab_order` argument.
+
+### Example
 
 ```python
 # update app.py at the root of the repo
