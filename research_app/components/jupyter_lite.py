@@ -11,6 +11,8 @@ class JupyterLite(L.LightningWork):
     """This component will launch JupyterLab instance that runs entirely in the browser.
 
     https://jupyterlite.readthedocs.io/en/latest/
+
+    contents: folder location to be copied while building jupyter lite. This will appear in the Jupyterlab.
     """
 
     def __init__(self, contents="research_app", **kwargs):

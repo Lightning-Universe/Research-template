@@ -22,9 +22,7 @@ class ModelDemo(ServeGradio):
     inputs = gr.inputs.Textbox(default="Doctor Strange Multiverse", label="Search your favourite movie here")
     outputs = gr.outputs.HTML(label="Fetch Images from <b>themoviedb.org</b>")
 
-    def __init__(
-        self,
-    ):
+    def __init__(self):
         super(ServeGradio, self).__init__(parallel=True)
         self._model = None
         self.enable_queue = True

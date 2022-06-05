@@ -10,6 +10,10 @@ class Poster(LightningWork):
     """This component lets you create a poster using markdown.
 
     To make a poster you should create a `poster.md` file in the `resource_dir`.
+
+    resource_dir: folder path where poster.md is present.
+    code_style: The style of code blocks.
+    background_color: The background color of the poster.
     """
 
     def __init__(
