@@ -58,6 +58,7 @@ class ResearchApp(L.LightningFlow):
         self.launch_jupyter_lab = launch_jupyter_lab
         self.enable_gradio = launch_gradio
         self.poster = Poster(resource_dir=self.poster_dir)
+        self.notebook = None
         self.tab_order = tab_order
 
         if github:
@@ -93,8 +94,8 @@ class ResearchApp(L.LightningFlow):
         if self.paper:
             tabs.append({"name": "Paper", "content": self.paper})
 
-        if self.launch_jupyter_lab:
-            tabs.append({"name": "JupyterLab", "content": self.jupyter_lab.url})
+        if self.notebook:
+            tabs.append({"name": "Notebook Viewer", "content": self.notebook})
 
         if self.training_logs:
             tabs.append({"name": "Training Logs", "content": self.training_logs})
@@ -102,7 +103,8 @@ class ResearchApp(L.LightningFlow):
         if self.enable_gradio:
             tabs.append({"name": "Model Demo", "content": self.model_demo.url})
 
-        tabs.append({"name": "Notebook", "content": self.notebook})
+        if self.launch_jupyter_lab:
+            tabs.append({"name": "JupyterLab", "content": self.jupyter_lab.url})
 
         return self._order_tabs(tabs)
 
