@@ -23,7 +23,14 @@ def notebook_to_html(path: str):
 
 
 def clone_repo(url: str):
-    """Clones the github repo from url to current dir."""
+    """Clones the github repo from url to current dir.
+
+    Example:
+        url = "https://github.com/PyTorchLightning/lightning-template-research-app.git"
+        clone_repo(url)
+
+    The given repo will be cloned to current dir.
+    """
     print(f"cloning {url}")
     path = Path.cwd() / "github"
     os.makedirs(path, exist_ok=True)
