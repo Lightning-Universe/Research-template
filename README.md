@@ -51,6 +51,7 @@ arguments do in the docstrings.
   the [research_app](./research_app/components/model_demo.py) folder.
 - View a Jupyter Notebook or launch fully fledged notebook instance. (Sharing a Jupyter Notebook instance can expose the
   cloud instance to security vulnerability.)
+- Reorder the tab layout using `tab_order` argument.
 
 ```python
 # update app.py at the root of the repo
