@@ -1,14 +1,19 @@
+import logging
 import os
 import subprocess
-from logging import getLogger
 from pathlib import Path
 
 from rich import print
+from rich.logging import RichHandler
 
-logger = getLogger(__name__)
+FORMAT = "%(message)s"
+logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()])
+
+logger = logging.getLogger(__name__)
 
 
 def notebook_to_html(path: str):
+    """Provided notebook file path will be converted into html."""
     command = f"jupyter nbconvert --to html {path}"
     subprocess.run(command, shell=True)
     folder = "/".join(path.split("/")[:-1])
@@ -18,7 +23,14 @@ def notebook_to_html(path: str):
 
 
 def clone_repo(url: str):
-    """Clones the github repo from url to current dir."""
+    """Clones the github repo from url to current dir.
+
+    Example:
+        url = "https://github.com/PyTorchLightning/lightning-template-research-app.git"
+        clone_repo(url)
+
+    The given repo will be cloned to current dir.
+    """
     print(f"cloning {url}")
     path = Path.cwd() / "github"
     os.makedirs(path, exist_ok=True)

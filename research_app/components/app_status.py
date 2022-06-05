@@ -1,13 +1,23 @@
+import logging
 from typing import Dict, List, Union
 
 import streamlit as st
 from lightning import LightningFlow, LightningWork
 from lightning.frontend import StreamlitFrontend
 from lightning.utilities.state import AppState
+from rich.logging import RichHandler
 from streamlit_autorefresh import st_autorefresh
 
+FORMAT = "%(message)s"
+logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()])
 
+logger = logging.getLogger(__name__)
+
+
+# This component is WIP @aniketmaurya
 class AppStatus(LightningFlow):
+    """This component shows the list of Works which are not ready."""
+
     def __init__(self, components: List[Union[LightningWork, LightningFlow]]) -> None:
         super().__init__()
         self.components: Dict[str, bool] = {}
@@ -44,7 +54,7 @@ def render(state: AppState):
 
         md = ""
         for name, ready in state.components.item():
-            print(f"{name} not ready!")
+            logger.debug(f"{name} not ready!")
             if ready is False:
                 md += f"* {name.capitalize()} ❌\n"
 

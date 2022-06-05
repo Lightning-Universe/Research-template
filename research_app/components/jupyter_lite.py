@@ -1,7 +1,6 @@
 import logging
 import os.path
 import subprocess
-from typing import Optional
 
 import lightning as L
 
@@ -12,14 +11,14 @@ class JupyterLite(L.LightningWork):
     """This component will launch JupyterLab instance that runs entirely in the browser.
 
     https://jupyterlite.readthedocs.io/en/latest/
+
+    contents: folder location to be copied while building jupyter lite. This will appear in the Jupyterlab.
     """
 
-    def __init__(self, github_url: Optional[str] = None, contents="research_app", **kwargs):
+    def __init__(self, contents="research_app", **kwargs):
         super().__init__(parallel=True, **kwargs)
         assert os.path.exists(contents), f"{contents} not exist at {os.getcwd()}"
         self.contents = contents
-        self.github_url = github_url
-        self.ready = False
 
     def run(self):
         cmd = "jupyter lite init"
@@ -30,7 +29,6 @@ class JupyterLite(L.LightningWork):
 
         cmd = f"jupyter lite serve --contents {self.contents} --port {self.port}"
         subprocess.run(cmd, shell=True)
-        self.ready = True
 
 
 if __name__ == "__main__":
