@@ -33,9 +33,9 @@ pip install -e .
 
 Once you have installed the app, you can goto the `lightning-template-research-app` folder and
 run `lightning run app app.py --cloud` from terminal.
-This will launch the template app in your default browser with multiple tabs containing research paper, blog, Training
+This will launch the template app in your default browser with tabs containing research paper, blog, Training
 logs, and Model Demo.
-To share your research, you should modify the content of this app.
+You can modify the content of this app to customize to your research.
 
 At the root of this template you will find [app.py](./app.py) that contains `ResearchApp` class, this class provides
 arguments like link to paper, blog, and whether to launch a Gradio demo. You can read more about what each of the
