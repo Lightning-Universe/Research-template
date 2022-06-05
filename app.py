@@ -65,7 +65,7 @@ class ResearchApp(L.LightningFlow):
         self.jupyter_lab = None
         self.model_demo = None
         self.poster = Poster(resource_dir=self.poster_dir)
-        self.notebook = None
+        self.notebook_viewer = None
         self.tab_order = tab_order
 
         if github:
@@ -83,7 +83,7 @@ class ResearchApp(L.LightningFlow):
 
         if notebook_path:
             serve_dir = notebook_to_html(notebook_path)
-            self.notebook = StaticNotebook(serve_dir)
+            self.notebook_viewer = StaticNotebook(serve_dir)
 
     def run(self) -> None:
         if os.environ.get("TESTING_LAI"):
@@ -105,8 +105,8 @@ class ResearchApp(L.LightningFlow):
         if self.paper:
             tabs.append({"name": "Paper", "content": self.paper})
 
-        if self.notebook:
-            tabs.append({"name": "Notebook Viewer", "content": self.notebook})
+        if self.notebook_viewer:
+            tabs.append({"name": "Notebook Viewer", "content": self.notebook_viewer})
 
         if self.training_logs:
             tabs.append({"name": "Training Logs", "content": self.training_logs})
