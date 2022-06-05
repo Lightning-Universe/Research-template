@@ -30,7 +30,8 @@ class ResearchApp(L.LightningFlow):
     """Share your paper "bundled" with the arxiv link, poster, live jupyter notebook, interactive demo to try the model
     and more!
 
-    poster_dir: folder path of markdown file. The markdown will be converted into a poster and launched as static html.
+    poster_dir: folder path of markdown file. The markdown will be converted into a poster and launched as static
+        html.
     paper: [Optional] Arxiv link to your paper
     blog: [Optional] Link to a blog post for your research
     github: [Optional] Clone GitHub repo to the current directory.
@@ -38,8 +39,8 @@ class ResearchApp(L.LightningFlow):
     notebook_path: [Optional] View a Jupyter Notebook as static html tab
     launch_jupyter_lab: Launch a full-fledged Jupyter Lab instance. Note that sharing Jupyter publicly is not
         recommended and exposes security vulnerability to the cloud. Defaults to False.
-    launch_gradio: Launch Gradio demo. Defaults to False. You should update the `research_app/components/model_demo.py`
-        file to your use case.
+    launch_gradio: Launch Gradio demo. Defaults to False. You should update the
+        `research_app/components/model_demo.py` file to your use case.
     tab_order: You can optionally reorder the tab layout by providing a list of tab name.
     """
 
