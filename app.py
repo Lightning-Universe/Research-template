@@ -62,7 +62,7 @@ class ResearchApp(L.LightningFlow):
         self.blog = blog
         self.training_logs = training_log_url
         self.notebook_path = notebook_path
-        self.launch_jupyter_lab = launch_jupyter_lab
+        self.jupyter_lab = None
         self.enable_gradio = launch_gradio
         self.poster = Poster(resource_dir=self.poster_dir)
         self.notebook = None
@@ -114,7 +114,7 @@ class ResearchApp(L.LightningFlow):
         if self.enable_gradio:
             tabs.append({"name": "Model Demo", "content": self.model_demo.url})
 
-        if self.launch_jupyter_lab:
+        if self.jupyter_lab:
             tabs.append({"name": "JupyterLab", "content": self.jupyter_lab.url})
 
         return self._order_tabs(tabs)
