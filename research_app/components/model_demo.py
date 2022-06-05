@@ -4,7 +4,7 @@ import gradio as gr
 from lightning.components.serve import ServeGradio
 from rich.logging import RichHandler
 
-from ..clip_demo import CLIPDemo
+from research_app.clip_demo import CLIPDemo
 
 FORMAT = "%(message)s"
 logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()])
@@ -26,7 +26,8 @@ class ModelDemo(ServeGradio):
         self,
     ):
         super(ServeGradio, self).__init__(parallel=True)
-        logger.info("initializing Model Demo...")
+        self._model = None
+        self.enable_queue = True
 
     def build_model(self) -> CLIPDemo:
         logger.info("loading model...")
