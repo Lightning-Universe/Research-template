@@ -1,13 +1,20 @@
+import logging
 import os
 from typing import Dict, List, Optional
 
 import lightning as L
 from lit_jupyter import LitJupyter
 from rich import print
+from rich.logging import RichHandler
 
 from research_app.components.markdown_poster import Poster
 from research_app.components.model_demo import ModelDemo
 from research_app.utils import clone_repo, notebook_to_html
+
+FORMAT = "%(message)s"
+logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()])
+
+logger = logging.getLogger(__name__)
 
 
 class StaticNotebook(L.LightningFlow):
@@ -113,7 +120,13 @@ class ResearchApp(L.LightningFlow):
         if self.tab_order is None:
             return tabs
         order_int: Dict[str, int] = {e.lower(): i for i, e in enumerate(self.tab_order)}
-        return sorted(tabs, key=lambda x: order_int[x["name"].lower()])
+        try:
+            return sorted(tabs, key=lambda x: order_int[x["name"].lower()])
+        except KeyError as e:
+            logger.error(
+                f"One of the key [{e.args[0]}] that you passed as `tab_order` argument is incorrect. "
+                f"Please check {tabs}"
+            )
 
 
 if __name__ == "__main__":
@@ -122,7 +135,7 @@ if __name__ == "__main__":
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/openai/CLIP"
     wandb = "https://wandb.ai/cceyda/flax-clip/runs/wlad2c2p?workspace=user-aniketmaurya"
-    tabs = ["Blog", "Paper", "Poster", "Notebook", "Training Logs", "Model Demo"]
+    tabs = ["Blog", "Paper", "Poster", "Notebook Viewer", "Training Logs", "Model Demo"]
 
     app = L.LightningApp(
         ResearchApp(
