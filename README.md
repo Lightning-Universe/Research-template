@@ -6,16 +6,26 @@ practitioners to reproduce your work.
 
 ## Getting started
 
+To create a Research Poster you can install this app via the [Lightning CLI](https://lightning.ai/lightning-docs/) or
+[use the template](https://docs.github.com/en/articles/creating-a-repository-from-a-template) from GitHub and
+manually install the app as mentioned below.
+
 ### Installation
 
 #### With Lightning CLI
 
 `lightning install app lightning/research_poster`
 
-#### Manual
+#### Use GitHub template
+
+Click on `Use this template` button at the top, name your app repo and GitHub will create a fork of this app your account.
+
+![use-template.png](./assets/use-template.png)
+
+You can clone the forked app repo and follow the steps below to install the app.
 
 ```
-git clone https://github.com/PyTorchLightning/lightning-template-research-app.git
+git clone https://github.com/YOUR-USERNAME/lightning-template-research-app.git
 cd lightning-template-research-app
 pip install -r requirements.txt
 pip install -e .
