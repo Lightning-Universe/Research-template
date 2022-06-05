@@ -6,7 +6,7 @@ from lightning.components.serve import ServeGradio
 from rich.logging import RichHandler
 from transformers import CLIPModel, CLIPProcessor
 
-from ..clip import CLIP
+from ..clip_demo import CLIPDemo
 
 FORMAT = "%(message)s"
 logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()])
@@ -28,14 +28,14 @@ class ModelDemo(ServeGradio):
         self,
     ):
         super(ServeGradio, self).__init__(parallel=True)
-        self._model: Optional[CLIP] = None
+        self._model: Optional[CLIPDemo] = None
         logger.info("initializing Model Demo...")
 
     def build_model(self):
         logger.info("loading model...")
         model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").eval()
         processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
-        clip = CLIP(processor=processor, model=model)
+        clip = CLIPDemo(processor=processor, model=model)
         logger.info("built model!")
         return clip
 

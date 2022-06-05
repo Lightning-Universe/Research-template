@@ -1,3 +1,7 @@
+"""This module implements the demo for CLIP model.
+
+The app integration is done at `research_app/components/model_demo.py`.
+"""
 import enum
 import logging
 import os.path
@@ -44,8 +48,19 @@ def download_files():
     logger.info("✅ Downloaded embeddings")
 
 
-class CLIP:
-    def pre_setup(self):
+def get_html(url_list, height=200):
+    html = "<div style='margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-evenly'>"
+    for url, title, link in url_list:
+        html2 = f"<img title='{title}' style='height: {height}px; margin-bottom: 10px' src='{url}'>"
+        if len(link) > 0:
+            html2 = f"<a href='{link}' target='_blank'>" + html2 + "</a>"
+        html = html + html2
+    html += "</div>"
+    return html
+
+
+class CLIPDemo:
+    def _pre_setup(self):
         if not os.path.exists("resources/data.csv"):
             download_files()
 
@@ -61,21 +76,24 @@ class CLIP:
         self.source = {0: "\nSource: Unsplash", 1: "\nSource: The Movie Database (TMDB)"}
 
     def __init__(self, processor, model):
+        self.source = None
+        self.df = None
+        self.EMBEDDINGS = None
         for p in model.parameters():
             p.requires_grad = False
-        self.pre_setup()
+        self._pre_setup()
         self.processor = processor
         self.model = model
 
-    def compute_text_embeddings(self, list_of_strings: List[str]):
+    def _compute_text_embeddings(self, list_of_strings: List[str]):
         inputs = self.processor(text=list_of_strings, return_tensors="pt", padding=True)
         return self.model.get_text_features(**inputs)
 
-    def image_search(self, query: str, n_results=24):
+    def _image_search(self, query: str, n_results=24):
         assert isinstance(query, str), f"query is of type {type(query)}"
-        text_embeddings = self.compute_text_embeddings([query]).detach().numpy()
+        text_embeddings = self._compute_text_embeddings([query]).detach().numpy()
         k = 0 if dataset == "Unsplash" else 1
-        results = np.argsort((EMBEDDINGS[k] @ text_embeddings.T)[:, 0])[-1 : -n_results - 1 : -1]  # noqa E203
+        results = np.argsort((self.EMBEDDINGS[k] @ text_embeddings.T)[:, 0])[-1 : -n_results - 1 : -1]  # noqa E203
         result = [
             (self.df[k].iloc[i]["path"], self.df[k].iloc[i]["tooltip"] + self.source[k], self.df[k].iloc[i]["link"])
             for i in results
@@ -83,15 +101,5 @@ class CLIP:
         return result
 
     def predict(self, query: str) -> str:
-        results = self.model.image_search(query)
-        return self.get_html(results)
-
-    def get_html(self, url_list, height=200):
-        html = "<div style='margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-evenly'>"
-        for url, title, link in url_list:
-            html2 = f"<img title='{title}' style='height: {height}px; margin-bottom: 10px' src='{url}'>"
-            if len(link) > 0:
-                html2 = f"<a href='{link}' target='_blank'>" + html2 + "</a>"
-            html = html + html2
-        html += "</div>"
-        return html
+        results = self._image_search(query)
+        return get_html(results)

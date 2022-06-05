@@ -1,11 +1,15 @@
+import logging
 import os
 import subprocess
-from logging import getLogger
 from pathlib import Path
 
 from rich import print
+from rich.logging import RichHandler
 
-logger = getLogger(__name__)
+FORMAT = "%(message)s"
+logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()])
+
+logger = logging.getLogger(__name__)
 
 
 def notebook_to_html(path: str):
