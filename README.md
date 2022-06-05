@@ -62,7 +62,7 @@ tabs = ["Poster", "Blog", "Paper", "Notebook", "Training Logs", "Model Demo"]
 
 app = L.LightningApp(
     ResearchApp(
-        resource_path="resources",
+        poster_dir="resources",
         paper=paper,
         blog=blog,
         training_log_url=wandb,

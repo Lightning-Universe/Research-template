@@ -23,6 +23,7 @@ class ResearchApp(L.LightningFlow):
     """Share your paper "bundled" with the arxiv link, poster, live jupyter notebook, interactive demo to try the model
     and more!
 
+    poster_dir: folder path of markdown file. The markdown will be converted into a poster and launched as static html.
     paper: [Optional] Arxiv link to your paper
     blog: [Optional] Link to a blog post for your research
     github: [Optional] Clone GitHub repo to the current directory.
