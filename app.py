@@ -128,13 +128,13 @@ class ResearchApp(L.LightningFlow):
             return sorted(tabs, key=lambda x: order_int[x["name"].lower()])
         except KeyError as e:
             logger.error(
-                f"One of the key [{e.args[0]}] that you passed as `tab_order` argument is incorrect. "
+                f"One of the key '{e.args[0]}' that you passed as `tab_order` argument is missing or incorrect. "
                 f"Please check {tabs}"
             )
 
 
 if __name__ == "__main__":
-    resource_path = "resources"
+    poster_dir = "resources"
     paper = "https://arxiv.org/pdf/2103.00020"
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/openai/CLIP"
@@ -143,7 +143,7 @@ if __name__ == "__main__":
 
     app = L.LightningApp(
         ResearchApp(
-            poster_dir=resource_path,
+            poster_dir=poster_dir,
             paper=paper,
             blog=blog,
             training_log_url=wandb,
