@@ -1,11 +1,8 @@
 # Lightning Research Poster Template
 
-Use this app to share your research paper results. This app lets you connect a blogpost, arxiv paper, and jupyter
+Use this app to share your research paper results. This app lets you connect a blogpost, arxiv paper, and a jupyter
 notebook and even have an interactive demo for people to play with the model. This app also allows industry
-practitioners to productionize your work by adding inference components (sub 1ms inference time), data pipelines, etc.
-
-Research Poster App helps Authors and Readers to publish and view research, code, experiment reports,
-articles or any resource within the same app.
+practitioners to reproduce your work.
 
 ## Getting started
 
@@ -26,10 +23,15 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-### Share Research with Lightning App
+Once you have installed the app, you can goto the `lightning-template-research-app` folder and
+run `lightning run app app.py` from terminal.
+This will launch the template app in your default browser with multiple tabs containing research paper, blog, Training
+logs, and Model Demo.
+To share your research, you should modify the content of this app.
 
-The poster app has a `ResearchApp` class that provides flags that you can use to quickly build an app without knowing
-any web development.
+At the root of this template you will find [app.py](./app.py) that contains `ResearchApp` class, this class provides
+arguments like link to paper, blog, and whether to launch a Gradio demo. You can read more about what each of the
+arguments do in the docstrings.
 
 #### Highlights
 
