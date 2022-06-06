@@ -3,10 +3,10 @@ import os
 from typing import Dict, List, Optional
 
 import lightning as L
-from lit_jupyter import LitJupyter
 from rich import print
 from rich.logging import RichHandler
 
+from research_app.components.jupyter_notebook import JupyterLab
 from research_app.components.markdown_poster import Poster
 from research_app.components.model_demo import ModelDemo
 from research_app.utils import clone_repo, notebook_to_html
@@ -73,7 +73,7 @@ class ResearchApp(L.LightningFlow):
             clone_repo(github)
 
         if launch_jupyter_lab:
-            self.jupyter_lab = LitJupyter()
+            self.jupyter_lab = JupyterLab()
             logger.warning(
                 "Sharing Jupyter publicly is not recommended and exposes security vulnerability "
                 "to the cloud instance."
@@ -116,7 +116,7 @@ class ResearchApp(L.LightningFlow):
             tabs.append({"name": "Model Demo", "content": self.model_demo.url})
 
         if self.jupyter_lab:
-            tabs.append({"name": "JupyterLab", "content": self.jupyter_lab.url})
+            tabs.append({"name": "Jupyter Lab", "content": self.jupyter_lab.url})
 
         return self._order_tabs(tabs)
 

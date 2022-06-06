@@ -21,7 +21,7 @@ manually install the app as mentioned below.
 Click on the "Use this template" button at the top, name your app repo, and GitHub will create a fork of this app to
 your account.
 
-![use-template.png](./assets/use-template.png)
+> ![use-template.png](./assets/use-template.png)
 
 You can clone the forked app repo and follow the steps below to install the app.
 
@@ -39,7 +39,7 @@ logs, and Model Demo.
 
 You should see something like this in your browser:
 
-![image](./assets/demo.png)
+> ![image](./assets/demo.png)
 
 You can modify the content of this app and customize it to your research.
 At the root of this template, you will find [app.py](./app.py) that contains the `ResearchApp` class. This class
