@@ -77,9 +77,14 @@ app = L.LightningApp(
         training_log_url=wandb,
         github=github,
         notebook_path="resources/Interacting_with_CLIP.ipynb",
-        launch_jupyter_lab=True,
+        launch_jupyter_lab=False,
         launch_gradio=True,
         tab_order=tabs,
     )
 )
 ```
+
+## FAQs
+
+1. How to pull from the latest template
+   code? [Answer](https://stackoverflow.com/questions/56577184/github-pull-changes-from-a-template-repository)
