@@ -82,7 +82,7 @@ app = L.LightningApp(
         training_log_url=wandb,
         github=github,
         notebook_path="resources/Interacting_with_CLIP.ipynb",
-        enable_gradio=True,
+        launch_gradio=True,
     )
 )
 ```
