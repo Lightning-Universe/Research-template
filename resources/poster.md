@@ -19,7 +19,7 @@
 
 --split--
 
-# CLIP: Connecting Text and Images
+# Natural Language based Image Search
 
 ## OpenAI introduced a neural network called CLIP which efficiently learns visual concepts from natural language supervision.
 
@@ -31,7 +31,10 @@ Explore the tabs at the top of this app to view blog, paper, training logs and m
 
 You can fork this app and edit to customize according to your need.
 
-Thanks to [Vivien](https://github.com/vivien000) for building amazing application using
+Kudos to Soumik Rakshit and Manan Goel for their awesome
+repository [clip-lightning](https://github.com/soumik12345/clip-lightning)
+
+Thanks to [Vivien](https://github.com/vivien000) for his inspiring application using
 CLIP [Minimal user-friendly demo of OpenAI's CLIP for semantic image search](https://github.com/vivien000/clip-demo).
 
 <img src="https://openaiassets.blob.core.windows.net/$web/clip/draft/20210104b/overview-a.svg">
@@ -68,9 +71,8 @@ import lightning as L
 
 paper = "https://arxiv.org/pdf/2103.00020.pdf"
 blog = "https://openai.com/blog/clip/"
-github = "https://github.com/mlfoundations/open_clip"
-wandb = "https://wandb.ai/aniketmaurya/herbarium-2022/runs/2dvwrme5"
-tabs = ["Poster", "Blog", "Paper", "Notebook", "Training Logs", "Model Demo"]
+github = "https://github.com/soumik12345/clip-lightning/tree/AddModelCheckpoint"
+wandb = "https://wandb.ai/manan-goel/clip-lightning-image_retrieval/runs/1cedtohj"
 
 app = L.LightningApp(
     ResearchApp(
@@ -80,9 +82,7 @@ app = L.LightningApp(
         training_log_url=wandb,
         github=github,
         notebook_path="resources/Interacting_with_CLIP.ipynb",
-        launch_jupyter_lab=True,
-        launch_gradio=True,
-        tab_order=tabs,
+        enable_gradio=True,
     )
 )
 ```
