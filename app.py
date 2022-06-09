@@ -113,7 +113,7 @@ class ResearchApp(L.LightningFlow):
             tabs.append({"name": "Training Logs", "content": self.training_logs})
 
         if self.model_demo:
-            tabs.append({"name": "Model Demo", "content": self.model_demo.url})
+            tabs.append({"name": "Model Demo: Unsplash Image Search", "content": self.model_demo.url})
 
         if self.jupyter_lab:
             tabs.append({"name": "Jupyter Lab", "content": self.jupyter_lab.url})
@@ -139,8 +139,8 @@ if __name__ == "__main__":
     paper = "https://arxiv.org/pdf/2103.00020"
     blog = "https://openai.com/blog/clip/"
     github = "https://github.com/openai/CLIP"
-    wandb = "https://wandb.ai/cceyda/flax-clip/runs/wlad2c2p?workspace=user-aniketmaurya"
-    tabs = ["Blog", "Paper", "Poster", "Notebook Viewer", "Training Logs", "Model Demo"]
+    wandb = "https://wandb.ai/manan-goel/clip-lightning-image_retrieval/runs/1cedtohj"
+    tabs = ["Blog", "Paper", "Poster", "Notebook Viewer", "Training Logs", "Model Demo: Unsplash Image Search"]
 
     app = L.LightningApp(
         ResearchApp(

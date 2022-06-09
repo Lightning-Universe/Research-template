@@ -19,10 +19,10 @@ class ModelDemo(ServeGradio):
     automatically launch the Gradio interface.
     """
 
-    inputs = gr.inputs.Textbox(default="Doctor Strange", label="Search your favourite movie here")
-    outputs = gr.outputs.HTML(label="Fetch Images from <b>themoviedb.org</b>")
+    inputs = gr.inputs.Textbox(default="Going into the space", label="Unsplash Image Search")
+    outputs = gr.outputs.HTML(label="Images from Unsplash")
     enable_queue = True
-    examples = [["Doctor Strange", "Spider Man"]]
+    examples = [["Cat reading a book"], ["Going into the space"]]
 
     def __init__(self):
         super().__init__(parallel=True)
