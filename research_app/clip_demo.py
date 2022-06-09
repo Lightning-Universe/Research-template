@@ -76,9 +76,7 @@ class CLIPDemo:
             )
         self.source = {0: "\nSource: Unsplash", 1: "\nSource: The Movie Database (TMDB)"}
 
-    def __init__(
-        self,
-    ):
+    def __init__(self):
         self.source = None
         self.df = None
         self.EMBEDDINGS = None

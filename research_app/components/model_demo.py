@@ -19,13 +19,13 @@ class ModelDemo(ServeGradio):
     automatically launch the Gradio interface.
     """
 
-    inputs = gr.inputs.Textbox(default="Doctor Strange Multiverse", label="Search your favourite movie here")
+    inputs = gr.inputs.Textbox(default="Doctor Strange", label="Search your favourite movie here")
     outputs = gr.outputs.HTML(label="Fetch Images from <b>themoviedb.org</b>")
+    enable_queue = True
+    examples = [["Doctor Strange", "Spider Man"]]
 
     def __init__(self):
-        super(ServeGradio, self).__init__(parallel=True)
-        self._model = None
-        self.enable_queue = True
+        super().__init__(parallel=True)
 
     def build_model(self) -> CLIPDemo:
         logger.info("loading model...")
@@ -35,8 +35,3 @@ class ModelDemo(ServeGradio):
 
     def predict(self, query: str) -> str:
         return self.model.predict(query)
-
-
-if __name__ == "__main__":
-    demo = ModelDemo()
-    demo.run()
