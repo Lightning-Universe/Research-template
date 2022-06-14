@@ -11,19 +11,24 @@ logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[Ric
 logger = logging.getLogger(__name__)
 
 
-def notebook_to_html(path: str):
+def notebook_to_html(path: str) -> str:
     """Provided notebook file path will be converted into html."""
     if not os.path.exists(path):
         raise FileNotFoundError(f"Can't convert notebook to html, path={path} not found!")
-    command = f"jupyter nbconvert --to html {path}"
-    subprocess.run(command, shell=True)
-    folder = "/".join(path.split("/")[:-1])
-    html = path.replace("ipynb", "html")
-    os.rename(html, folder + "/index.html")
+
+    folder = os.path.dirname(path)
+    converted_html = path.replace("ipynb", "html")
+    renamed_html = folder + "/index.html"
+    if os.path.exists(converted_html) or os.path.exists(renamed_html):
+        logger.info(f"Skipping nbconvert, {path} converted into html!")
+    else:
+        command = f"jupyter nbconvert --to html {path}"
+        subprocess.run(command, shell=True)
+        os.rename(converted_html, renamed_html)
     return folder
 
 
-def clone_repo(url: str):
+def clone_repo(url: str) -> str:
     """Clones the github repo from url to current dir.
 
     Example:
@@ -37,11 +42,12 @@ def clone_repo(url: str):
     os.makedirs(path, exist_ok=True)
     target_path = str(path / os.path.basename(url)).replace(".git", "")
 
-    if not os.path.exists(target_path):
+    if os.path.exists(target_path):
         logger.info("Skipped git clone, repo already exists!")
     else:
         cmd = f"git clone {url} {target_path}"
-    return subprocess.run(cmd, shell=True), target_path
+        subprocess.run(cmd, shell=True)
+    return target_path
 
 
 if __name__ == "__main__":

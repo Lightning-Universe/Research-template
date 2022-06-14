@@ -22,3 +22,12 @@ push:
 sync-template:
 	git fetch --all
 	git merge template/main
+
+release-dev:
+	lightning run app app.py --cloud --name 'Research Poster Dev'
+
+release-prod:
+	lightning run app app.py --cloud --name 'Research Poster'
+
+release-clip_demo:
+	lightning run app app.py --cloud --name 'Unsplash Image Search: Clip Demo'
