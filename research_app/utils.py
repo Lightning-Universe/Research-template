@@ -1,6 +1,7 @@
 import logging
 import os
 import subprocess
+import tempfile
 from pathlib import Path
 
 from rich.logging import RichHandler
@@ -19,13 +20,15 @@ def notebook_to_html(path: str) -> str:
     folder = os.path.dirname(path)
     converted_html = path.replace("ipynb", "html")
     renamed_html = folder + "/index.html"
+
+    tempdir = tempfile.mkdtemp()
     if os.path.exists(converted_html) or os.path.exists(renamed_html):
         logger.info(f"Skipping nbconvert, {path} converted into html!")
     else:
-        command = f"jupyter nbconvert --to html {path}"
+        command = f"jupyter nbconvert --to html {path} --output-dir='{tempdir}'"
         subprocess.run(command, shell=True)
         os.rename(converted_html, renamed_html)
-    return folder
+    return tempdir
 
 
 def clone_repo(url: str) -> str:
