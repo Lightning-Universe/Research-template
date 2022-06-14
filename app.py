@@ -9,7 +9,7 @@ from rich.logging import RichHandler
 
 from research_app.components.jupyter_notebook import JupyterLab
 from research_app.components.model_demo import ModelDemo
-from research_app.utils import clone_repo, notebook_to_html
+from research_app.utils import clone_repo, notebook_to_html, notebook_to_markdown
 
 FORMAT = "%(message)s"
 logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()])
@@ -58,7 +58,7 @@ class ResearchApp(L.LightningFlow):
     ) -> None:
 
         super().__init__()
-        self.poster_dir = os.path.abspath(poster_dir)
+        self.poster_dir = poster_dir
         self.paper = paper
         self.blog = blog
         self.training_logs = training_log_url
@@ -82,8 +82,10 @@ class ResearchApp(L.LightningFlow):
         if launch_gradio:
             self.model_demo = ModelDemo()
 
+        self.notebook_path = notebook_path
         if notebook_path:
-            self.notebook_viewer = StaticNotebook(notebook_path)
+            notebook_to_markdown(notebook_path)
+            # self.notebook_viewer = StaticNotebook(notebook_path)
 
     def run(self) -> None:
         if os.environ.get("TESTING_LAI"):
@@ -105,8 +107,9 @@ class ResearchApp(L.LightningFlow):
         if self.paper:
             tabs.append({"name": "Paper", "content": self.paper})
 
-        if self.notebook_viewer:
-            tabs.append({"name": "Notebook Viewer", "content": self.notebook_viewer})
+        if self.notebook_path:
+            filename = os.path.basename(self.notebook_path).replace(".ipynb", ".html")
+            tabs.append({"name": "Notebook Viewer", "content": self.poster.url + f"/{filename}"})
 
         if self.training_logs:
             tabs.append({"name": "Training Logs", "content": self.training_logs})
@@ -150,7 +153,7 @@ if __name__ == "__main__":
             github=github,
             notebook_path="resources/Interacting_with_CLIP.ipynb",
             launch_jupyter_lab=False,  # don't launch for public app, can expose to security vulnerability
-            launch_gradio=True,
+            launch_gradio=False,
             tab_order=tabs,
         )
     )

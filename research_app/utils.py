@@ -12,6 +12,12 @@ logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[Ric
 logger = logging.getLogger(__name__)
 
 
+def notebook_to_markdown(path: str):
+    """Provided notebook file path will be converted into markdown."""
+    command = f"jupyter nbconvert --to markdown {path}"
+    subprocess.run(command, shell=True)
+
+
 def notebook_to_html(path: str):
     """Provided notebook file path will be converted into html."""
     command = f"jupyter nbconvert --to html {path}"
