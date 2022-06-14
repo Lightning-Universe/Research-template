@@ -34,7 +34,7 @@ class ResearchApp(L.LightningFlow):
         html.
     paper: [Optional] Arxiv link to your paper
     blog: [Optional] Link to a blog post for your research
-    github: [Optional] Clone GitHub repo to the current directory.
+    github: [Optional] Clone GitHub repo to a temporary directory.
     training_log_url: [Optional] Link for experiment manager like wandb or tensorboard
     notebook_path: [Optional] View a Jupyter Notebook as static html tab
     launch_jupyter_lab: Launch a full-fledged Jupyter Lab instance. Note that sharing Jupyter publicly is not

@@ -33,15 +33,10 @@ def clone_repo(url: str) -> str:
     The given repo will be cloned to current dir.
     """
     logger.info(f"cloning {url}")
-    path = Path.cwd() / "github"
-    os.makedirs(path, exist_ok=True)
-    target_path = str(path / os.path.basename(url)).replace(".git", "")
-
-    if os.path.exists(target_path):
-        logger.info("Skipped git clone, repo already exists!")
-    else:
-        cmd = f"git clone {url} {target_path}"
-        subprocess.run(cmd, shell=True)
+    tempdir = Path(tempfile.mkdtemp())
+    target_path = str(tempdir / os.path.basename(url)).replace(".git", "")
+    cmd = f"git clone {url} {target_path}"
+    subprocess.run(cmd, shell=True)
     return target_path
 
 
