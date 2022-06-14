@@ -17,17 +17,9 @@ def notebook_to_html(path: str) -> str:
     if not os.path.exists(path):
         raise FileNotFoundError(f"Can't convert notebook to html, path={path} not found!")
 
-    folder = os.path.dirname(path)
-    converted_html = path.replace("ipynb", "html")
-    renamed_html = folder + "/index.html"
-
     tempdir = tempfile.mkdtemp()
-    if os.path.exists(converted_html) or os.path.exists(renamed_html):
-        logger.info(f"Skipping nbconvert, {path} converted into html!")
-    else:
-        command = f"jupyter nbconvert --to html {path} --output-dir='{tempdir}'"
-        subprocess.run(command, shell=True)
-        os.rename(converted_html, renamed_html)
+    command = f"jupyter nbconvert --to html {path} --output-dir='{tempdir}' --output index.html"
+    subprocess.run(command, shell=True)
     return tempdir
 
 
