@@ -394,3 +394,4 @@ wandb/
 github/
 _output/
 *.db
+.git/

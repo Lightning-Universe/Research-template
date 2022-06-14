@@ -18,9 +18,9 @@ logger = logging.getLogger(__name__)
 
 
 class StaticNotebook(L.LightningFlow):
-    def __init__(self, serve_dir: str):
+    def __init__(self, notebook_path: str):
         super().__init__()
-        self.serve_dir = serve_dir
+        self.serve_dir = notebook_to_html(notebook_path)
 
     def configure_layout(self):
         return L.frontend.web.StaticWebFrontend(serve_dir=self.serve_dir)
@@ -83,8 +83,7 @@ class ResearchApp(L.LightningFlow):
             self.model_demo = ModelDemo()
 
         if notebook_path:
-            serve_dir = notebook_to_html(notebook_path)
-            self.notebook_viewer = StaticNotebook(serve_dir)
+            self.notebook_viewer = StaticNotebook(notebook_path)
 
     def run(self) -> None:
         if os.environ.get("TESTING_LAI"):
