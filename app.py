@@ -17,7 +17,7 @@ logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[Ric
 logger = logging.getLogger(__name__)
 
 
-class StaticNotebook(L.LightningFlow):
+class StaticNotebookViewer(L.LightningFlow):
     def __init__(self, notebook_path: str):
         super().__init__()
         self.serve_dir = notebook_to_html(notebook_path)
@@ -83,7 +83,7 @@ class ResearchApp(L.LightningFlow):
             self.model_demo = ModelDemo()
 
         if notebook_path:
-            self.notebook_viewer = StaticNotebook(notebook_path)
+            self.notebook_viewer = StaticNotebookViewer(notebook_path)
 
     def run(self) -> None:
         if os.environ.get("TESTING_LAI"):
@@ -149,8 +149,8 @@ if __name__ == "__main__":
             training_log_url=wandb,
             github=github,
             notebook_path="resources/Interacting_with_CLIP.ipynb",
-            launch_jupyter_lab=False,  # don't launch for public app, can expose to security vulnerability
             launch_gradio=True,
             tab_order=tabs,
+            launch_jupyter_lab=False,  # don't launch for public app, can expose to security vulnerability
         )
     )
