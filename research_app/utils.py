@@ -3,7 +3,6 @@ import os
 import subprocess
 from pathlib import Path
 
-from rich import print
 from rich.logging import RichHandler
 
 FORMAT = "%(message)s"
@@ -14,6 +13,8 @@ logger = logging.getLogger(__name__)
 
 def notebook_to_html(path: str):
     """Provided notebook file path will be converted into html."""
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"Can't convert notebook to html, path={path} not found!")
     command = f"jupyter nbconvert --to html {path}"
     subprocess.run(command, shell=True)
     folder = "/".join(path.split("/")[:-1])
@@ -31,13 +32,13 @@ def clone_repo(url: str):
 
     The given repo will be cloned to current dir.
     """
-    print(f"cloning {url}")
+    logger.info(f"cloning {url}")
     path = Path.cwd() / "github"
     os.makedirs(path, exist_ok=True)
     target_path = str(path / os.path.basename(url)).replace(".git", "")
 
-    if os.path.exists(target_path):
-        cmd = f"cd {target_path} && git pull"
+    if not os.path.exists(target_path):
+        logger.info("Skipped git clone, repo already exists!")
     else:
         cmd = f"git clone {url} {target_path}"
     return subprocess.run(cmd, shell=True), target_path

@@ -149,8 +149,8 @@ if __name__ == "__main__":
             training_log_url=wandb,
             github=github,
             notebook_path="resources/Interacting_with_CLIP.ipynb",
-            launch_jupyter_lab=False,  # don't launch for public app, can expose to security vulnerability
             launch_gradio=True,
             tab_order=tabs,
+            launch_jupyter_lab=False,  # don't launch for public app, can expose to security vulnerability
         )
     )
