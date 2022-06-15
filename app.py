@@ -3,6 +3,7 @@ import os
 from typing import Dict, List, Optional
 
 import lightning as L
+from lightning.app import frontend
 from poster import Poster
 from rich import print
 from rich.logging import RichHandler
@@ -23,7 +24,7 @@ class StaticNotebookViewer(L.LightningFlow):
         self.serve_dir = notebook_to_html(notebook_path)
 
     def configure_layout(self):
-        return L.frontend.web.StaticWebFrontend(serve_dir=self.serve_dir)
+        return frontend.web.StaticWebFrontend(serve_dir=self.serve_dir)
 
 
 class ResearchApp(L.LightningFlow):
