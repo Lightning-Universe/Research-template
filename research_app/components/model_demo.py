@@ -1,7 +1,7 @@
 import logging
 
 import gradio as gr
-from lightning.components.serve import ServeGradio
+from lightning.app.components.serve import ServeGradio
 from rich.logging import RichHandler
 
 from research_app.clip_demo import CLIPDemo
