@@ -3,12 +3,12 @@ import os
 import subprocess
 from pathlib import Path
 
-from lightning import LightningWork
+import lightning as L
 
 logger = logging.getLogger(__name__)
 
 
-class JupyterLab(LightningWork):
+class JupyterLab(L.LightningWork):
     def __init__(self):
         super().__init__(parallel=True)
 
