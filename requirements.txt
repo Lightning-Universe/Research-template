@@ -11,5 +11,5 @@ streamlit==1.9.0
 streamlit-autorefresh==0.0.1
 nbconvert==6.5.0
 jupyterlite==0.1.0b7
-lightning-app
+lightning
 jupyterlab==3.3.3
