@@ -41,11 +41,6 @@ setup(
     zip_safe=False,
     keywords=["deep learning", "pytorch", "AI"],
     python_requires=">=3.6",
-    entry_points={
-        "console_scripts": [
-            "lightning = lightning.cli.lightning_cli:main",
-        ],
-    },
     setup_requires=["wheel"],
     install_requires=setup_tools._load_requirements(_PATH_ROOT),
 )
