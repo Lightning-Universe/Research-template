@@ -1,5 +1,5 @@
-lit-jupyter@ git+https://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@github.com/PyTorchLightning/lit-jupyter.git@7085efb6e8954279fa748c16e33f5f3f9fcaf3f7
-markdown-poster@ git+https://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@github.com/PyTorchLightning/markdown-poster.git@931bc8b9095a37d831065e70a0b99d91303b605c
+lit-jupyter@ git+https://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@github.com/Lightning-AI/lit-jupyter.git@7085efb6e8954279fa748c16e33f5f3f9fcaf3f7
+markdown-poster@ git+https://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@github.com/Lightning-AI/LAI-markdown-poster-Component.git@931bc8b9095a37d831065e70a0b99d91303b605c
 mkposters@ git+https://github.com/stanbiryukov/mkposters@522858cfe06d5438094302ff3d5c8b9256a5a4de
 protobuf==3.20.1
 rich==12.4.1
