@@ -64,7 +64,7 @@ graph LR
     B -->|User auth| E[Lightning Work 3]
 ```
 
-### Available at : `PyTorchLightning/lightning-template-research-app/app.py`
+### Available at : `Lightning-AI/lightning-template-research-app/app.py`
 
 ```python
 import lightning as L
