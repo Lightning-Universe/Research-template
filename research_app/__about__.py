@@ -1,5 +1,5 @@
-__version__ = "0.0.2"
-__author__ = "PyTorchLightning et al."
+__version__ = "0.0.3"
+__author__ = "Lightning et al."
 __author_email__ = "aniket@grid.ai"
 __license__ = "Apache 2.0"
 __copyright__ = f"Copyright (c) 2021-2022, {__author__}."

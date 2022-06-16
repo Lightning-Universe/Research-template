@@ -24,7 +24,7 @@
 ## OpenAI introduced a neural network called CLIP which efficiently learns visual concepts from natural language supervision.
 
 This app is a demo
-of [Lightning Research Template app](https://github.com/PyTorchLightning/lightning-template-research-app) which allows
+of [Lightning Research Template app](https://github.com/Lightning-AI/lightning-template-research-app) which allows
 authors to build an app to share their everything
 related to their work at a single place.
 Explore the tabs at the top of this app to view blog, paper, training logs and model demo.
