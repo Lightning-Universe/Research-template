@@ -148,7 +148,6 @@ if __name__ == "__main__":
             paper=paper,
             blog=blog,
             training_log_url=wandb,
-            github=github,
             notebook_path="resources/Interacting_with_CLIP.ipynb",
             launch_gradio=True,
             tab_order=tabs,

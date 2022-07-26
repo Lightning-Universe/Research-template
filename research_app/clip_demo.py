@@ -8,7 +8,7 @@ The app integration is done at `research_app/components/model_demo.py`.
 import enum
 import logging
 import os.path
-import urllib
+import urllib.request
 from typing import List
 
 import numpy as np
