@@ -32,7 +32,7 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-Once you have installed the app, you can goto the `lightning-template-research-app` folder and
+Once you have installed the app, you can goto the `LAI-research-template-App` folder and
 run `lightning run app app.py --cloud` from terminal.
 This will launch the template app in your default browser with tabs containing research paper, blog, Training
 logs, and Model Demo.
