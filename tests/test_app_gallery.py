@@ -20,9 +20,7 @@ if _is_playwright_available():
 @contextmanager
 def get_gallery_app_page(app_name) -> Generator:
     with sync_playwright() as p:
-        browser = p.chromium.launch(
-            timeout=5000, headless=bool(int(os.getenv("HEADLESS", "0")))
-        )
+        browser = p.chromium.launch(timeout=5000, headless=bool(int(os.getenv("HEADLESS", "0"))))
         payload = {
             "apiKey": Config.api_key,
             "username": Config.username,
@@ -171,9 +169,7 @@ def validate_app_functionalities(app_page: "Page") -> None:
         try:
             app_page.reload()
             sleep(5)
-            app_label = app_page.frame_locator("iframe").locator(
-                "text=CLIP: Connecting"
-            )
+            app_label = app_page.frame_locator("iframe").locator("text=CLIP: Connecting")
             app_label.wait_for(timeout=30 * 1000)
             break
         except (
@@ -182,12 +178,10 @@ def validate_app_functionalities(app_page: "Page") -> None:
         ):
             pass
 
-
-    app_tabs = ['Blog', 'Paper', 'Poster', 'Notebook', 'Training Logs', 'Model Demo']
+    app_tabs = ["Blog", "Paper", "Poster", "Notebook", "Training Logs", "Model Demo"]
     for tab in app_tabs:
         tab_ui = app_page.locator(f"button:has-text('{tab}')")
         tab_ui.wait_for(timeout=1000)
-
 
 
 def test_launch_app_from_gallery():
