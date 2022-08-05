@@ -185,9 +185,7 @@ def validate_app_functionalities(app_page: "Page") -> None:
         tab_ui.wait_for(timeout=1000)
 
 
-@pytest.mark.skipif(
-    not os.getenv("TEST_APP_NAME", None), reason="requires TEST_APP_NAME env var"
-)
+@pytest.mark.skipif(not os.getenv("TEST_APP_NAME", None), reason="requires TEST_APP_NAME env var")
 def test_launch_app_from_gallery():
     app_name = os.getenv("TEST_APP_NAME", None)
     if app_name is None:
@@ -197,9 +195,8 @@ def test_launch_app_from_gallery():
         with launch_from_gallery_app_page(gallery_page) as app_page:
             validate_app_functionalities(app_page)
 
-@pytest.mark.skipif(
-    not os.getenv("TEST_APP_NAME", None), reason="requires TEST_APP_NAME env var"
-)
+
+@pytest.mark.skipif(not os.getenv("TEST_APP_NAME", None), reason="requires TEST_APP_NAME env var")
 def test_clone_and_run_app_from_gallery():
     app_name = os.getenv("TEST_APP_NAME", None)
     if app_name is None:
