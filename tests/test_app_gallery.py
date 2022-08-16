@@ -70,7 +70,6 @@ def launch_from_gallery_app_page(gallery_page) -> Generator:
 @requires("playwright")
 @contextmanager
 def clone_and_run_from_gallery_app_page(app_gallery_page) -> Generator:
-
     with app_gallery_page.expect_navigation():
         app_gallery_page.locator("text=Clone & Run").click()
 
