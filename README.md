@@ -65,8 +65,9 @@ You can provide the path to your notebook and it will be converted into static H
 
 #### 4. Model Demo
 
-To create an interactive demo you’d need to implement the build_model and predict methods of the ModelDemo class present
-in the research_app/components/model_demo.py module.
+To create an interactive demo you’d need to implement the `build_model` and `predict` methods of the ModelDemo class
+present
+in the `research_app/components/model_demo.py` module.
 
 #### 5. JupyterLab Component
 
