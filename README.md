@@ -41,10 +41,38 @@ You should see something like this in your browser:
 
 > ![image](./assets/demo.png)
 
+### Steps to customize to your research
+
 You can modify the content of this app and customize it to your research.
 At the root of this template, you will find [app.py](./app.py) that contains the `ResearchApp` class. This class
 provides arguments like a link to a paper, a blog, and whether to launch a Gradio demo. You can read more about what
 each of the arguments does in the docstrings.
+
+#### 1. Poster Component
+
+This component lets you make research posters using markdown files. The component comes with a predefined poster.md file
+in the resources folder that contains markdown content for building the poster. You can directly update the existing
+file with your research content.
+
+#### 2. Link to Paper, blog and Training Logs
+
+You can add your research paper, a blog post, and training logs to your app. These are usually static web links that can
+be directly passed as optional arguments within app.py
+
+#### 3. A view only Jupyter Notebook
+
+You can provide the path to your notebook and it will be converted into static HTML.
+
+#### 4. Model Demo
+
+To create an interactive demo you’d need to implement the build_model and predict methods of the ModelDemo class present
+in the research_app/components/model_demo.py module.
+
+#### 5. JupyterLab Component
+
+This component runs and adds a JupyterLab instance to your app. You can provide a way to edit and run your code for
+quick audience demonstrations. However, note that sharing a JupyterLab instance can expose the cloud instance to
+security vulnerability.
 
 ### Highlights
 
