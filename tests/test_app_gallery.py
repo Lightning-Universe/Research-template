@@ -14,7 +14,7 @@ from lightning_cloud.openapi.rest import ApiException
 
 if _is_playwright_available():
     import playwright
-    from playwright.sync_api import sync_playwright
+    from playwright.sync_api import HttpCredentials, sync_playwright
 
 
 @requires("playwright")
@@ -28,6 +28,12 @@ def get_gallery_app_page(app_name) -> Generator:
             "duration": "120000",
         }
         context = browser.new_context(
+            http_credentials=HttpCredentials(
+                {
+                    "username": os.getenv("LAI_USER").strip(),
+                    "password": os.getenv("LAI_PASS"),
+                }
+            ),
             record_video_dir=os.path.join(Config.video_location, app_name),
             record_har_path=Config.har_location,
         )
