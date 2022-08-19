@@ -30,8 +30,8 @@ def get_gallery_app_page(app_name) -> Generator:
         context = browser.new_context(
             http_credentials=HttpCredentials(
                 {
-                    "username": os.getenv("LAI_USER"),
-                    "password": os.getenv("LAI_PASS"),
+                    "username": os.getenv("LAI_USER", ""),
+                    "password": os.getenv("LAI_PASS", ""),
                 }
             ),
             record_video_dir=os.path.join(Config.video_location, app_name),
