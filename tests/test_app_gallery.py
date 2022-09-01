@@ -62,7 +62,7 @@ def get_gallery_app_page(app_name) -> Generator:
 def launch_from_gallery_app_page(gallery_page) -> Generator:
     with gallery_page.context.expect_page() as page_catcher:
         sleep(1)
-        gallery_page.locator("text='Launch'").click()
+        gallery_page.locator("text='Try it free'").click()
 
     app_page = page_catcher.value
     app_page.wait_for_load_state(timeout=0)
