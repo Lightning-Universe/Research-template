@@ -50,11 +50,11 @@ def get_gallery_app_page(app_name) -> Generator:
         """,
             [Config.id, Config.key, token],
         )
-        gallery_page.goto(f"{"https://staging.gridai.dev"}/apps")
+        gallery_page.goto(f"https://staging.gridai.dev/apps")
 
         # Find the app in the gallery
         print("INFO")
-        print(Config, "https://staging.gridai.dev")
+        print(Config, Config.url)
         print(gallery_page, gallery_page.locator(f"text='{app_name}'"))
         gallery_page.locator(f"text='{app_name}'").first.click()
         yield gallery_page
