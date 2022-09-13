@@ -38,9 +38,9 @@ def get_gallery_app_page(app_name) -> Generator:
             record_har_path=Config.har_location,
         )
         gallery_page = context.new_page()
-        res = requests.post(Config.url + "/v1/auth/login", data=json.dumps(payload))
+        res = requests.post("https://staging.gridai.dev" + "/v1/auth/login", data=json.dumps(payload))
         token = res.json()["token"]
-        gallery_page.goto(Config.url)
+        gallery_page.goto("https://staging.gridai.dev")
         gallery_page.evaluate(
             """data => {
             window.localStorage.setItem('gridUserId', data[0]);
@@ -50,11 +50,11 @@ def get_gallery_app_page(app_name) -> Generator:
         """,
             [Config.id, Config.key, token],
         )
-        gallery_page.goto(f"{Config.url}/apps")
+        gallery_page.goto(f"{"https://staging.gridai.dev"}/apps")
 
         # Find the app in the gallery
         print("INFO")
-        print(Config, Config.url)
+        print(Config, "https://staging.gridai.dev")
         print(gallery_page, gallery_page.locator(f"text='{app_name}'"))
         gallery_page.locator(f"text='{app_name}'").first.click()
         yield gallery_page
