@@ -51,11 +51,11 @@ def get_gallery_app_page(app_name) -> Generator:
         """,
             [Config.id, Config.key, token],
         )
-        gallery_page.goto(f"{Config.url}/apps")
+        gallery_page.goto(f"{Config.url}/apps", timeout=60000)
 
         # Find the app in the gallery
         encoded_app_name = urllib.parse.quote(app_name)
-        gallery_page.locator(f"a[href$='{encoded_app_name}']").click()
+        gallery_page.locator(f"a[href$='{encoded_app_name}']").click(timeout=60000)
         yield gallery_page
 
 
