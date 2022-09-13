@@ -54,6 +54,7 @@ def get_gallery_app_page(app_name) -> Generator:
 
         # Find the app in the gallery
         print("INFO")
+        print(Config, Config.url)
         print(gallery_page, gallery_page.locator(f"text='{app_name}'"))
         gallery_page.locator(f"text='{app_name}'").first.click()
         yield gallery_page
