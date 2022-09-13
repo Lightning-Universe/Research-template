@@ -60,7 +60,7 @@ def get_gallery_app_page(app_name) -> Generator:
         # _gallery = gallery_page.locator(f"text='Reinforcement Learning'")
         # print(_gallery.inner_text())
         # _first = gallery_page.locator(f"text='Research Poster'").first
-        gallery_page.locator(f"text='Research Poster'").first.click()
+        gallery_page.locator(f"text='Research Poster'").first.click(timeout=0)
         yield gallery_page
 
 
