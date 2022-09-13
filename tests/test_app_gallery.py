@@ -55,12 +55,12 @@ def get_gallery_app_page(app_name) -> Generator:
         # Find the app in the gallery
         print("INFO")
         print(Config, Config.url)
-        print(gallery_page, gallery_page.locator(f"text='{app_name}'"))
-        print(gallery_page, gallery_page.locator(f"text='InVideo Search'"))
-        _gallery = gallery_page.locator(f"text='Reinforcement Learning'")
-        print(_gallery.inner_text())
-        _first = gallery_page.locator(f"text='Reinforcement Learning'").first
-        gallery_page.locator(f"text='Reinforcement Learning'").first.click()
+        # print(gallery_page, gallery_page.locator(f"text='{app_name}'"))
+        # print(gallery_page, gallery_page.locator(f"text='InVideo Search'"))
+        # _gallery = gallery_page.locator(f"text='Reinforcement Learning'")
+        # print(_gallery.inner_text())
+        # _first = gallery_page.locator(f"text='Research Poster'").first
+        gallery_page.locator(f"text='Research Poster'").first.click()
         yield gallery_page
 
 
