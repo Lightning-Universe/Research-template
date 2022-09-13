@@ -57,7 +57,9 @@ def get_gallery_app_page(app_name) -> Generator:
         print(Config, Config.url)
         print(gallery_page, gallery_page.locator(f"text='{app_name}'"))
         print(gallery_page, gallery_page.locator(f"text='InVideo Search'"))
-        gallery_page.locator(f"text='InVideo Search'").first.click()
+        _gallery = gallery_page.locator(f"text='Reinforcement Learning'")
+        _first = gallery_page.locator(f"text='Reinforcement Learning'").first
+        gallery_page.locator(f"text='Reinforcement Learning'").first.click()
         yield gallery_page
 
 
