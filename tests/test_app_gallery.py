@@ -50,7 +50,7 @@ def get_gallery_app_page(app_name) -> Generator:
         """,
             [Config.id, Config.key, token],
         )
-        gallery_page.goto(f"https://staging.gridai.dev/apps")
+        gallery_page.goto(f"https://staging.gridai.dev/apps", timeout=0)
 
         # Find the app in the gallery
         print("INFO")
