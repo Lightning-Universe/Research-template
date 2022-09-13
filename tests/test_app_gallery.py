@@ -3,6 +3,7 @@ import os
 from contextlib import contextmanager
 from time import sleep
 from typing import Generator
+import urllib.parse
 
 import pytest
 import requests
@@ -38,9 +39,9 @@ def get_gallery_app_page(app_name) -> Generator:
             record_har_path=Config.har_location,
         )
         gallery_page = context.new_page()
-        res = requests.post("https://staging.gridai.dev" + "/v1/auth/login", data=json.dumps(payload))
+        res = requests.post(Config.url + "/v1/auth/login", data=json.dumps(payload))
         token = res.json()["token"]
-        gallery_page.goto("https://staging.gridai.dev")
+        gallery_page.goto(Config.url)
         gallery_page.evaluate(
             """data => {
             window.localStorage.setItem('gridUserId', data[0]);
@@ -50,17 +51,11 @@ def get_gallery_app_page(app_name) -> Generator:
         """,
             [Config.id, Config.key, token],
         )
-        gallery_page.goto(f"https://staging.gridai.dev/apps", timeout=0)
+        gallery_page.goto(f"{Config.url}/apps")
 
         # Find the app in the gallery
-        print("INFO")
-        print(Config, Config.url)
-        # print(gallery_page, gallery_page.locator(f"text='{app_name}'"))
-        # print(gallery_page, gallery_page.locator(f"text='InVideo Search'"))
-        # _gallery = gallery_page.locator(f"text='Reinforcement Learning'")
-        # print(_gallery.inner_text())
-        # _first = gallery_page.locator(f"text='Research Poster'").first
-        gallery_page.locator(f"text='Research Poster'").first.click(timeout=0)
+        encoded_app_name = urllib.parse.quote(app_name)
+        gallery_page.locator(f"a[href$='{encoded_app_name}']").click()
         yield gallery_page
 
 
@@ -84,7 +79,8 @@ def launch_from_gallery_app_page(gallery_page) -> Generator:
 @contextmanager
 def clone_and_run_from_gallery_app_page(app_gallery_page) -> Generator:
     with app_gallery_page.expect_navigation():
-        app_gallery_page.locator("text=Clone & Run").click()
+        # app_gallery_page.locator("text=Clone & Run").click()
+        app_gallery_page.locator('button:has-text("Clone & Run")').click()
 
     admin_page = app_gallery_page
 
