@@ -1,9 +1,9 @@
 import json
 import os
+import urllib.parse
 from contextlib import contextmanager
 from time import sleep
 from typing import Generator
-import urllib.parse
 
 import pytest
 import requests
