@@ -3,7 +3,7 @@ import os
 from typing import Dict, List, Optional
 
 import lightning as L
-from lightning.app.frontend.web import StaticWebFrontend
+from lightning.app.frontend import StaticWebFrontend
 from poster import Poster
 from rich import print
 from rich.logging import RichHandler
