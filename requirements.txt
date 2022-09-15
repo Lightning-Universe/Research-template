@@ -1,4 +1,4 @@
-markdown-poster@ git+https://github.com/Lightning-AI/LAI-markdown-poster-Component.git@760ddecb73f65af19a6968cbc81df651dac586fe
+markdown-poster@ git+https://github.com/Lightning-AI/LAI-markdown-poster-Component.git@8a52c0bc939e04461c76b2a10a3136a5f8ee6f78
 mkposters@ git+https://github.com/stanbiryukov/mkposters@522858cfe06d5438094302ff3d5c8b9256a5a4de
 rich==12.4.1
 torch==1.11.0
