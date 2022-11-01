@@ -7,5 +7,5 @@ gradio==2.9.4
 transformers==4.19.2
 nbconvert==6.5.0
 jupyterlite==0.1.0b7
-lightning
+lightning==1.8.*
 jupyterlab==3.3.3
