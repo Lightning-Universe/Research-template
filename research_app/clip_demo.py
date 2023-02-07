@@ -1,8 +1,8 @@
 """This module implements the demo for CLIP model.
 
-This demo is inspired from the work of [Vivien](https://github.com/vivien000).
-Checkout the original implementation [here]((https://github.com/vivien000/clip-demo)
-
+This demo is inspired from the work of [Vivien](https://github.com/vivien000). Checkout the original implementation
+[here]((
+https://github.com/vivien000/clip-demo)
 The app integration is done at `research_app/components/model_demo.py`.
 """
 import enum

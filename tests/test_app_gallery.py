@@ -180,7 +180,6 @@ def validate_app_functionalities(app_page: "Page") -> None:
     """
     app_page: The UI page of the app to be validated.
     """
-
     while True:
         try:
             app_page.reload()

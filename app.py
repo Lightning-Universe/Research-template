@@ -57,7 +57,6 @@ class ResearchApp(L.LightningFlow):
         launch_gradio: bool = False,
         tab_order: Optional[List[str]] = None,
     ) -> None:
-
         super().__init__()
         self.poster_dir = os.path.abspath(poster_dir)
         self.paper = paper
