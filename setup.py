@@ -26,7 +26,7 @@ with open(os.path.join(_PATH_ROOT, "README.md")) as fo:
     readme = fo.read()
 
 setup(
-    name="research_app",
+    name="research-app",
     version=about.__version__,
     description=about.__docs__,
     author=about.__author__,
@@ -40,7 +40,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     keywords=["deep learning", "pytorch", "AI"],
-    python_requires=">=3.6",
+    python_requires=">=3.8",
     setup_requires=["wheel"],
     install_requires=_load_requirements(),
 )
