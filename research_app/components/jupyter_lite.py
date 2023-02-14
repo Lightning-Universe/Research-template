@@ -6,6 +6,7 @@ from lightning import LightningApp, LightningFlow, LightningWork
 
 logger = logging.getLogger(__name__)
 
+
 class JupyterLite(LightningWork):
     """This component will launch JupyterLab instance that runs entirely in the browser.
 
