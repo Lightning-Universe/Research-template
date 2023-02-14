@@ -22,7 +22,7 @@ def _load_py_module(fname, pkg="research_app"):
 
 
 about = _load_py_module("__about__.py")
-with open(os.path.join(_PATH_ROOT, "README.md"), encoding="utf8") as fo:
+with open(os.path.join(_PATH_ROOT, "README.md"), encoding="utf-8") as fo:
     readme = fo.read()
 
 setup(
