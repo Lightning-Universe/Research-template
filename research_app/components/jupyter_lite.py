@@ -2,12 +2,12 @@ import logging
 import os.path
 import subprocess
 
-import lightning as L
+from lightning import LightningApp, LightningFlow, LightningWork
 
 logger = logging.getLogger(__name__)
 
 
-class JupyterLite(L.LightningWork):
+class JupyterLite(LightningWork):
     """This component will launch JupyterLab instance that runs entirely in the browser.
 
     https://jupyterlite.readthedocs.io/en/latest/
@@ -32,7 +32,6 @@ class JupyterLite(L.LightningWork):
 
 
 if __name__ == "__main__":
-    from lightning import LightningApp, LightningFlow
 
     class Demo(LightningFlow):
         def __init__(self) -> None:
