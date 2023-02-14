@@ -1,4 +1,4 @@
-markdown-poster@ git+https://github.com/Lightning-AI/LAI-markdown-poster-Component.git@main
+markdown-poster@ https://github.com/Lightning-Universe/MarkDown-poster_component/archive/refs/heads/main.zip
 mkposters@ git+https://github.com/stanbiryukov/mkposters@522858cfe06d5438094302ff3d5c8b9256a5a4de
 rich==12.4.1
 torch==1.11.0
@@ -7,5 +7,5 @@ gradio==2.9.4
 transformers==4.19.2
 nbconvert==6.5.0
 jupyterlite==0.1.0b7
-lightning==1.8.*
+lightning==1.9.*
 jupyterlab==3.3.3
