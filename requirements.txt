@@ -1,7 +1,7 @@
 markdown-poster@ https://github.com/Lightning-Universe/MarkDown-poster_component/archive/refs/heads/main.zip
 mkposters@ git+https://github.com/stanbiryukov/mkposters@522858cfe06d5438094302ff3d5c8b9256a5a4de
 rich==13.3.1
-torch==1.11.0
+torch==1.13.1
 torchvision==0.12.0
 gradio==2.9.4
 transformers==4.19.2
