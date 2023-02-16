@@ -143,7 +143,14 @@ if __name__ == "__main__":
             training_log_url="https://wandb.ai/manan-goel/clip-lightning-image_retrieval/runs/1cedtohj",
             notebook_path="resources/Interacting_with_CLIP.ipynb",
             launch_gradio=True,
-            tab_order=["Blog", "Paper", "Poster", "Notebook Viewer", "Training Logs", "Model Demo: Unsplash Image Search"],
+            tab_order=[
+                "Blog",
+                "Paper",
+                "Poster",
+                "Notebook Viewer",
+                "Training Logs",
+                "Model Demo: Unsplash Image Search",
+            ],
             launch_jupyter_lab=False,  # don't launch for public app, can expose to security vulnerability
         )
     )

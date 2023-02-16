@@ -105,7 +105,14 @@ app = L.LightningApp(
         notebook_path="resources/Interacting_with_CLIP.ipynb",
         launch_jupyter_lab=False,
         launch_gradio=True,
-        tab_order=["Poster", "Blog", "Paper", "Notebook", "Training Logs", "Model Demo"],
+        tab_order=[
+            "Poster",
+            "Blog",
+            "Paper",
+            "Notebook",
+            "Training Logs",
+            "Model Demo",
+        ],
     )
 )
 ```
