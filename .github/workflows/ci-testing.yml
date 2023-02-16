@@ -15,8 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-20.04, macOS-10.15 ]
-        python-version: [ 3.8 ]
+        os: [ ubuntu-latest, macOS-latest ]
+        python-version: [ 3.9 ]
 
     # Timeout: https://stackoverflow.com/a/59076067/4521646
     timeout-minutes: 15
@@ -31,12 +31,10 @@ jobs:
       - name: Install dependencies
         run: |
           pip --version
-          pip install -e . -U -q -r tests/requirements.txt -f https://download.pytorch.org/whl/cpu/torch_stable.html
+          pip install -r requirements.txt -r tests/requirements.txt \
+            -f https://download.pytorch.org/whl/cpu/torch_stable.html
           pip list
         shell: bash
 
       - name: Tests
-        run: coverage run --source research_app -m pytest research_app tests -v
-
-      - name: Statistics
-        run: coverage report
+        run: python -m pytest tests/ -v

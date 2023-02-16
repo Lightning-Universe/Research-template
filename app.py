@@ -9,7 +9,7 @@ from rich import print
 from rich.logging import RichHandler
 
 from research_app.components.jupyter_notebook import JupyterLab
-from research_app.components.model_demo import ModelDemo
+from research_app.demo.model import ModelDemo
 from research_app.utils import clone_repo, notebook_to_html
 
 FORMAT = "%(message)s"
@@ -41,7 +41,7 @@ class ResearchApp(L.LightningFlow):
     launch_jupyter_lab: Launch a full-fledged Jupyter Lab instance. Note that sharing Jupyter publicly is not
         recommended and exposes security vulnerability to the cloud. Defaults to False.
     launch_gradio: Launch Gradio demo. Defaults to False. You should update the
-        `research_app/components/model_demo.py` file to your use case.
+        `research_app/demo/model.py` file to your use case.
     tab_order: You can optionally reorder the tab layout by providing a list of tab name.
     """
 
@@ -134,22 +134,23 @@ class ResearchApp(L.LightningFlow):
 
 
 if __name__ == "__main__":
-    poster_dir = "resources"
-    paper = "https://arxiv.org/pdf/2103.00020"
-    blog = "https://openai.com/blog/clip/"
-    github = "https://github.com/openai/CLIP"
-    wandb = "https://wandb.ai/manan-goel/clip-lightning-image_retrieval/runs/1cedtohj"
-    tabs = ["Blog", "Paper", "Poster", "Notebook Viewer", "Training Logs", "Model Demo: Unsplash Image Search"]
 
     app = L.LightningApp(
         ResearchApp(
-            poster_dir=poster_dir,
-            paper=paper,
-            blog=blog,
-            training_log_url=wandb,
+            poster_dir="resources",
+            paper="https://arxiv.org/pdf/2103.00020",
+            blog="https://openai.com/blog/clip/",
+            training_log_url="https://wandb.ai/manan-goel/clip-lightning-image_retrieval/runs/1cedtohj",
             notebook_path="resources/Interacting_with_CLIP.ipynb",
             launch_gradio=True,
-            tab_order=tabs,
+            tab_order=[
+                "Blog",
+                "Paper",
+                "Poster",
+                "Notebook Viewer",
+                "Training Logs",
+                "Model Demo: Unsplash Image Search",
+            ],
             launch_jupyter_lab=False,  # don't launch for public app, can expose to security vulnerability
         )
     )
