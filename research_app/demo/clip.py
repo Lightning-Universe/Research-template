@@ -1,7 +1,7 @@
 """This module implements the demo for CLIP model.
 
 This demo is inspired from the work of [Vivien](https://github.com/vivien000). Checkout the original implementation
-[here](( https://github.com/vivien000/clip-demo) The app integration is done at `research_app/components/model_demo.py`.
+[here](( https://github.com/vivien000/clip-demo) The app integration is done at `research_app/components/model.py`.
 """
 import enum
 import logging
@@ -27,25 +27,25 @@ class DATASET(enum.Enum):
 
 
 dataset = DATASET.UNSPLASH.value
-
+URL_TEMP_POSTER_ASSETS = "https://github.com/aniketmaurya/temp-poster-assets/blob/main/"
 
 def download_files():
     print("Downloading embeddings, this might take some time!")
     urllib.request.urlretrieve(
-        "https://github.com/aniketmaurya/temp-poster-assets/blob/main/embeddings.npy?raw=true",
-        "resources/embeddings.npy",
+        URL_TEMP_POSTER_ASSETS + "embeddings.npy?raw=true",
+        "resources/embeddings.npy"
     )
     urllib.request.urlretrieve(
-        "https://github.com/aniketmaurya/temp-poster-assets/blob/main/embeddings2.npy?raw=true",
-        "resources/embeddings2.npy",
+        URL_TEMP_POSTER_ASSETS + "embeddings2.npy?raw=true",
+        "resources/embeddings2.npy"
     )
     urllib.request.urlretrieve(
-        "https://github.com/aniketmaurya/temp-poster-assets/blob/main/data.csv?raw=true",
-        "resources/data.csv",
+        URL_TEMP_POSTER_ASSETS + "data.csv?raw=true",
+        "resources/data.csv"
     )
     urllib.request.urlretrieve(
         "https://drive.google.com/uc?export=download&id=19aVnFBY-Rc0-3VErF_C7PojmWpBsb5wk",
-        "resources/data2.csv",
+        "resources/data2.csv"
     )
     logger.info("✅ Downloaded embeddings")
 

@@ -28,6 +28,3 @@ release-dev:
 
 release-prod:
 	lightning run app app.py --cloud --name 'Research Poster'
-
-release-clip_demo:
-	lightning run app app.py --cloud --name 'Unsplash Image Search: Clip Demo'
