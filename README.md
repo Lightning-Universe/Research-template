@@ -29,10 +29,9 @@ your account.
 You can clone the forked app repo and follow the steps below to install the app.
 
 ```
-git clone https://github.com/YOUR-USERNAME/lightning-template-research-app.git
-cd lightning-template-research-app
+git clone https://github.com/Lightning-Universe/Research-template.git
+cd Research-template
 pip install -r requirements.txt
-pip install -e .
 ```
 
 Once you have installed the app, you can goto the `LAI-research-template-App` folder and
