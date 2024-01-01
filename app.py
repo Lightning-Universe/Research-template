@@ -134,7 +134,6 @@ class ResearchApp(L.LightningFlow):
 
 
 if __name__ == "__main__":
-
     app = L.LightningApp(
         ResearchApp(
             poster_dir="resources",
